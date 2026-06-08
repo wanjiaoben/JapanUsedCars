@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Core -->
+  <title>Used Cars Okinawa Japan | Export & Local Sales | OKINAWA AUTO</title>
+  <meta name="description" content="Buy quality Japanese used cars direct from Okinawa. We export worldwide (Taiwan, Southeast Asia, Middle East, USA) and sell locally in Okinawa. Low mileage, well-maintained vehicles at competitive prices.">
+  <meta name="keywords" content="used cars Okinawa Japan, Japanese used cars export, buy car Japan, 沖縄 中古車, used car dealer Okinawa, Japan car export, Toyota used car Japan, Okinawa auto">
+
+  <!-- Open Graph (for social sharing) -->
+  <meta property="og:title" content="Used Cars Okinawa Japan | Export & Local Sales">
+  <meta property="og:description" content="Quality Japanese used cars from Okinawa. Export worldwide or buy locally. Contact us via WhatsApp or WeChat.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://japanusedcars.nice.okinawa">
+
+  <!-- Geo tags for local SEO -->
+  <meta name="geo.region" content="JP-47">
+  <meta name="geo.placename" content="Okinawa, Japan">
+  <meta name="geo.position" content="26.2124;127.6809">
+  <meta name="ICBM" content="26.2124, 127.6809">
+
+  <!-- Structured Data: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "name": "OKINAWA AUTO",
+    "description": "Japanese used car dealer in Okinawa specializing in export and local sales",
+    "url": "https://japanusedcars.nice.okinawa",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Okinawa",
+      "addressCountry": "JP"
+    },
+    "areaServed": ["JP", "TW", "HK", "SG", "MY", "TH", "AE", "US"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "info@nice.okinawa"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #162435;
+      --navy-light: #1e3448;
+      --gold: #c9a84c;
+      --gold-light: #e2c47a;
+      --cream: #f5f0e8;
+      --white: #ffffff;
+      --gray: #8a9bb0;
+      --border: rgba(201,168,76,0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(13,27,42,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.15em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-lang {
+      font-size: 0.78rem; color: var(--gray);
+      cursor: pointer; letter-spacing: 0.1em;
+      background: none; border: 1px solid var(--border);
+      padding: 0.3rem 0.8rem; border-radius: 2px;
+      color: var(--gray); transition: all 0.3s;
+    }
+    .nav-lang:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 80% at 20% 80%, rgba(30,52,72,0.8) 0%, transparent 60%);
+    }
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-tag::before {
+      content: ''; display: block;
+      width: 40px; height: 1px; background: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300; line-height: 1.05;
+      max-width: 800px;
+      animation: fadeUp 1s ease both;
+    }
+    .hero h1 em {
+      font-style: italic; color: var(--gold);
+    }
+    .hero-sub {
+      margin-top: 2rem;
+      font-size: 1rem; color: var(--gray);
+      max-width: 480px; line-height: 1.7;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .hero-actions {
+      margin-top: 3rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+    .btn-primary {
+      background: var(--gold); color: var(--navy);
+      padding: 0.9rem 2.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      text-decoration: none; display: inline-block;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--cream);
+      padding: 0.9rem 2.2rem;
+      font-size: 0.85rem; font-weight: 400;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid rgba(245,240,232,0.3);
+      cursor: pointer; text-decoration: none; display: inline-block;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      position: absolute; right: 4rem; bottom: 4rem;
+      display: flex; gap: 3rem;
+      animation: fadeUp 1s 0.6s ease both;
+    }
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 300; color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; margin-top: 0.3rem; }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 7rem 4rem; }
+    .section-tag {
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; line-height: 1.2;
+      max-width: 600px;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .divider {
+      width: 60px; height: 1px;
+      background: var(--gold); margin: 2rem 0;
+    }
+
+    /* ─── WHY JAPAN ─── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 4rem;
+    }
+    .why-card {
+      background: var(--navy-mid);
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .why-card:hover { border-color: var(--gold); background: var(--navy-light); }
+    .why-icon {
+      font-size: 1.8rem; margin-bottom: 1.5rem;
+    }
+    .why-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; margin-bottom: 0.8rem;
+    }
+    .why-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.7; }
+
+    /* ─── SERVICES ─── */
+    .services { background: var(--navy-mid); }
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-top: 4rem;
+    }
+    .service-block {
+      border: 1px solid var(--border);
+      padding: 3rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .service-block:hover { border-color: var(--gold); }
+    .service-block::after {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold);
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+    .service-block:hover::after { transform: scaleY(1); }
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 300;
+      color: rgba(201,168,76,0.15);
+      line-height: 1; margin-bottom: 1.5rem;
+    }
+    .service-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 400; margin-bottom: 1rem;
+    }
+    .service-block p { color: var(--gray); line-height: 1.8; font-size: 0.9rem; }
+    .service-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+    }
+    .tag {
+      font-size: 0.72rem; letter-spacing: 0.08em;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid var(--border); color: var(--gray);
+    }
+
+    /* ─── VEHICLES ─── */
+    .vehicles-intro {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem;
+    }
+    .vehicle-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+    }
+    .vehicle-card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color 0.3s;
+      cursor: pointer;
+    }
+    .vehicle-card:hover { border-color: var(--gold); }
+    .vehicle-img {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--navy-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; position: relative; overflow: hidden;
+    }
+    .vehicle-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(13,27,42,0.8));
+    }
+    .vehicle-body { padding: 1.5rem; }
+    .vehicle-make {
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .vehicle-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400; margin-bottom: 0.8rem;
+    }
+    .vehicle-specs {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .spec { font-size: 0.78rem; color: var(--gray); }
+    .spec span { color: var(--cream); }
+    .vehicle-status {
+      display: inline-block;
+      font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; margin-top: 1rem;
+      background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+    }
+
+    /* ─── PROCESS ─── */
+    .process { background: var(--navy-mid); }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 0; margin-top: 4rem;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute; top: 2rem; left: 10%; right: 10%;
+      height: 1px; background: var(--border);
+    }
+    .step { text-align: center; padding: 0 1rem; }
+    .step-num {
+      width: 4rem; height: 4rem;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--gold);
+      background: var(--navy-mid);
+      position: relative; z-index: 1;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .step:hover .step-num { border-color: var(--gold); background: var(--navy-light); }
+    .step h4 {
+      font-size: 0.85rem; font-weight: 500;
+      margin-bottom: 0.6rem; color: var(--cream);
+    }
+    .step p { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+
+    /* ─── CONTACT ─── */
+    .contact-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-methods { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+    .contact-method {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .contact-method:hover { border-color: var(--gold); background: var(--navy-light); }
+    .contact-icon { font-size: 1.5rem; width: 2rem; text-align: center; }
+    .contact-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; }
+    .contact-value { font-size: 0.95rem; color: var(--cream); margin-top: 0.2rem; }
+
+    /* ─── FORM ─── */
+    .inquiry-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); }
+    .field input, .field select, .field textarea {
+      background: var(--navy-light);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 0.9rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: vertical;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+    .field select option { background: var(--navy-mid); }
+    .form-note { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; color: var(--gold); letter-spacing: 0.15em;
+    }
+    .footer-text { font-size: 0.78rem; color: var(--gray); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.78rem; color: var(--gray); text-decoration: none; }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ─── JAPANESE SECTION ─── */
+    .jp-section { background: var(--navy-light); border-top: 1px solid var(--border); }
+    .jp-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
+    }
+    .jp-points { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .jp-points li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      font-size: 0.95rem; color: var(--gray); line-height: 1.7;
+    }
+    .jp-points li::before {
+      content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 0.1rem;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .hero { padding: 0 1.5rem; min-height: 100svh; }
+      .hero-stats { position: static; margin-top: 4rem; flex-direction: row; gap: 2rem; }
+      .stat { text-align: left; }
+      .why-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .vehicle-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; gap: 2rem; }
+      .process-steps::before { display: none; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .jp-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">OKINAWA AUTO</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#vehicles">Vehicles</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-lang" onclick="scrollToJP()">日本語</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-tag">Okinawa, Japan · Est. 2024</div>
+  <h1>
+    Japanese Used Cars<br>
+    <em>Directly from</em><br>
+    Okinawa
+  </h1>
+  <p class="hero-sub">
+    Export worldwide or purchase locally in Okinawa. Low-mileage, inspection-certified vehicles with full documentation support.
+  </p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Inquire Now</a>
+    <a href="#vehicles" class="btn-outline">Browse Vehicles</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Cars in Stock</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Countries Exported</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Inspected</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY JAPAN -->
+<section id="why">
+  <div class="section-tag">Why Buy from Japan</div>
+  <h2 class="section-title">The <em>Japanese advantage</em> in every vehicle</h2>
+  <div class="divider"></div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🔬</div>
+      <h3>Strict Vehicle Inspection</h3>
+      <p>Japan's shaken system enforces rigorous safety and emissions standards. Every vehicle on our lot has passed Japanese government inspection.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📊</div>
+      <h3>Low Mileage, Honest Records</h3>
+      <p>Okinawa's compact geography means local vehicles accumulate less mileage. Full service history available for every car.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌊</div>
+      <h3>Okinawa Climate Advantage</h3>
+      <p>No snow, no road salt — Okinawa vehicles avoid the corrosion damage common in mainland Japan, giving you cleaner undercarriages.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📦</div>
+      <h3>Export Documentation</h3>
+      <p>We handle all Japanese export paperwork: deregistration, export certificate, and shipping coordination to your country.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💬</div>
+      <h3>Multilingual Support</h3>
+      <p>English, Chinese, and Japanese communication. We understand the needs of international buyers and make the process smooth.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">✈️</div>
+      <h3>Direct Port Access</h3>
+      <p>Located in Okinawa with direct access to shipping routes to Taiwan, Southeast Asia, the Middle East, and beyond.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">Two ways to <em>get your car</em></h2>
+  <div class="divider"></div>
+  <div class="services-grid">
+    <div class="service-block">
+      <div class="service-num">01</div>
+      <h3>Export Worldwide</h3>
+      <p>We export Japanese used cars to buyers across Asia, the Middle East, Europe, and the Americas. From selection to shipping, we manage the entire process so you receive a ready-to-register vehicle.</p>
+      <div class="service-tags">
+        <span class="tag">Taiwan / Hong Kong</span>
+        <span class="tag">Southeast Asia</span>
+        <span class="tag">Middle East</span>
+        <span class="tag">Europe & USA</span>
+        <span class="tag">Full Documentation</span>
+        <span class="tag">Door-to-Port</span>
+      </div>
+    </div>
+    <div class="service-block">
+      <div class="service-num">02</div>
+      <h3>Buy Locally in Okinawa</h3>
+      <p>Residents and long-term visitors in Okinawa can purchase directly from our lot. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
+      <div class="service-tags">
+        <span class="tag">Okinawa Local</span>
+        <span class="tag">English Support</span>
+        <span class="tag">Registration Help</span>
+        <span class="tag">Foreign License OK</span>
+        <span class="tag">Military Welcome</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VEHICLES -->
+<section id="vehicles">
+  <div class="vehicles-intro">
+    <div>
+      <div class="section-tag">Current Stock</div>
+      <h2 class="section-title">Featured <em>Vehicles</em></h2>
+    </div>
+    <p style="color:var(--gray); font-size:0.88rem; max-width:300px; line-height:1.7;">
+      Stock updates regularly. Contact us for a full current inventory list.
+    </p>
+  </div>
+  <div class="vehicle-grid">
+    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">🚗</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">Toyota</div>
+        <h3 class="vehicle-name" itemprop="name">Alphard 2.5S</h3>
+        <div class="vehicle-specs">
+          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
+          <div class="spec">Mileage <span>28,000 km</span></div>
+          <div class="spec">Color <span>Pearl White</span></div>
+        </div>
+        <div class="vehicle-status">Available for Export</div>
+      </div>
+    </article>
+    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">🚙</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">Toyota</div>
+        <h3 class="vehicle-name" itemprop="name">Hiace Van GL</h3>
+        <div class="vehicle-specs">
+          <div class="spec">Year <span itemprop="vehicleModelDate">2019</span></div>
+          <div class="spec">Mileage <span>42,000 km</span></div>
+          <div class="spec">Color <span>Silver</span></div>
+        </div>
+        <div class="vehicle-status">Available for Export</div>
+      </div>
+    </article>
+    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">🏎️</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">Nissan</div>
+        <h3 class="vehicle-name" itemprop="name">Serena e-POWER</h3>
+        <div class="vehicle-specs">
+          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
+          <div class="spec">Mileage <span>19,500 km</span></div>
+          <div class="spec">Color <span>Dark Blue</span></div>
+        </div>
+        <div class="vehicle-status">Local & Export</div>
+      </div>
+    </article>
+    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">🚐</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">Honda</div>
+        <h3 class="vehicle-name" itemprop="name">Stepwgn Spada</h3>
+        <div class="vehicle-specs">
+          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
+          <div class="spec">Mileage <span>33,000 km</span></div>
+          <div class="spec">Color <span>Black</span></div>
+        </div>
+        <div class="vehicle-status">Local Stock</div>
+      </div>
+    </article>
+    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">🚘</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">Mazda</div>
+        <h3 class="vehicle-name" itemprop="name">CX-5 XD</h3>
+        <div class="vehicle-specs">
+          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
+          <div class="spec">Mileage <span>24,000 km</span></div>
+          <div class="spec">Color <span>Soul Red</span></div>
+        </div>
+        <div class="vehicle-status">Available for Export</div>
+      </div>
+    </article>
+    <article class="vehicle-card" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; min-height:200px;">
+      <div style="font-size:2rem; color:var(--gold)">+</div>
+      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">More vehicles available.<br>Contact us for full inventory.</p>
+      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">View All</a>
+    </article>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="section-tag">How It Works</div>
+  <h2 class="section-title">From <em>inquiry to delivery</em> — step by step</h2>
+  <div class="divider"></div>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h4>Inquiry</h4>
+      <p>Tell us what you're looking for — model, budget, year, destination country.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h4>Selection</h4>
+      <p>We send you matching options with photos, inspection reports, and pricing.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h4>Agreement</h4>
+      <p>Confirm your vehicle, review the contract, and pay the deposit to secure it.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h4>Export / Prep</h4>
+      <p>We handle Japanese deregistration, export certification, and shipping booking.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">05</div>
+      <h4>Delivery</h4>
+      <p>Vehicle arrives at your designated port with full documentation for local registration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div>
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title">Ready to find your <em>next car?</em></h2>
+      <div class="divider"></div>
+      <p style="color:var(--gray); line-height:1.8; font-size:0.92rem;">
+        Whether you're buying locally in Okinawa or importing to your country, we're here to help. Reach out via your preferred channel — we respond within 24 hours.
+      </p>
+      <div class="contact-methods">
+        <a href="https://wa.me/81XXXXXXXXXX" class="contact-method" target="_blank" rel="noopener">
+          <div class="contact-icon">💬</div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value">+81 XX-XXXX-XXXX</div>
+          </div>
+        </a>
+        <a href="#" class="contact-method">
+          <div class="contact-icon">💚</div>
+          <div>
+            <div class="contact-label">WeChat ID</div>
+            <div class="contact-value">OkinawaAuto</div>
+          </div>
+        </a>
+        <a href="mailto:info@nice.okinawa" class="contact-method">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">info@nice.okinawa</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- INQUIRY FORM -->
+    <div>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; margin-bottom:1.5rem;">Send an Inquiry</h3>
+      <div class="inquiry-form">
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="John Smith">
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country">
+              <option value="">Select country</option>
+              <option>Taiwan</option>
+              <option>Hong Kong</option>
+              <option>Singapore</option>
+              <option>Malaysia</option>
+              <option>Thailand</option>
+              <option>UAE / Middle East</option>
+              <option>USA</option>
+              <option>Europe</option>
+              <option>Japan (Okinawa Local)</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@email.com">
+          </div>
+          <div class="field">
+            <label for="purpose">Purpose</label>
+            <select id="purpose">
+              <option value="">Select</option>
+              <option>Export to my country</option>
+              <option>Local purchase in Okinawa</option>
+              <option>Just browsing / price check</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="interest">Vehicle Interest</label>
+          <input type="text" id="interest" placeholder="e.g. Toyota Alphard, budget ~$20,000 USD">
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="Any specific requirements, preferred colors, year range..."></textarea>
+        </div>
+        <p class="form-note">
+          * This form is a template placeholder. Connect to a form backend (Formspree, Cloudflare Workers, etc.) to activate submission.
+        </p>
+        <button class="btn-primary" style="width:100%;" onclick="handleSubmit()">Send Inquiry →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPANESE SECTION -->
+<section class="jp-section" id="japanese" lang="ja">
+  <div class="section-tag">沖縄の中古車販売</div>
+  <h2 class="section-title" style="font-family:'Cormorant Garamond',serif;">
+    <em>沖縄</em>から、世界へ。<br>地元でも、海外でも。
+  </h2>
+  <div class="jp-grid">
+    <div>
+      <p style="color:var(--gray); line-height:2; font-size:0.95rem;">
+        沖縄の中古車を、海外（台湾・東南アジア・中東・欧米）へ輸出、または沖縄県内でご購入いただけます。
+        英語・中国語対応スタッフが、手続きをサポートいたします。
+      </p>
+      <ul class="jp-points">
+        <li>全車両、車検・点検済み</li>
+        <li>輸出書類一式対応（抹消・輸出証明・船積み手配）</li>
+        <li>外国籍のお客様の県内購入・登録サポート</li>
+        <li>英語・中国語での商談対応</li>
+        <li>WhatsApp・WeChat・メールにてお問い合わせ可能</li>
+      </ul>
+    </div>
+    <div>
+      <div style="border:1px solid var(--border); padding:2.5rem;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; margin-bottom:1.5rem;">お問い合わせ</p>
+        <div style="display:flex; flex-direction:column; gap:0.8rem;">
+          <p style="font-size:0.88rem; color:var(--gray);">📧 info@nice.okinawa</p>
+          <p style="font-size:0.88rem; color:var(--gray);">💬 WhatsApp: +81 XX-XXXX-XXXX</p>
+          <p style="font-size:0.88rem; color:var(--gray);">🕐 対応時間：平日 10:00〜18:00（日本時間）</p>
+        </div>
+        <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:2rem; font-size:0.8rem;">
+          お問い合わせフォームへ
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">OKINAWA AUTO</div>
+  <div class="footer-text">© 2024 Okinawa Auto · japanusedcars.nice.okinawa · Okinawa, Japan</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#vehicles">Vehicles</a>
+    <a href="#contact">Contact</a>
+    <a href="#japanese">日本語</a>
+  </div>
+</footer>
+
+<script>
+  function scrollToJP() {
+    document.getElementById('japanese').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function handleSubmit() {
+    alert('Thank you for your inquiry! We will contact you within 24 hours.\n\nお問い合わせありがとうございます。24時間以内にご連絡いたします。');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.why-card, .service-block, .vehicle-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
