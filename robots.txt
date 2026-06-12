@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://japanusedcars.nice.okinawa/sitemap.xml
