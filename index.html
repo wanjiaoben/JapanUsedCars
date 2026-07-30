@@ -380,7 +380,8 @@
       resize: vertical;
     }
     .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
-    .field select option { background: var(--navy-mid); }
+    .field select option, .field select optgroup { background: var(--navy-mid); }
+    .field select optgroup { font-weight: 600; }
     .form-note { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
 
     /* ─── FOOTER ─── */
@@ -507,7 +508,7 @@
     </div>
     <div class="stat">
       <div class="stat-num">15+</div>
-      <div class="stat-label">Countries Exported</div>
+      <div class="stat-label">Countries & regions exported</div>
     </div>
     <div class="stat">
       <div class="stat-num">100%</div>
@@ -540,7 +541,7 @@
     <div class="why-card">
       <div class="why-icon">📦</div>
       <h3>Export Documentation</h3>
-      <p>We handle all Japanese export paperwork: deregistration, export certificate, and shipping coordination to your country.</p>
+      <p>We handle all Japanese export paperwork: deregistration, export certificate, and shipping coordination to your country / region.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">💬</div>
@@ -683,7 +684,7 @@
     <div class="step">
       <div class="step-num">01</div>
       <h4>Inquiry</h4>
-      <p>Tell us what you're looking for — model, budget, year, destination country.</p>
+      <p>Tell us what you're looking for — model, budget, year, destination country / region.</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
@@ -716,7 +717,7 @@
       <h2 class="section-title">Ready to find your <em>next car?</em></h2>
       <div class="divider"></div>
       <p style="color:var(--gray); line-height:1.8; font-size:0.92rem;">
-        Whether you're buying locally in Okinawa or importing to your country, we're here to help. Reach out via your preferred channel — we respond within 24 hours.
+        Whether you're buying locally in Okinawa or importing to your country / region, we're here to help. Reach out via your preferred channel — we respond within 24 hours.
       </p>
       <div class="contact-methods">
         <a href="https://wa.me/817089523968" class="contact-method" target="_blank" rel="noopener">
@@ -753,19 +754,77 @@
             <input type="text" id="name" placeholder="John Smith">
           </div>
           <div class="field">
-            <label for="country">Country</label>
+            <label for="country">Country / region</label>
             <select id="country">
-              <option value="">Select country</option>
-              <option>Taiwan</option>
-              <option>Hong Kong</option>
-              <option>Singapore</option>
-              <option>Malaysia</option>
-              <option>Thailand</option>
-              <option>UAE / Middle East</option>
-              <option>USA</option>
-              <option>Europe</option>
-              <option>Japan (Okinawa Local)</option>
-              <option>Other</option>
+              <option value="">Select country or region</option>
+              <optgroup label="Asia">
+                <option>China</option>
+                <option>Taiwan</option>
+                <option>Hong Kong</option>
+                <option>Macau</option>
+                <option>South Korea</option>
+                <option>Mongolia</option>
+                <option>Singapore</option>
+                <option>Malaysia</option>
+                <option>Thailand</option>
+                <option>Vietnam</option>
+                <option>Philippines</option>
+                <option>Indonesia</option>
+                <option>Myanmar</option>
+                <option>Sri Lanka</option>
+                <option>Bangladesh</option>
+                <option>Pakistan</option>
+                <option>India</option>
+              </optgroup>
+              <optgroup label="Oceania">
+                <option>Australia</option>
+                <option>New Zealand</option>
+                <option>Fiji</option>
+                <option>Papua New Guinea</option>
+              </optgroup>
+              <optgroup label="Middle East">
+                <option value="UAE / Middle East">United Arab Emirates</option>
+                <option>Saudi Arabia</option>
+                <option>Oman</option>
+                <option>Jordan</option>
+                <option>Israel</option>
+              </optgroup>
+              <optgroup label="Africa">
+                <option>Kenya</option>
+                <option>Tanzania</option>
+                <option>Uganda</option>
+                <option>Zambia</option>
+                <option>Zimbabwe</option>
+                <option>Malawi</option>
+                <option>Mozambique</option>
+                <option>Botswana</option>
+                <option>DR Congo</option>
+                <option>South Africa</option>
+                <option>Nigeria</option>
+                <option>Ghana</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option>United Kingdom</option>
+                <option>Ireland</option>
+                <option>Netherlands</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Cyprus</option>
+                <option>Malta</option>
+                <option>Georgia</option>
+                <option>Russia</option>
+              </optgroup>
+              <optgroup label="Americas">
+                <option value="USA">United States</option>
+                <option>Canada</option>
+                <option>Chile</option>
+                <option>Paraguay</option>
+                <option>Bolivia</option>
+                <option>Guyana</option>
+                <option>Trinidad and Tobago</option>
+                <option>Jamaica</option>
+              </optgroup>
+              <option value="Other">Other country or region</option>
             </select>
           </div>
         </div>
@@ -778,7 +837,7 @@
             <label for="purpose">Purpose</label>
             <select id="purpose">
               <option value="">Select</option>
-              <option>Export to my country</option>
+              <option>Export to my country / region</option>
               <option>Local purchase in Okinawa</option>
               <option>Just browsing / price check</option>
             </select>
