@@ -45,6 +45,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <style>
     :root {
@@ -383,6 +384,10 @@
     .field select option, .field select optgroup { background: var(--navy-mid); }
     .field select optgroup { font-weight: 600; }
     .form-note { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+    .inquiry-status { min-height: 1.4rem; font-size: 0.78rem; line-height: 1.6; color: var(--gray); }
+    .inquiry-status.ok { color: var(--gold-light); }
+    .inquiry-status.err { color: #ff9b8a; }
+    #inquiry-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
 
     /* ─── FOOTER ─── */
     footer {
@@ -747,11 +752,11 @@
     <!-- INQUIRY FORM -->
     <div>
       <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; margin-bottom:1.5rem;">Send an Inquiry</h3>
-      <div class="inquiry-form">
+      <form class="inquiry-form" id="inquiry-form">
         <div class="form-row">
           <div class="field">
             <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="John Smith">
+            <input type="text" id="name" placeholder="John Smith" required>
           </div>
           <div class="field">
             <label for="country">Country / region</label>
@@ -832,7 +837,7 @@
         <div class="form-row">
           <div class="field">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="you@email.com">
+            <input type="email" id="email" placeholder="you@email.com" required>
           </div>
           <div class="field">
             <label for="purpose">Purpose</label>
@@ -852,11 +857,10 @@
           <label for="message">Message</label>
           <textarea id="message" rows="4" placeholder="Any specific requirements, preferred colors, year range..."></textarea>
         </div>
-        <p class="form-note">
-          * This form is a template placeholder. Connect to a form backend (Formspree, Cloudflare Workers, etc.) to activate submission.
-        </p>
-        <button class="btn-primary" style="width:100%;" onclick="handleSubmit()">Send Inquiry →</button>
-      </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADvhTRK9Z-f9ydQ1" data-action="japanusedcars-inquiry-v1"></div>
+        <div class="inquiry-status" id="inquiry-status" aria-live="polite"></div>
+        <button class="btn-primary" id="inquiry-submit" type="submit" style="width:100%;">Send Inquiry →</button>
+      </form>
     </div>
   </div>
 </section>
@@ -914,9 +918,92 @@
     document.getElementById('japanese').scrollIntoView({ behavior: 'smooth' });
   }
 
-  function handleSubmit() {
-    alert('Thank you for your inquiry! We will contact you within 24 hours.\n\nお問い合わせありがとうございます。24時間以内にご連絡いたします。');
+  const INQUIRY_ENDPOINT = 'https://inquiry-nice-okinawa-preview.gerheidicn.workers.dev/api/inquiries';
+
+  function inquiryField(id) {
+    const field = document.getElementById(id);
+    return field ? String(field.value || '').trim() : '';
   }
+
+  function setInquiryStatus(message, type) {
+    const status = document.getElementById('inquiry-status');
+    if (!status) return;
+    status.className = `inquiry-status ${type || ''}`.trim();
+    status.textContent = message;
+  }
+
+  function resetTurnstile() {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') {
+      window.turnstile.reset();
+    }
+  }
+
+  function buildInquiryPayload(turnstileToken) {
+    const name = inquiryField('name');
+    const country = inquiryField('country');
+    const purpose = inquiryField('purpose');
+    const interest = inquiryField('interest');
+    const message = inquiryField('message');
+    return {
+      site: 'japanusedcars',
+      sourceSite: 'japanusedcars.nice.okinawa',
+      date: '',
+      guests: '',
+      project: purpose || interest || 'Used car inquiry',
+      contact: inquiryField('email'),
+      remarks: [
+        name ? `Name: ${name}` : '',
+        country ? `Country / region: ${country}` : '',
+        purpose ? `Purpose: ${purpose}` : '',
+        interest ? `Vehicle interest: ${interest}` : '',
+        message ? `Message: ${message}` : ''
+      ].filter(Boolean).join('\n'),
+      language: document.documentElement.lang || 'en',
+      turnstileToken
+    };
+  }
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+
+    const tokenInput = form.querySelector('[name="cf-turnstile-response"]');
+    const turnstileToken = tokenInput && tokenInput.value;
+    if (!turnstileToken) {
+      setInquiryStatus('Please complete the security check. / セキュリティ確認を完了してください。', 'err');
+      return false;
+    }
+
+    const submit = document.getElementById('inquiry-submit');
+    submit.disabled = true;
+    setInquiryStatus('Sending your inquiry… / お問い合わせを送信中…');
+
+    try {
+      const response = await fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(buildInquiryPayload(turnstileToken))
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || 'submit_failed');
+      form.reset();
+      resetTurnstile();
+      setInquiryStatus('Thank you! We received your inquiry. / お問い合わせを受信しました。', 'ok');
+      return true;
+    } catch (error) {
+      resetTurnstile();
+      setInquiryStatus('Could not send. Please email info@nice.okinawa or use WhatsApp. / 送信できませんでした。メールまたはWhatsAppをご利用ください。', 'err');
+      return false;
+    } finally {
+      submit.disabled = false;
+    }
+  }
+
+  document.getElementById('inquiry-form').addEventListener('submit', handleSubmit);
 
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {

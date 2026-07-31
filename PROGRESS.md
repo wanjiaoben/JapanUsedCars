@@ -9,3 +9,4 @@ T0706-04 WAN 宪法 v1.4 已同步到 CLAUDE.md，MERGE_GATE 宪法版本校验�
 T0706-24 WAN 宪法 v1.5 已同步到 CLAUDE.md；新增域名/API入口切换三同步与手动权益 entitlement_log 留痕红线。
 
 T0707-14 WAN 宪法 v1.6 已同步到 CLAUDE.md，FREEZE.md 冻结区同步到仓库根目录；新增冻结区、任务三分类、CC 交付六栏规则。
+M0731-18 JapanUsedCars 假提交修复：接入共享 inquiry Worker 与 Turnstile，固定 site/sourceSite 来源，仅后端成功后显示已收到，并新增自动回归测试。
