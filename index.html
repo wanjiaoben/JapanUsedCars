@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO Core -->
-  <title>Japanese Used Cars from Okinawa | Export and Local Sales</title>
-  <meta name="description" content="Buy quality Japanese used cars from Okinawa for export or local purchase. We support inquiries from buyers across covered countries and regions, with documentation and shipping coordination.">
-  <meta name="keywords" content="used cars Okinawa Japan, Japanese used cars export, buy car Japan, 沖縄 中古車, used car dealer Okinawa, Japan car export, Toyota used car Japan, Okinawa auto">
+  <title>Okinawa Used Cars | Japan Used Car Export & Purchase Support</title>
+  <meta name="description" content="Okinawa used car and Japan used car export support for right-hand drive vehicles, local purchase inquiries, documentation, shipping coordination, and 二手车购入代行 consultation.">
+  <meta name="keywords" content="Okinawa used car, Japan used car export, used cars Okinawa Japan, right-hand drive vehicles, buy car Japan, 二手车购入代行, 右舵車, 沖縄 中古車, used car dealer Okinawa, Toyota used car Japan">
 
   <!-- Open Graph (for social sharing) -->
-  <meta property="og:title" content="Japanese Used Cars from Okinawa | Export and Local Sales">
-  <meta property="og:description" content="Buy quality Japanese used cars from Okinawa for export or local purchase, with documentation and shipping coordination for covered countries and regions.">
+  <meta property="og:title" content="Okinawa Used Cars | Japan Used Car Export & Purchase Support">
+  <meta property="og:description" content="Okinawa used car and Japan used car export support for right-hand drive vehicles, documentation, shipping coordination, and local purchase inquiries.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://japanusedcars.nice.okinawa">
 
@@ -40,6 +40,49 @@
       "contactType": "sales",
       "email": "info@nice.okinawa"
     }
+  }
+  </script>
+
+  <!-- Structured Data: FAQPage (answers pending Wan supply) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://japanusedcars.nice.okinawa/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you offer a warranty on the vehicles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All vehicles are sold as-is. Ownership and all associated risk transfer to the buyer once the vehicle is loaded and the vessel departs Japan. This is standard practice in Japanese used car export. What protects you is disclosure before purchase: every vehicle comes with its auction inspection sheet and condition grade, so you know exactly what you are buying before you commit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I inspect the car before buying, and what condition information do you provide?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vehicles are sourced through Japanese auction houses, and neither you nor we inspect them in person — the same is true of every exporter working this market. What you get instead is the auction inspection sheet: an independent assessment carried out by the auction house, covering the overall condition grade, interior grade, mileage verification, and a diagram marking scratches, dents, and rust. Grade S is the top rating. Export vehicles are de-registered and shipped without plates, so a Japanese 車検 (shaken) certificate does not carry over. Ask us for the auction sheet on any vehicle you are considering and we will send it before you decide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you handle registration and ownership transfer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We sell for export, not for local Japanese registration. Every vehicle we ship goes through 抹消登録 (masshō tōroku), the Japanese deregistration process, and we prepare the export certificate and related documents. Registration in the destination country is handled by the buyer under local rules. One exception: if you are purchasing for rental-car operation, contact us directly and we will discuss it case by case."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much is shipping, and what other costs are involved?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We quote for Europe, New Zealand, and Southeast Asia. The figure depends on destination port, vessel schedule, and vehicle size, so we quote per inquiry rather than publish a fixed rate. Send us the model you are interested in and your destination port, and we will come back with a number. Contact us any time."
+        }
+      }
+    ]
   }
   </script>
 
@@ -345,6 +388,29 @@
     }
     .step p { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
 
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--navy); }
+    .faq-list {
+      display: flex; flex-direction: column;
+      gap: 0.8rem; margin-top: 3rem; max-width: 840px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      background: var(--navy-mid);
+      padding: 1.4rem 1.6rem;
+    }
+    .faq-item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 400;
+      color: var(--cream); margin-bottom: 0.55rem;
+    }
+    .faq-item p { color: var(--gray); line-height: 1.7; font-size: 0.88rem; }
+    .faq-pending {
+      display: inline-block; margin-top: 0.8rem;
+      font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
     /* ─── CONTACT ─── */
     .contact-wrap {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -481,6 +547,7 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#vehicles">Vehicles</a></li>
     <li><a href="#process">Process</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <button class="nav-lang" onclick="scrollToJP()">日本語</button>
@@ -490,12 +557,12 @@
 <section class="hero" id="home">
   <div class="hero-tag">Okinawa, Japan · Est. 2024</div>
   <h1>
-    Japanese Used Cars<br>
-    <em>Directly from</em><br>
+    Okinawa Used Cars<br>
+    <em>Japan Used Car Export</em><br>
     Okinawa
   </h1>
   <p class="hero-sub">
-    Export worldwide or purchase locally in Okinawa. Low-mileage, inspection-certified vehicles with full documentation support.
+    Right-hand drive Japanese used cars for export worldwide or local purchase in Okinawa, with documentation and shipping coordination.
   </p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Inquire Now</a>
@@ -564,25 +631,27 @@
   <div class="services-grid">
     <div class="service-block">
       <div class="service-num">01</div>
-      <h3>Export Worldwide</h3>
-      <p>We export Japanese used cars to buyers across Asia, the Middle East, Europe, and the Americas. From selection to shipping, we manage the entire process so you receive a ready-to-register vehicle.</p>
+      <h3>Japan Used Car Export</h3>
+      <p>We support Japan used car export inquiries for buyers across Asia, the Middle East, Europe, and the Americas. From selection to shipping coordination, we manage the process so you receive export-ready documentation.</p>
       <div class="service-tags">
         <span class="tag">Taiwan / Hong Kong</span>
         <span class="tag">Southeast Asia</span>
         <span class="tag">Middle East</span>
         <span class="tag">Europe & USA</span>
         <span class="tag">Full Documentation</span>
+        <span class="tag">Right-Hand Drive</span>
         <span class="tag">Door-to-Port</span>
       </div>
     </div>
     <div class="service-block">
       <div class="service-num">02</div>
-      <h3>Buy Locally in Okinawa</h3>
-      <p>Residents and long-term visitors in Okinawa can purchase directly from our lot. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
+      <h3>Okinawa Used Car Purchase Support</h3>
+      <p>Residents and long-term visitors in Okinawa can inquire about local purchase support from our lot. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
       <div class="service-tags">
         <span class="tag">Okinawa Local</span>
         <span class="tag">English Support</span>
         <span class="tag">Registration Help</span>
+        <span class="tag">二手车购入代行</span>
         <span class="tag">Foreign License OK</span>
         <span class="tag">Military Welcome</span>
       </div>
@@ -673,6 +742,9 @@
       <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">View All</a>
     </article>
   </div>
+  <p style="color:var(--gray); font-size:0.88rem; max-width:720px; line-height:1.7; margin-top:2rem;">
+    Every vehicle comes with its auction inspection sheet — an independent condition report issued by the Japanese auction house, not by us. Ask for it on any listing.
+  </p>
 </section>
 
 <!-- PROCESS -->
@@ -706,6 +778,31 @@
       <h4>Delivery</h4>
       <p>Vehicle arrives at your designated port with full documentation for local registration.</p>
     </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-tag">FAQ</div>
+  <h2 class="section-title">Okinawa used car and <em>Japan used car export</em> FAQ</h2>
+  <div class="divider"></div>
+  <div class="faq-list">
+    <article class="faq-item">
+      <h3>Do you offer a warranty on the vehicles?</h3>
+      <p>No. All vehicles are sold as-is. Ownership and all associated risk transfer to the buyer once the vehicle is loaded and the vessel departs Japan. This is standard practice in Japanese used car export. What protects you is disclosure before purchase: every vehicle comes with its auction inspection sheet and condition grade, so you know exactly what you are buying before you commit.</p>
+    </article>
+    <article class="faq-item">
+      <h3>Can I inspect the car before buying, and what condition information do you provide?</h3>
+      <p>Vehicles are sourced through Japanese auction houses, and neither you nor we inspect them in person — the same is true of every exporter working this market. What you get instead is the auction inspection sheet: an independent assessment carried out by the auction house, covering the overall condition grade, interior grade, mileage verification, and a diagram marking scratches, dents, and rust. Grade S is the top rating. Export vehicles are de-registered and shipped without plates, so a Japanese 車検 (shaken) certificate does not carry over. Ask us for the auction sheet on any vehicle you are considering and we will send it before you decide.</p>
+    </article>
+    <article class="faq-item">
+      <h3>Do you handle registration and ownership transfer?</h3>
+      <p>We sell for export, not for local Japanese registration. Every vehicle we ship goes through 抹消登録 (masshō tōroku), the Japanese deregistration process, and we prepare the export certificate and related documents. Registration in the destination country is handled by the buyer under local rules. One exception: if you are purchasing for rental-car operation, contact us directly and we will discuss it case by case.</p>
+    </article>
+    <article class="faq-item">
+      <h3>How much is shipping, and what other costs are involved?</h3>
+      <p>We quote for Europe, New Zealand, and Southeast Asia. The figure depends on destination port, vessel schedule, and vehicle size, so we quote per inquiry rather than publish a fixed rate. Send us the model you are interested in and your destination port, and we will come back with a number. Contact us any time.</p>
+    </article>
   </div>
 </section>
 

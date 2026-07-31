@@ -1,51 +1,20 @@
 # Okinawa Auto Japan Used Cars
 
-## zh-Hans
-Okinawa Auto 是位于日本冲绳的二手车出口与本地销售站点，提供日本二手车选车、车辆检查资料、出口文件、船运协调和冲绳本地购车咨询。
-
-覆盖地区：
-- Japan (Okinawa local)
-- Asia: China, Taiwan, Hong Kong, Macau, South Korea, Mongolia, Singapore, Malaysia, Thailand, Vietnam, Philippines, Indonesia, Myanmar, Sri Lanka, Bangladesh, Pakistan, India
-- Oceania: Australia, New Zealand, Fiji, Papua New Guinea
-- Middle East: United Arab Emirates, Saudi Arabia, Oman, Jordan, Israel
-- Africa: Kenya, Tanzania, Uganda, Zambia, Zimbabwe, Malawi, Mozambique, Botswana, DR Congo, South Africa, Nigeria, Ghana
-- Europe: United Kingdom, Ireland, Netherlands, Germany, France, Cyprus, Malta, Georgia, Russia
-- Americas: United States, Canada, Chile, Paraguay, Bolivia, Guyana, Trinidad and Tobago, Jamaica
-- Other country or region
-
-询价方式：
-- 页面询价表单：https://japanusedcars.nice.okinawa/#contact
-- WhatsApp: +81 70-8952-3968
-- WeChat ID: OkinawaOnline
-- Email: info@nice.okinawa
-
-核心页面：
-- https://japanusedcars.nice.okinawa/
-
-## ja
-Okinawa Auto は日本・沖縄にある中古車輸出および沖縄ローカル販売のサイトです。日本中古車の車両選定、車両検査情報、輸出書類、船積み調整、沖縄での購入相談に対応します。
-
-対応エリア：
-- Japan (Okinawa local)
-- Asia: China, Taiwan, Hong Kong, Macau, South Korea, Mongolia, Singapore, Malaysia, Thailand, Vietnam, Philippines, Indonesia, Myanmar, Sri Lanka, Bangladesh, Pakistan, India
-- Oceania: Australia, New Zealand, Fiji, Papua New Guinea
-- Middle East: United Arab Emirates, Saudi Arabia, Oman, Jordan, Israel
-- Africa: Kenya, Tanzania, Uganda, Zambia, Zimbabwe, Malawi, Mozambique, Botswana, DR Congo, South Africa, Nigeria, Ghana
-- Europe: United Kingdom, Ireland, Netherlands, Germany, France, Cyprus, Malta, Georgia, Russia
-- Americas: United States, Canada, Chile, Paraguay, Bolivia, Guyana, Trinidad and Tobago, Jamaica
-- Other country or region
-
-問い合わせ方法：
-- 問い合わせフォーム：https://japanusedcars.nice.okinawa/#contact
-- WhatsApp: +81 70-8952-3968
-- WeChat ID: OkinawaOnline
-- Email: info@nice.okinawa
-
-主要ページ：
-- https://japanusedcars.nice.okinawa/
+Okinawa Auto is an Okinawa, Japan used car export and local purchase support site selling inspected Japanese right-hand drive used cars; inquiries are accepted through the website form, WhatsApp, WeChat, and email.
 
 ## en
-Okinawa Auto is a Japanese used car export and local sales site based in Okinawa, Japan. It supports vehicle selection, inspection records, export documentation, shipping coordination, and local purchase inquiries in Okinawa.
+Okinawa Auto supports Okinawa used car inquiries, Japan used car export, local purchase support in Okinawa, export documentation, and shipping coordination. Vehicle prices remain inquiry-based and depend on current stock, vehicle condition, destination country / region, and shipping route. Vehicles are sourced through Japanese auction houses. Every vehicle comes with an independent auction inspection sheet, available to buyers on request. Export quotes available for Europe, New Zealand, and Southeast Asia.
+
+Primary commercial topics:
+- Okinawa used car
+- Japan used car export
+- Japanese right-hand drive vehicles
+- Used car purchase support in Okinawa
+- 二手车购入代行
+- 右舵車
+- Export documentation
+- Shipping coordination
+- Local purchase inquiries
 
 Covered countries and regions:
 - Japan (Okinawa local)
@@ -58,10 +27,17 @@ Covered countries and regions:
 - Other country or region
 
 Inquiry channels:
-- Inquiry form: https://japanusedcars.nice.okinawa/#contact
+- Website inquiry form: https://japanusedcars.nice.okinawa/#contact
 - WhatsApp: +81 70-8952-3968
 - WeChat ID: OkinawaOnline
 - Email: info@nice.okinawa
 
 Core pages:
 - https://japanusedcars.nice.okinawa/
+- https://japanusedcars.nice.okinawa/#vehicles
+- https://japanusedcars.nice.okinawa/#services
+- https://japanusedcars.nice.okinawa/#faq
+- https://japanusedcars.nice.okinawa/#contact
+
+FAQ status:
+- FAQ structure is present on the page.
