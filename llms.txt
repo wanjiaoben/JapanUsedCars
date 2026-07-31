@@ -3,7 +3,7 @@
 Okinawa Auto is an Okinawa, Japan used car export and local purchase support site selling inspected Japanese right-hand drive used cars; inquiries are accepted through the website form, WhatsApp, WeChat, and email.
 
 ## en
-Okinawa Auto supports Okinawa used car inquiries, Japan used car export, local purchase support in Okinawa, export documentation, and shipping coordination. Vehicle prices remain inquiry-based and depend on current stock, vehicle condition, destination country / region, and shipping route.
+Okinawa Auto supports Okinawa used car inquiries, Japan used car export, local purchase support in Okinawa, export documentation, and shipping coordination. Vehicle prices remain inquiry-based and depend on current stock, vehicle condition, destination country / region, and shipping route. Vehicles are sourced through Japanese auction houses. Every vehicle comes with an independent auction inspection sheet, available to buyers on request. Export quotes available for Europe, New Zealand, and Southeast Asia.
 
 Primary commercial topics:
 - Okinawa used car
@@ -41,7 +41,3 @@ Core pages:
 
 FAQ status:
 - FAQ structure is present on the page.
-- Vehicle warranty answer: pending Wan-supplied final wording.
-- Vehicle inspection and condition answer: pending Wan-supplied final wording.
-- Ownership transfer and registration answer: pending Wan-supplied final wording.
-- Shipping cost and export fee answer: pending Wan-supplied final wording.
