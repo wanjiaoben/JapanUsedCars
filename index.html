@@ -14,6 +14,7 @@
   <meta property="og:description" content="Okinawa used car and Japan used car export support for right-hand drive vehicles, documentation, shipping coordination, and local purchase inquiries.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://japanusedcars.nice.okinawa">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Geo tags for local SEO -->
   <meta name="geo.region" content="JP-47">
@@ -449,6 +450,10 @@
     .field select option, .field select optgroup { background: var(--navy-mid); }
     .field select optgroup { font-weight: 600; }
     .form-note { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
+    .form-submit:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+    .inquiry-status { min-height: 1.4rem; font-size: 0.78rem; line-height: 1.6; color: var(--gray); }
+    .inquiry-status.ok { color: var(--gold-light); }
+    .inquiry-status.err { color: #ff8a7a; }
 
     /* ─── FOOTER ─── */
     footer {
@@ -950,9 +955,11 @@
           <textarea id="message" rows="4" placeholder="Any specific requirements, preferred colors, year range..."></textarea>
         </div>
         <p class="form-note">
-          * This form is a template placeholder. Connect to a form backend (Formspree, Cloudflare Workers, etc.) to activate submission.
+          * Please include your destination country or port if you need an export quote.
         </p>
-        <button class="btn-primary" style="width:100%;" onclick="handleSubmit()">Send Inquiry →</button>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAADvhTRK9Z-f9ydQ1" data-action="japanusedcars-inquiry-v1"></div>
+        <div class="inquiry-status" id="inquiry-status" aria-live="polite"></div>
+        <button class="btn-primary form-submit" id="inquiry-submit" style="width:100%;" onclick="handleSubmit(event)">Send Inquiry →</button>
       </div>
     </div>
   </div>
@@ -1011,8 +1018,104 @@
     document.getElementById('japanese').scrollIntoView({ behavior: 'smooth' });
   }
 
-  function handleSubmit() {
-    alert('Thank you for your inquiry! We will contact you within 24 hours.\n\nお問い合わせありがとうございます。24時間以内にご連絡いたします。');
+  const INQUIRY_ENDPOINT = 'https://inquiry-nice-okinawa-preview.gerheidicn.workers.dev/api/inquiries';
+
+  function inquiryMessage(key) {
+    const messages = {
+      sending: 'Sending your inquiry...',
+      ok: 'Thank you! We received your inquiry and will reply within 24 hours.',
+      missingContact: 'Please enter your email. If this keeps failing, email info@nice.okinawa or use WhatsApp.',
+      missingTurnstile: 'Please complete the security check. If this keeps failing, email info@nice.okinawa or use WhatsApp.',
+      error: 'Could not send. Please email info@nice.okinawa or use WhatsApp instead.'
+    };
+    return messages[key] || messages.error;
+  }
+
+  function setInquiryStatus(key, type) {
+    const status = document.getElementById('inquiry-status');
+    if (!status) return;
+    status.className = `inquiry-status ${type || ''}`.trim();
+    status.textContent = inquiryMessage(key);
+  }
+
+  function getField(id) {
+    const el = document.getElementById(id);
+    return el ? String(el.value || '').trim() : '';
+  }
+
+  function resetTurnstile() {
+    if (window.turnstile && typeof window.turnstile.reset === 'function') {
+      window.turnstile.reset();
+    }
+  }
+
+  function buildInquiryPayload(turnstileToken) {
+    const name = getField('name');
+    const country = getField('country');
+    const email = getField('email');
+    const purpose = getField('purpose');
+    const interest = getField('interest');
+    const message = getField('message');
+    return {
+      site: 'japanusedcars',
+      sourceSite: 'japanusedcars.nice.okinawa',
+      date: '',
+      guests: '',
+      project: interest || purpose || 'Japan used car inquiry',
+      contact: email,
+      remarks: [
+        name ? `Name: ${name}` : '',
+        country ? `Country / region: ${country}` : '',
+        purpose ? `Purpose: ${purpose}` : '',
+        interest ? `Vehicle interest: ${interest}` : '',
+        message ? `Message: ${message}` : ''
+      ].filter(Boolean).join('\n'),
+      language: document.documentElement.lang || 'en',
+      turnstileToken
+    };
+  }
+
+  async function handleSubmit(event) {
+    if (event && event.preventDefault) event.preventDefault();
+    const email = getField('email');
+    if (!email) {
+      setInquiryStatus('missingContact', 'err');
+      return false;
+    }
+
+    const tokenInput = document.querySelector('[name="cf-turnstile-response"]');
+    const turnstileToken = tokenInput && tokenInput.value;
+    if (!turnstileToken) {
+      setInquiryStatus('missingTurnstile', 'err');
+      return false;
+    }
+
+    const submit = document.getElementById('inquiry-submit');
+    if (submit) submit.disabled = true;
+    setInquiryStatus('sending');
+
+    try {
+      const response = await fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(buildInquiryPayload(turnstileToken))
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) throw new Error(result.error || 'submit_failed');
+      ['name','country','email','purpose','interest','message'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      resetTurnstile();
+      setInquiryStatus('ok', 'ok');
+      return true;
+    } catch (error) {
+      resetTurnstile();
+      setInquiryStatus('error', 'err');
+      return false;
+    } finally {
+      if (submit) submit.disabled = false;
+    }
   }
 
   // Scroll reveal
