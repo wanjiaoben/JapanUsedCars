@@ -12,3 +12,4 @@ T0707-14 WAN 宪法 v1.6 已同步到 CLAUDE.md，FREEZE.md 冻结区同步到�
 M0731-22 JapanUsedCars GEO full pack drafted: llms.txt English-first, AI bot robots Allow, FAQ placeholder block, FAQPage JSON-LD, and commercial title/meta prepared for Draft PR.
 M0731-26 PR #19 FAQ placeholders replaced with Wan-supplied final English answers; auction inspection sheet trust note and llms.txt facts added on original branch.
 M0731-31 JapanUsedCars inquiry form drafted: fake alert replaced with real POST to shared inquiry Worker, Turnstile added, failure path shows fallback email/WhatsApp, no GA added because the page uses first-party beacon only.
+JUC-0822-01 JapanUsedCars GEO acquisition pages drafted: added how-it-works, pricing, FAQ, and cases pages; homepage entry, sitemap, and llms.txt synchronized.

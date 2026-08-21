@@ -1,6 +1,6 @@
 # Okinawa Auto Japan Used Cars
 
-Okinawa Auto is an Okinawa, Japan used car export and local purchase support site selling inspected Japanese right-hand drive used cars; inquiries are accepted through the website form, WhatsApp, WeChat, and email.
+Okinawa Auto is an Okinawa, Japan used car export and local purchase support site selling inspected Japanese right-hand drive used cars; inquiries are accepted through the website form, WhatsApp, and email.
 
 ## en
 Okinawa Auto supports Okinawa used car inquiries, Japan used car export, local purchase support in Okinawa, export documentation, and shipping coordination. Vehicle prices remain inquiry-based and depend on current stock, vehicle condition, destination country / region, and shipping route. Vehicles are sourced through Japanese auction houses. Every vehicle comes with an independent auction inspection sheet, available to buyers on request. Export quotes available for Europe, New Zealand, and Southeast Asia.
@@ -29,15 +29,19 @@ Covered countries and regions:
 Inquiry channels:
 - Website inquiry form: https://japanusedcars.nice.okinawa/#contact
 - WhatsApp: +81 70-8952-3968
-- WeChat ID: OkinawaOnline
 - Email: info@nice.okinawa
 
 Core pages:
 - https://japanusedcars.nice.okinawa/
+- https://japanusedcars.nice.okinawa/how-it-works/
+- https://japanusedcars.nice.okinawa/pricing/
+- https://japanusedcars.nice.okinawa/faq/
 - https://japanusedcars.nice.okinawa/#vehicles
 - https://japanusedcars.nice.okinawa/#services
 - https://japanusedcars.nice.okinawa/#faq
 - https://japanusedcars.nice.okinawa/#contact
 
-FAQ status:
-- FAQ structure is present on the page.
+GEO buyer pages:
+- How it works: explains the export steps from inquiry to arrival at the destination port, including the documents buyers usually prepare.
+- Pricing: explains FOB and CIF quote logic, auction agent fees, inspection, freight, payment timing, and buyer-side destination costs without publishing fixed vehicle prices.
+- FAQ: answers buyer questions about export countries and regions, right-hand drive vehicles, local import restrictions, payment safety, shipping schedules, cancellations, and export documents.
