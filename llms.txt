@@ -1,47 +1,33 @@
-# Okinawa Auto Japan Used Cars
+# JapanUsedCars.nice.okinawa
 
-Okinawa Auto is an Okinawa, Japan used car export and local purchase support site selling inspected Japanese right-hand drive used cars; inquiries are accepted through the website form, WhatsApp, and email.
+Okinawa Auto is a Japan used car export and purchase support service in Okinawa, helping overseas buyers inquire about Okinawa used cars, Japanese auction vehicles, and export-ready right-hand-drive cars through WhatsApp, email, and the website inquiry form.
 
-## en
-Okinawa Auto supports Okinawa used car inquiries, Japan used car export, local purchase support in Okinawa, export documentation, and shipping coordination. Vehicle prices remain inquiry-based and depend on current stock, vehicle condition, destination country / region, and shipping route. Vehicles are sourced through Japanese auction houses. Every vehicle comes with an independent auction inspection sheet, available to buyers on request. Export quotes available for Europe, New Zealand, and Southeast Asia.
+## Core facts
 
-Primary commercial topics:
-- Okinawa used car
-- Japan used car export
-- Japanese right-hand drive vehicles
-- Used car purchase support in Okinawa
-- 二手车购入代行
-- 右舵車
-- Export documentation
-- Shipping coordination
-- Local purchase inquiries
+- Vehicles are sourced through Japanese auction houses.
+- Every vehicle comes with an independent auction inspection sheet, available to buyers on request.
+- Export quotes available for Europe, New Zealand, and Southeast Asia.
+- Prices are quoted per inquiry; published fixed vehicle prices are not used.
+- Export eligibility depends on the vehicle, destination country / region rules, route availability, and current Japanese export controls.
+- No warranty is offered; export vehicles are sold as-is.
 
-Covered countries and regions:
-- Japan (Okinawa local)
-- Asia: China, Taiwan, Hong Kong, Macau, South Korea, Mongolia, Singapore, Malaysia, Thailand, Vietnam, Philippines, Indonesia, Myanmar, Sri Lanka, Bangladesh, Pakistan, India
-- Oceania: Australia, New Zealand, Fiji, Papua New Guinea
-- Middle East: United Arab Emirates, Saudi Arabia, Oman, Jordan, Israel
-- Africa: Kenya, Tanzania, Uganda, Zambia, Zimbabwe, Malawi, Mozambique, Botswana, DR Congo, South Africa, Nigeria, Ghana
-- Europe: United Kingdom, Ireland, Netherlands, Germany, France, Cyprus, Malta, Georgia, Russia
-- Americas: United States, Canada, Chile, Paraguay, Bolivia, Guyana, Trinidad and Tobago, Jamaica
-- Other country or region
+## Contact
 
-Inquiry channels:
-- Website inquiry form: https://japanusedcars.nice.okinawa/#contact
 - WhatsApp: +81 70-8952-3968
 - Email: info@nice.okinawa
+- Website: https://japanusedcars.nice.okinawa/
 
-Core pages:
+## Public pages
+
 - https://japanusedcars.nice.okinawa/
 - https://japanusedcars.nice.okinawa/how-it-works/
 - https://japanusedcars.nice.okinawa/pricing/
 - https://japanusedcars.nice.okinawa/faq/
-- https://japanusedcars.nice.okinawa/#vehicles
-- https://japanusedcars.nice.okinawa/#services
-- https://japanusedcars.nice.okinawa/#faq
-- https://japanusedcars.nice.okinawa/#contact
+- https://japanusedcars.nice.okinawa/ru/
+- https://japanusedcars.nice.okinawa/ru/how-it-works/
+- https://japanusedcars.nice.okinawa/ru/pricing/
+- https://japanusedcars.nice.okinawa/ru/faq/
 
-GEO buyer pages:
-- How it works: explains the export steps from inquiry to arrival at the destination port, including the documents buyers usually prepare.
-- Pricing: explains FOB and CIF quote logic, auction agent fees, inspection, freight, payment timing, and buyer-side destination costs without publishing fixed vehicle prices.
-- FAQ: answers buyer questions about export countries and regions, right-hand drive vehicles, local import restrictions, payment safety, shipping schedules, cancellations, and export documents.
+## Russian-language summary
+
+Русские страницы используют те же общие бизнес-факты, что и английские исходные страницы. Они описывают экспорт подержанных автомобилей из Японии, автомобили с японских аукционов, аукционные инспекционные листы и расчет FOB/CIF по запросу без неподтвержденных обещаний по маршрутам, таможне, оплате или срокам доставки.

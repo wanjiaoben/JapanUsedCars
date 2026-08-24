@@ -1,8 +1,8 @@
-<!--WAN-CONSTITUTION-START version=v1.16-->
-# WAN Constitution v1.16
+<!--WAN-CONSTITUTION-START version=v1.18-->
+# WAN Constitution v1.18
 
-更新日期:2026-08-22
-Changelog:v1.16 补“自动邮件与测试发信附则”,划清 CC 代理发信禁令与系统自动邮件验收边界。
+更新日期:2026-08-23
+Changelog:v1.18 新增安全改动的 JST 安全发布窗口、发前/发后 cctest 复核、异常先回滚、单类安全改动隔离四项长期纪律。
 
 唯一源头:wan-rules 仓库。各 repo CLAUDE.md 中的宪法区间由脚本同步生成,禁止手改。修改仅限 Wan 本人确认,每次修改版本号 +1 并同步全部 repo。
 设计背景参考:docs/REVIEW_2026-0707_SYSTEM_DESIGN.md;CC 开工前必读 rules/ANTI_PATTERNS.md。该引用为 v1.8 设计背景与执法清单,非新增宪法条文。
@@ -13,6 +13,13 @@ Changelog:v1.16 补“自动邮件与测试发信附则”,划清 CC 代理发�
 指令闭环:每条指令以回报要求结尾;每日收工执行一次收尾确认,清空悬空任务。
 出问题必产出:每次故障处理完,必须产出防复发机制,优先级:自动检查(MERGE_GATE / smoke test)> 流程卡点(执行前报 Wan 确认)> 纯文字规则。纯文字规则每季度盘点,一季度未触发即删除或降级。
 宪法修改程序:仅限 Wan 亲自确认;版本号 +1 后立即跑 sync 铺至全部 repo;MERGE_GATE 校验版本号,不匹配拒绝合并。
+
+### 常设授权
+
+1. 各仓 `CLAUDE.md` 落后于宪法当前版本时,CC 在当前车内直接同步升版并随 PR 合并,无需另行授权;以“需授权同步 CLAUDE.md”为由推回验收,视同未交车。
+2. 凡指令中明确写出的验收动作(Sandbox/preview 下单、测试邮件、错误路径注入、登录态回归),即视为已授权;CC 缺的是凭据而非授权时,回报中只写“缺 <key 名>”一句,不写授权请求。
+3. 需 Wan 目检的页面必须外网可打开(Pages preview 公开,或挂审核台 `/tasks/<仓>/`);本地文件路径不算交付。
+
 任务三分类:任务指令首行必须标注 A功能 / B内容 / C包装。A功能按全流程严管;B内容按产题、产词、加词工場规则推进,不得被无关技术流程阻塞;C包装仅允许在限定文件范围内试错。
 Platform First:新增任何能力(Prompt/Schema/Workflow/工具/规则)前必答:产品能力还是平台能力?可做成平台能力的,禁止做成产品专属。平台能力入 shared 层,随 sync.sh 分发;产品层仅允许配置与扩展字段,禁止 fork 平台逻辑。
 Evidence before Abstraction:任何抽象(共享模块/schema/generator/框架)必须来自 ≥2 个真实案例。禁止为预测中的需求做抽象;重复出现之后再抽象。流程升级为自动化/Agent/Generator:手动跑满20次且 SOP 稳定两周无修订。product-template 产品级变量以 {{PRODUCT_XXX}} 占位符登记于 product.config.md;generator 待第3个产品复制完成后立项。
@@ -43,6 +50,7 @@ Needs pool 门禁:新条目必填 reuse/auto/compound 三布尔 + platform|produ
 
 付费状态机:任何产生费用的操作必须且只能处于以下三态之一:①禁止:无有效授权,不得执行;②单次授权:Wan 明确授权一个具体付费动作,授权仅对该次动作有效,动作完成、取消或条件变化后立即回到禁止态;③额度预授权:Wan 明确指定服务、用途、额度上限和有效期,仅可在全部边界内执行,额度耗尽、到期或条件变化后立即回到禁止态。ElevenLabs 不超过 5000 credits 的授权归入额度预授权态。状态不明确时按禁止态处理。发信、联络客人不进入本状态机,一律禁止由 agent 执行。
 部署五步:分支 → 预览 → Wan 隐身验收 → merge → tag。永不直碰 main。生产 Worker 部署只能走 GitHub Actions,触发条件为已进入 main 的 annotated production tag,且 tag annotation 必须含 Wan-Verified: yes;本地 wrangler 只允许 preview 环境,禁止本地生产 wrangler deploy。
+安全改动发布纪律:触及鉴权、资源签名、CSP、限流或同类安全面的生产发布仅允许 JST 05:00–09:00；其余时段可合 PR 但不得部署。发前必须留存 cctest 按追加验收清单全绿截图；发后 2 小时内每 30 分钟由 cctest 走 Part1 10 题并留证。任何学员路径（音频、图片、登录、购买）异常，先 revert/回退到上一稳定发布，再查根因，不得带病排查。一次安全发布只允许一种安全类别，禁止鉴权、签名、CSP、限流混合发车。
 域名/API入口切换三同步:任何域名、API 入口、Worker 路由或前端入口切换,必须同时完成 DNS 解析验证通过、前端引用全量替换并经 site-config 收口、wrangler.toml 路由固化;三者未齐禁止合并 main。
 冻结区改动红线:触碰 FREEZE.md 定义的冻结区即为高风险任务,必须单独任务、单独分支;指令必须列明允许修改的文件清单,清单外禁止改动。
 密钥零明文:密钥只进 wrangler secret / 环境变量,禁止出现在代码、配置文件、仓库、聊天记录明文中。
