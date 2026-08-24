@@ -34,7 +34,6 @@ const replacements = [
   ['home.hero.kicker', 'Okinawa, Japan · Est. 2024', 'Окинава, Япония · с 2024 года'],
   ['home.hero.title1', 'Okinawa Used Cars', 'Подержанные автомобили из Окинавы'],
   ['home.hero.title2', 'Japan Used Car Export', 'Экспорт подержанных автомобилей из Японии'],
-  ['home.hero.title3', 'Okinawa', 'Окинава'],
   ['home.hero.desc', 'Right-hand drive Japanese used cars for export worldwide or local purchase in Okinawa, with documentation and shipping coordination.', 'Праворульные подержанные автомобили из Японии для экспортных запросов по миру или местной покупки в Окинаве, с документами и координацией отправки.'],
   ['home.hero.cta1', 'Inquire Now', 'Отправить запрос'],
   ['home.hero.cta2', 'Browse Vehicles', 'Смотреть автомобили'],
@@ -42,7 +41,7 @@ const replacements = [
   ['home.stats.regions', 'Countries & regions exported', 'стран и регионов экспорта'],
   ['home.stats.inspected', 'Inspected', 'проверено'],
   ['home.why.kicker', 'Why Buy from Japan', 'Почему покупают из Японии'],
-  ['home.why.title.a', 'The', 'Преимущество'],
+  ['home.why.title.full', '<h2 class="section-title">The <em>Japanese advantage</em> in every vehicle</h2>', '<h2 class="section-title">Преимущество <em>японских автомобилей</em> в каждой машине</h2>'],
   ['home.why.title.b', 'Japanese advantage', 'японских автомобилей'],
   ['home.why.title.c', 'in every vehicle', 'в каждой машине'],
   ['home.why.inspection.title', 'Strict Vehicle Inspection', 'Строгая проверка автомобилей'],
@@ -163,6 +162,11 @@ const replacements = [
   ['geo.how.step6.title', 'Arrival and local import', 'Прибытие и местный импорт'],
   ['geo.how.step6.text', 'The buyer or destination agent uses the export documents for customs clearance, taxes, inspection, registration, and any local roadworthiness requirements.', 'Покупатель или агент в стране назначения использует экспортные документы для таможни, налогов, проверки, регистрации и местных требований к пригодности к эксплуатации.'],
   ['geo.how.docs.title', 'Documents buyers usually prepare', 'Документы, которые обычно готовит покупатель'],
+  ['geo.how.docs.buyerName', 'Full buyer or company name matching destination import records.', 'Полное имя покупателя или название компании, совпадающее с импортными записями в стране назначения.'],
+  ['geo.how.docs.destination', 'Destination country or region, destination port, and consignee information.', 'Страна или регион назначения, порт назначения и данные получателя.'],
+  ['geo.how.docs.eligibility', 'Local import eligibility confirmation for vehicle age, steering side, emissions, inspection, and registration rules.', 'Подтверждение местной допустимости по возрасту автомобиля, стороне руля, выбросам, проверке и правилам регистрации.'],
+  ['geo.how.docs.payment', 'Payment sender details and bank remittance reference when payment is made.', 'Данные отправителя платежа и банковская ссылка перевода после оплаты.'],
+  ['geo.how.docs.broker', 'Destination customs broker or clearing agent contact, if required by your country or region.', 'Контакт таможенного брокера или агента по оформлению в стране назначения, если это требуется местными правилами.'],
   ['pricing.kicker', 'Pricing basis', 'Основа цены'],
   ['pricing.title.a', 'Japan used car export pricing', 'Расчет экспорта автомобиля из Японии'],
   ['pricing.title.b', 'without fixed car prices', 'без фиксированных цен на автомобили'],
@@ -173,16 +177,54 @@ const replacements = [
   ['pricing.cif.text', 'CIF starts with FOB and adds ocean freight plus marine insurance to the named destination port when that route can be quoted.', 'CIF начинается с FOB и добавляет морской фрахт и морское страхование до указанного порта назначения, если такой маршрут можно рассчитать.'],
   ['pricing.estimate.title', 'How the estimate is calculated', 'Как рассчитывается смета'],
   ['pricing.vehicleBasis', 'Vehicle basis', 'Основа стоимости автомобиля'],
+  ['pricing.vehicleBasis.text', 'Current stock asking basis or auction winning bid estimate, depending on where the vehicle is sourced.', 'Запрашиваемая основа по текущему складу или оценка выигрышной ставки на аукционе, в зависимости от источника автомобиля.'],
   ['pricing.auctionFee', 'Auction agent fee', 'Агентская плата аукциона'],
+  ['pricing.auctionFee.text', 'The agreed fee for auction search, bidding support, purchase coordination, and buyer communication when the car is not already in stock.', 'Согласованная плата за поиск на аукционе, поддержку ставок, координацию покупки и коммуникацию с покупателем, если автомобиль еще не находится на складе.'],
   ['pricing.inspection', 'Inspection and disclosure', 'Проверка и раскрытие информации'],
+  ['pricing.inspection.text', 'Auction inspection sheet review is part of the purchase decision. Extra third-party checks, if requested and available, are quoted separately.', 'Разбор аукционного инспекционного листа входит в процесс принятия решения о покупке. Дополнительные сторонние проверки, если они запрошены и доступны, рассчитываются отдельно.'],
   ['pricing.exportHandling', 'Japan-side export handling', 'Экспортное оформление в Японии'],
+  ['pricing.exportHandling.text', 'Deregistration, export certificate preparation, port-side handling, and document coordination.', 'Снятие с регистрации, подготовка экспортного сертификата, портовая обработка и координация документов.'],
   ['pricing.freight', 'Freight and insurance', 'Фрахт и страхование'],
+  ['pricing.freight.text', 'Added for CIF quotes. The figure changes by destination port, vessel schedule, vehicle size, and route availability.', 'Добавляется в расчеты CIF. Сумма меняется в зависимости от порта назначения, расписания судов, размера автомобиля и доступности маршрута.'],
   ['pricing.destinationCosts', 'Destination costs', 'Расходы в стране назначения'],
+  ['pricing.destinationCosts.text', 'Import duty, VAT or GST, customs broker fees, destination port charges, inspection, registration, local compliance, and inland delivery are normally buyer-side costs.', 'Импортная пошлина, VAT или GST, услуги таможенного брокера, сборы порта назначения, проверка, регистрация, местное соответствие и внутренняя доставка обычно относятся к расходам покупателя.'],
   ['pricing.payment.title', 'Payment method and timing', 'Способ и сроки оплаты'],
+  ['pricing.payment.line1', 'We confirm the payment schedule before purchase commitment.', 'Мы подтверждаем график оплаты до обязательства покупки.'],
+  ['pricing.payment.line2', 'Auction purchases usually require a deposit before bidding and balance payment after successful purchase.', 'Аукционные покупки обычно требуют депозит до ставки и оплату остатка после успешной покупки.'],
+  ['pricing.payment.line3', 'Stock purchases usually follow the agreed invoice and reservation timing.', 'Покупки со склада обычно следуют согласованному счету и срокам резервирования.'],
+  ['pricing.payment.line4', 'Bank transfer details are provided only through direct communication for a specific invoice.', 'Банковские реквизиты предоставляются только в прямой переписке по конкретному счету.'],
+  ['pricing.payment.line5', 'Never send payment to an account that was not confirmed through our official WhatsApp or info@nice.okinawa email thread.', 'Никогда не отправляйте платеж на счет, который не был подтвержден через наш официальный WhatsApp или переписку с info@nice.okinawa.'],
+  ['pricing.faq.fixed.q', 'Do you publish fixed vehicle prices?', 'Публикуете ли вы фиксированные цены на автомобили?'],
+  ['pricing.faq.fixed.a', 'No. Vehicle pricing is quoted per inquiry because stock condition, auction result, destination port, freight route, and exchange-rate timing can change the final figure.', 'Нет. Цена автомобиля рассчитывается по запросу, потому что состояние складского автомобиля, результат аукциона, порт назначения, маршрут фрахта и момент обменного курса могут изменить итоговую сумму.'],
+  ['pricing.faq.fob.q', 'What does FOB usually include?', 'Что обычно входит в FOB?'],
+  ['pricing.faq.fob.a', 'FOB usually includes the vehicle cost basis, agreed service or auction agent fee, Japan-side export handling, deregistration and export document preparation, and handover for shipping from Japan.', 'FOB обычно включает основу стоимости автомобиля, согласованную сервисную или агентскую плату, экспортное оформление в Японии, снятие с регистрации, подготовку экспортных документов и передачу для отправки из Японии.'],
+  ['pricing.faq.cif.q', 'What does CIF usually add?', 'Что обычно добавляет CIF?'],
+  ['pricing.faq.cif.a', 'CIF adds ocean freight and marine insurance to the named destination port when we can quote that route. Destination customs, duties, taxes, port charges, local inspection, registration, and inland transport are not included unless explicitly stated.', 'CIF добавляет морской фрахт и морское страхование до указанного порта назначения, когда мы можем рассчитать этот маршрут. Таможня, пошлины, налоги, портовые сборы, местная проверка, регистрация и внутренняя перевозка в стране назначения не включены, если это не указано отдельно.'],
+  ['pricing.cta.quote', 'Ask for a quote', 'Запросить расчет'],
   ['faqPage.kicker', 'Buyer questions', 'Вопросы покупателей'],
   ['faqPage.title.a', 'Japan used car export', 'Экспорт подержанных автомобилей из Японии'],
   ['faqPage.title.b', 'FAQ', 'FAQ'],
-  ['faqPage.intro', 'These answers explain the buying and export basis before you choose a vehicle. Destination import rules vary, so buyers should confirm local eligibility before purchase commitment.', 'Эти ответы объясняют основу покупки и экспорта до выбора автомобиля. Правила импорта различаются, поэтому покупателю нужно подтвердить местную допустимость до обязательства покупки.']
+  ['faqPage.intro', 'These answers explain the buying and export basis before you choose a vehicle. Destination import rules vary, so buyers should confirm local eligibility before purchase commitment.', 'Эти ответы объясняют основу покупки и экспорта до выбора автомобиля. Правила импорта различаются, поэтому покупателю нужно подтвердить местную допустимость до обязательства покупки.'],
+  ['faqPage.exportCountries.q', 'Which countries and regions can you export to?', 'В какие страны и регионы возможен экспорт?'],
+  ['faqPage.exportCountries.a', 'We handle inquiries from Asia, Oceania, the Middle East, Africa, Europe, the Americas, and other countries or regions. Export availability depends on destination port access, vessel schedules, local import rules, and the vehicle itself.', 'Мы рассматриваем запросы из Азии, Океании, Ближнего Востока, Африки, Европы, Америки и других стран или регионов. Доступность экспорта зависит от доступа к порту назначения, расписания судов, местных правил импорта и самого автомобиля.'],
+  ['faqPage.rhd.q', 'Are Japanese used cars right-hand drive?', 'Подержанные автомобили из Японии праворульные?'],
+  ['faqPage.rhd.a', 'Most Japanese domestic vehicles are right-hand drive. Buyers should confirm that right-hand drive registration is allowed in their destination country or region before purchase.', 'Большинство автомобилей внутреннего японского рынка праворульные. Покупателю следует подтвердить, что регистрация праворульного автомобиля разрешена в стране или регионе назначения до покупки.'],
+  ['faqPage.lhd.q', 'Can you export left-hand drive vehicles?', 'Можете ли вы экспортировать леворульные автомобили?'],
+  ['faqPage.lhd.a', 'Left-hand drive vehicles are uncommon in Japanese domestic stock. If you specifically need left-hand drive, tell us before the search begins so we can check whether suitable inventory exists.', 'Леворульные автомобили редко встречаются в японском внутреннем наличии. Если вам нужен именно левый руль, сообщите об этом до начала поиска, чтобы мы проверили наличие подходящих вариантов.'],
+  ['faqPage.ageMileage.q', 'Do destination countries have year or mileage restrictions?', 'Есть ли в странах назначения ограничения по году или пробегу?'],
+  ['faqPage.ageMileage.a', 'Many destinations have vehicle age, mileage, emissions, inspection, or steering-side rules. The buyer is responsible for confirming local import eligibility before purchase commitment.', 'Во многих направлениях действуют правила по возрасту автомобиля, пробегу, выбросам, проверке или стороне руля. Покупатель отвечает за подтверждение местной импортной допустимости до обязательства покупки.'],
+  ['faqPage.auctionSheet.q', 'Do you provide the auction inspection sheet?', 'Предоставляете ли вы аукционный инспекционный лист?'],
+  ['faqPage.auctionSheet.a', 'Yes. Vehicles sourced through Japanese auction houses come with an independent auction inspection sheet. Ask for it on any vehicle you are considering before you decide.', 'Да. Автомобили, подобранные через японские аукционные дома, имеют независимый аукционный инспекционный лист. Запросите его по любому автомобилю, который рассматриваете, до принятия решения.'],
+  ['faqPage.paymentSafe.q', 'Is payment safe?', 'Безопасна ли оплата?'],
+  ['faqPage.paymentSafe.a', 'Payment instructions are provided only for a specific invoice through our official WhatsApp or info@nice.okinawa email thread. Do not send money to account details that were not confirmed through those official channels.', 'Платежные инструкции предоставляются только по конкретному счету через наш официальный WhatsApp или переписку с info@nice.okinawa. Не отправляйте деньги на реквизиты, которые не были подтверждены через эти официальные каналы.'],
+  ['faqPage.whenPay.q', 'When do I pay?', 'Когда нужно платить?'],
+  ['faqPage.whenPay.a', 'Payment timing depends on whether the vehicle is current stock or an auction purchase. We confirm deposit, balance, and document release timing before purchase commitment.', 'Срок оплаты зависит от того, находится ли автомобиль на складе или покупается на аукционе. Мы подтверждаем депозит, оплату остатка и сроки выдачи документов до обязательства покупки.'],
+  ['faqPage.shippingTime.q', 'How long does shipping take?', 'Сколько занимает отправка?'],
+  ['faqPage.shippingTime.a', 'Shipping time depends on the destination port, vessel schedule, transshipment route, and port handling. We quote and discuss timing per inquiry rather than publish a fixed schedule.', 'Срок отправки зависит от порта назначения, расписания судов, маршрута с перегрузкой и обработки в порту. Мы рассчитываем и обсуждаем сроки по каждому запросу, а не публикуем фиксированный график.'],
+  ['faqPage.cancel.q', 'Can I cancel after committing to a vehicle?', 'Можно ли отменить покупку после подтверждения автомобиля?'],
+  ['faqPage.cancel.a', 'Cancellation terms depend on the purchase stage. Auction bids and confirmed purchases may create costs that cannot be reversed. We explain the commitment point before bidding or purchase.', 'Условия отмены зависят от стадии покупки. Аукционные ставки и подтвержденные покупки могут создавать расходы, которые нельзя отменить. Мы объясняем момент обязательства до ставки или покупки.'],
+  ['faqPage.documents.q', 'What documents are provided for export?', 'Какие документы предоставляются для экспорта?'],
+  ['faqPage.documents.a', 'For export vehicles, we prepare Japanese deregistration and export certificate documents. Destination customs, tax, inspection, registration, and local compliance documents are handled by the buyer or destination agent under local rules.', 'Для экспортных автомобилей мы готовим японские документы о снятии с регистрации и экспортный сертификат. Таможня, налоги, проверка, регистрация и документы местного соответствия в стране назначения оформляются покупателем или агентом назначения по местным правилам.']
 ];
 
 const extraRu = new Map(replacements.map(([, en, ru]) => [en, ru]));
@@ -287,13 +329,59 @@ function translateOptions(html) {
   return out;
 }
 
+function countOccurrences(haystack, needle) {
+  if (!needle) return 0;
+  let count = 0;
+  let index = 0;
+  while ((index = haystack.indexOf(needle, index)) !== -1) {
+    count += 1;
+    index += needle.length;
+  }
+  return count;
+}
+
+function applyControlledTranslations(html) {
+  const scripts = [];
+  let out = html.replace(/<script[\s\S]*?<\/script>/g, (script) => {
+    const token = `__JUC_SCRIPT_${scripts.length}__`;
+    scripts.push(script);
+    return token;
+  });
+  for (const [key, en, ru] of replacements.sort((a, b) => b[1].length - a[1].length)) {
+    if (en === ru) continue;
+    if (en === 'The' || en === 'Okinawa' || en === 'Auto') {
+      throw new Error(`unsafe generic translation key: ${key}`);
+    }
+    if (en.length < 4 && !en.includes('<')) {
+      throw new Error(`unsafe short translation key: ${key}`);
+    }
+    const found = countOccurrences(out, en);
+    if (found === 0) continue;
+    out = out.replaceAll(en, ru);
+  }
+  return out.replace(/__JUC_SCRIPT_(\d+)__/g, (_match, index) => scripts[Number(index)]);
+}
+
+function translateScriptStrings(html) {
+  const scriptStrings = [
+    ['Sending your inquiry...', 'Отправляем запрос...'],
+    ['Thank you! We received your inquiry and will reply within 24 hours.', 'Спасибо! Мы получили ваш запрос и ответим в течение 24 часов.'],
+    ['Please enter your email. If this keeps failing, email info@nice.okinawa or use WhatsApp.', 'Введите email. Если ошибка повторится, напишите на info@nice.okinawa или используйте WhatsApp.'],
+    ['Please complete the security check. If this keeps failing, email info@nice.okinawa or use WhatsApp.', 'Пройдите проверку безопасности. Если ошибка повторится, напишите на info@nice.okinawa или используйте WhatsApp.'],
+    ['Could not send. Please email info@nice.okinawa or use WhatsApp instead.', 'Не удалось отправить. Напишите на info@nice.okinawa или используйте WhatsApp.']
+  ];
+  let out = html;
+  for (const [en, ru] of scriptStrings) out = out.replaceAll(en, ru);
+  return out;
+}
+
 function translatePage(html, page) {
   let out = html.replace('<html lang="en">', '<html lang="ru">');
   out = injectHead(out, page, 'ru');
   out = injectLanguageSwitch(out, page, 'ru');
   out = translateJsonLd(out, 'ru');
-  const sorted = [...replacements].sort((a, b) => b[1].length - a[1].length);
-  for (const [, en, ru] of sorted) out = out.replaceAll(en, ru);
+  out = applyControlledTranslations(out);
+  out = translateScriptStrings(out);
   out = translateOptions(out);
   out = out
     .replaceAll('value="Экспорт в мою страну или регион"', 'value="Export to my country / region"')
@@ -302,12 +390,6 @@ function translatePage(html, page) {
     .replaceAll('<option>Экспорт в мою страну или регион</option>', '<option value="Export to my country / region">Экспорт в мою страну или регион</option>')
     .replaceAll('<option>Покупка в Окинаве</option>', '<option value="Local purchase in Okinawa">Покупка в Окинаве</option>')
     .replaceAll('<option>Пока смотрю и проверяю цену</option>', '<option value="Just browsing / price check">Пока смотрю и проверяю цену</option>');
-  out = out
-    .replaceAll('inquiryСообщение', 'inquiryMessage')
-    .replaceAll('setЗапросStatus', 'setInquiryStatus')
-    .replaceAll('buildЗапросPayload', 'buildInquiryPayload')
-    .replaceAll('queryВыберитеor', 'querySelector')
-    .replaceAll('missingКонтакты', 'missingContact');
   out = localizeLinks(out, page);
   out = out.replaceAll("language: document.documentElement.lang || 'en'", "language: document.documentElement.lang || 'ru'");
   out = out.replaceAll('japanusedcars.nice.okinawa/ · v2026.06.14', 'japanusedcars.nice.okinawa/ru/ · v2026.06.14');

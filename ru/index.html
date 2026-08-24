@@ -19,7 +19,7 @@
 
   <!-- Geo tags for local SEO -->
   <meta name="geo.region" content="JP-47">
-  <meta name="geo.placename" content="Окинава, Japan">
+  <meta name="geo.placename" content="Okinawa, Japan">
   <meta name="geo.position" content="26.2124;127.6809">
   <meta name="ICBM" content="26.2124, 127.6809">
 
@@ -29,11 +29,11 @@
     "@context": "https://schema.org",
     "@type": "AutoDealer",
     "name": "OKINAWA AUTO",
-    "description": "Japanese used car dealer in Окинава specializing in export and local sales",
+    "description": "Japanese used car dealer in Okinawa specializing in export and local sales",
     "url": "https://japanusedcars.nice.okinawa/ru",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Окинава",
+      "addressLocality": "Okinawa",
       "addressCountry": "JP"
     },
     "areaServed": [
@@ -47,7 +47,7 @@
       "US"
     ],
     "contactPoint": {
-      "@type": "КонтактыPoint",
+      "@type": "ContactPoint",
       "contactType": "sales",
       "email": "info@nice.okinawa"
     },
@@ -593,7 +593,7 @@
   <h1>
     Подержанные автомобили из Окинавы<br>
     <em>Экспорт подержанных автомобилей из Японии</em><br>
-    Окинава
+    Okinawa
   </h1>
   <p class="hero-sub">
     Праворульные подержанные автомобили из Японии для экспортных запросов по миру или местной покупки в Окинаве, с документами и координацией отправки.
@@ -682,7 +682,7 @@
       <h3>Поддержка покупки автомобиля в Окинаве</h3>
       <p>Жители и долгосрочные посетители Окинавы могут запросить поддержку покупки автомобиля с нашей площадки. Мы помогаем с иностранными водительскими правами, местной регистрацией и можем направить по вопросам страховки.</p>
       <div class="service-tags">
-        <span class="tag">Окинава Local</span>
+        <span class="tag">Okinawa Local</span>
         <span class="tag">English Support</span>
         <span class="tag">Registration Help</span>
         <span class="tag">Покупка на аукционе</span>
@@ -882,11 +882,11 @@
             <div class="contact-value">+81 70-8952-3968</div>
           </div>
         </a>
-        <a href="weixin://dl/chat?ОкинаваOnline" class="contact-method">
+        <a href="weixin://dl/chat?OkinawaOnline" class="contact-method">
           <div class="contact-icon">💚</div>
           <div>
             <div class="contact-label">WeChat ID</div>
-            <div class="contact-value">ОкинаваOnline</div>
+            <div class="contact-value">OkinawaOnline</div>
           </div>
         </a>
         <a href="mailto:info@nice.okinawa" class="contact-method">
@@ -912,7 +912,7 @@
             <label for="country">Страна или регион</label>
             <select id="country">
               <option value="">Выберите страну или регион</option>
-              <option value="Japan (Окинава Local)">Japan (Окинава local)</option>
+              <option value="Japan (Okinawa Local)">Япония (местно в Окинаве)</option>
               <optgroup label="Asia">
                 <option value="China">Китай</option>
                 <option value="Taiwan">Тайвань</option>
@@ -1057,7 +1057,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">OKINAWA AUTO</div>
-  <div class="footer-text">© 2024 Окинава Auto · japanusedcars.nice.okinawa · Окинава, Japan</div>
+  <div class="footer-text">© 2024 Okinawa Auto · japanusedcars.nice.okinawa · Okinawa, Japan</div>
   <div class="footer-links">
     <a href="#services">Услуги</a>
     <a href="#vehicles">Автомобили</a>
@@ -1120,10 +1120,10 @@
       contact: email,
       remarks: [
         name ? `Name: ${name}` : '',
-        country ? `Страна или регион: ${country}` : '',
-        purpose ? `Цель: ${purpose}` : '',
+        country ? `Country / region: ${country}` : '',
+        purpose ? `Purpose: ${purpose}` : '',
         interest ? `Vehicle interest: ${interest}` : '',
-        message ? `Сообщение: ${message}` : ''
+        message ? `Message: ${message}` : ''
       ].filter(Boolean).join('\n'),
       language: document.documentElement.lang || 'ru',
       turnstileToken

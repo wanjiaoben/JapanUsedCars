@@ -14,6 +14,11 @@ const pages = [
   ['faq', 'faq/index.html', 'src/templates/faq.html', 'ru/faq/index.html', '/faq/', '/ru/faq/']
 ];
 
+const buildSource = read('scripts/build-i18n.mjs');
+assert(!/\[\s*'[^']+'\s*,\s*'The'\s*,/.test(buildSource), 'unsafe standalone The translation rule found');
+assert(!/\[\s*'[^']+'\s*,\s*'Okinawa'\s*,/.test(buildSource), 'unsafe standalone Okinawa translation rule found');
+assert(!/\[\s*'[^']+'\s*,\s*'Auto'\s*,/.test(buildSource), 'unsafe standalone Auto translation rule found');
+
 function read(file) {
   return fs.readFileSync(path.join(root, file), 'utf8');
 }
@@ -133,6 +138,7 @@ for (const [id, enFile, templateFile, ruFile, enPath, ruPath] of pages) {
     assert(ru.includes("sourceSite: 'japanusedcars.nice.okinawa'"), 'sourceSite payload changed');
     assert(ru.includes('if (!response.ok || !result.ok)'), 'success condition changed');
     assert(ru.includes('https://analytics.nice.okinawa/beacon.js'), 'first-party beacon missing');
+    assert(ru.includes('OkinawaOnline'), 'WeChat ID changed in Russian home');
   }
   const faqLd = blocks.find((block) => block['@type'] === 'FAQPage');
   if (faqLd) {
@@ -149,6 +155,14 @@ for (const [id, enFile, templateFile, ruFile, enPath, ruPath] of pages) {
 
 const robots = read('robots.txt');
 assert.equal(sha(robots), sha(origin('robots.txt')), 'robots.txt modified');
+const allRu = pages.map(([, , , ruFile]) => read(ruFile)).join('\n');
+assert(!allRu.includes('Окинава Auto'), 'Okinawa Auto was translated');
+assert(!allRu.includes('ОкинаваOnline'), 'OkinawaOnline was translated');
+assert(!allRu.includes('Преимущество agreed fee'), 'unsafe The replacement polluted pricing copy');
+assert(!allRu.includes('Which countries and regions can you export to?'), 'FAQ English question leaked');
+assert(!allRu.includes('Do you publish fixed vehicle prices?'), 'pricing English FAQ leaked');
+assert(!allRu.includes('Full buyer or company name matching destination import records.'), 'how-it-works English document list leaked');
+assert(!allRu.includes('Auction inspection sheet review is part of the purchase decision.'), 'pricing English paragraph leaked');
 const sitemap = read('sitemap.xml');
 for (const [, , , , enPath, ruPath] of pages) {
   assert(sitemap.includes(`${baseUrl}${enPath}`), `sitemap missing ${enPath}`);
