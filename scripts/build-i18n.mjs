@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import en from '../i18n/locales/en.mjs';
-import ru from '../i18n/locales/ru.mjs';
 import facts from '../i18n/facts.mjs';
 import registry from '../i18n/registry.mjs';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const locales = { en, ru };
+const locales = Object.fromEntries(await Promise.all(Object.keys(registry.locales).map(async (locale) => {
+  const mod = await import(`../i18n/locales/${locale}.mjs`);
+  return [locale, mod.default];
+})));
 const tokenPattern = /{{(text|attr|json|js|fact|factAttr|factJson|factJs|options):([A-Za-z0-9_.-]+)}}/g;
 const vehicleTokenPattern = /{{vehicles}}/g;
 
@@ -152,23 +153,34 @@ function injectLocale(html, locale) {
 }
 function localizeLinks(html, locale) {
   if (locale === registry.sourceLocale) return html;
-  return html
-    .replace(/href="\/how-it-works\/"/g, 'href="/ru/how-it-works/"')
-    .replace(/href="\/pricing\/"/g, 'href="/ru/pricing/"')
-    .replace(/href="\/faq\/"/g, 'href="/ru/faq/"')
-    .replace(/href="\/"/g, 'href="/ru/"');
+  let output = html;
+  const sourceLocale = registry.sourceLocale;
+  const pagesBySourcePath = [...registry.pages].sort((a, b) => b.urlPath[sourceLocale].length - a.urlPath[sourceLocale].length);
+  for (const registeredPage of pagesBySourcePath) {
+    const sourcePath = registeredPage.urlPath[sourceLocale];
+    const localePath = registeredPage.urlPath[locale];
+    output = output.replaceAll(`href="${sourcePath}"`, `href="${localePath}"`);
+    output = output.replaceAll(`href="${sourcePath}#`, `href="${localePath}#`);
+  }
+  return output;
 }
 function injectLanguageSwitch(html, locale, page) {
-  const enHref = page.urlPath.en;
-  const ruHref = page.urlPath.ru;
   const label = escapeAttr(requireLocale(locale, 'languageSwitch.aria'));
-  const enControl = locale === 'en' ? '<span class="active" aria-current="page">EN</span>' : `<a href="${enHref}" lang="en">EN</a>`;
-  const ruControl = locale === 'ru' ? '<span class="active" aria-current="page">RU</span>' : `<a href="${ruHref}" lang="ru">RU</a>`;
-  const markup = `<span class="locale-switch" aria-label="${label}">${enControl}<span aria-hidden="true">/</span>${ruControl}</span>`;
+  const controls = Object.entries(registry.locales).map(([code, localeInfo]) => {
+    const labelText = escapeHtml(localeInfo.label);
+    return code === locale
+      ? `<span class="active" aria-current="page">${labelText}</span>`
+      : `<a href="${escapeAttr(page.urlPath[code])}">${labelText}</a>`;
+  });
+  const markup = `<span class="locale-switch" aria-label="${label}">${controls.join('<span aria-hidden="true">/</span>')}</span>`;
   if (html.includes('class="locale-switch"')) {
-    return html.replace(/<span class="locale-switch"[^>]*>(?:<a[^>]*>EN<\/a>|<span[^>]*>EN<\/span>)<span aria-hidden="true">\/<\/span>(?:<a[^>]*>RU<\/a>|<span[^>]*>RU<\/span>)<\/span>/, markup);
+    return html.replace(/<span class="locale-switch"[^\n]*<\/span>/, markup);
   }
   return html.replace(/(<nav class="nav-links"[\s\S]*?<\/nav>)/, `$1\n        ${markup}`);
+}
+function injectFooterUrl(html, locale, page) {
+  const marker = `${facts.site.host}${page.urlPath[locale]} · v2026.06.14`;
+  return html.replace(new RegExp(`${facts.site.host.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^<]*· v2026\\.06\\.14`), marker);
 }
 function renderPage(page, locale) {
   let html = read(`src/templates/${page.template}`);
@@ -180,6 +192,7 @@ function renderPage(page, locale) {
   html = injectJsonLdLocale(html, locale, page);
   html = localizeLinks(html, locale);
   html = injectLanguageSwitch(html, locale, page);
+  html = injectFooterUrl(html, locale, page);
   write(page.output[locale], html);
 }
 function renderSitemap() {

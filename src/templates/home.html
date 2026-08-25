@@ -810,7 +810,7 @@
         <a href="weixin://dl/chat?{{fact:brand.network}}" class="contact-method">
           <div class="contact-icon">💚</div>
           <div>
-            <div class="contact-label">WeChat ID</div>
+            <div class="contact-label">{{text:contact.wechat.label}}</div>
             <div class="contact-value">{{fact:brand.network}}</div>
           </div>
         </a>
@@ -831,7 +831,7 @@
         <div class="form-row">
           <div class="field">
             <label for="name">{{text:form.name}}</label>
-            <input type="text" id="name" placeholder="John Smith">
+            <input type="text" id="name" placeholder="{{attr:form.name.placeholder}}">
           </div>
           <div class="field">
             <label for="country">{{text:form.country}}</label>
@@ -843,7 +843,7 @@
         <div class="form-row">
           <div class="field">
             <label for="email">{{text:form.email}}</label>
-            <input type="email" id="email" placeholder="you@email.com">
+            <input type="email" id="email" placeholder="{{attr:form.email.placeholder}}">
           </div>
           <div class="field">
             <label for="purpose">{{text:form.purpose}}</label>

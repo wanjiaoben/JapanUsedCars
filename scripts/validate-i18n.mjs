@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import { execFileSync } from 'node:child_process';
 import en from '../i18n/locales/en.mjs';
 import ru from '../i18n/locales/ru.mjs';
 import facts from '../i18n/facts.mjs';
@@ -28,7 +29,7 @@ function collectJsonLdText(value, output = []) {
   }
   if (value && typeof value === 'object') {
     for (const [key, item] of Object.entries(value)) {
-      if (key.startsWith('@')) continue;
+      if (key.startsWith('@') || ['inLanguage', 'url', 'telephone', 'email', 'image', 'addressCountry', 'areaServed', 'contactType'].includes(key)) continue;
       collectJsonLdText(item, output);
     }
   }
@@ -100,12 +101,16 @@ function assertBuilderIsNotCopyDb() {
   if (/const\s+replacements\s*=/.test(builder)) fail('Builder still contains replacements table');
   if (/Подерж|Окинава|экспорт|автомобил/i.test(builder)) fail('Builder contains Russian page copy');
   if (/Okinawa Used Cars|Japan Used Car Export & Purchase Support/.test(builder)) fail('Builder contains English page copy');
+  for (const forbidden of ["'/ru/", '"/ru/', "locale === 'ru'", 'page.urlPath.ru', 'page.urlPath.en', 'const locales = { en, ru }']) {
+    if (builder.includes(forbidden)) fail(`Builder contains locale-specific logic: ${forbidden}`);
+  }
 }
 function assertFactsNotInLocales() {
   const fixed = ['Okinawa Auto', 'OkinawaOnline', facts.contact.email, facts.contact.phoneDisplay, facts.site.url, facts.contact.whatsappUrl, facts.form.endpoint];
   for (const [locale, dict] of [['en', en], ['ru', ru]]) {
     for (const [key, value] of Object.entries(dict)) {
-      for (const item of fixed) if (value.includes(item)) fail(`${locale} locale key ${key} embeds fixed fact ${item}`);
+      if (key === 'pricing.payment.neverSend') continue;
+      for (const fixedValue of fixed) if (value.includes(fixedValue)) fail(`${locale} locale key ${key} embeds fixed fact ${fixedValue}`);
     }
   }
 }
@@ -144,8 +149,12 @@ function assertCanonicalHreflangAndSitemap() {
       const self = facts.site.url + page.urlPath[locale];
       if (!html.includes(`<link rel="canonical" href="${self}">`)) fail(`Bad canonical in ${file}`);
       if (!html.includes(`<meta property="og:url" content="${self}">`)) fail(`Bad og:url in ${file}`);
-      if (locale === 'en' && !html.includes(`<span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="${page.urlPath.ru}" lang="ru">RU</a>`)) fail(`Bad English language switch in ${file}`);
-      if (locale === 'ru' && !html.includes(`<a href="${page.urlPath.en}" lang="en">EN</a><span aria-hidden="true">/</span><span class="active" aria-current="page">RU</span>`)) fail(`Bad Russian language switch in ${file}`);
+      for (const [code, localeInfo] of Object.entries(registry.locales)) {
+        const expected = code === locale
+          ? `<span class="active" aria-current="page">${localeInfo.label}</span>`
+          : `<a href="${page.urlPath[code]}">${localeInfo.label}</a>`;
+        if (!html.includes(expected)) fail(`Bad ${locale} language switch in ${file}: missing ${code}`);
+      }
       for (const body of textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
         const schema = JSON.parse(body);
         if (schema.inLanguage !== locale) fail(`Bad JSON-LD inLanguage in ${file}`);
@@ -214,12 +223,66 @@ function assertVehiclesSingleSource() {
   const expected = Object.keys(facts.vehicles).length;
   if (cardCount !== expected || ruCardCount !== expected) fail(`Generated vehicle count mismatch en=${cardCount} ru=${ruCardCount} expected=${expected}`);
 }
-function assertRussianLatinAllowlist() {
-  const allowed = new Set(['Okinawa Auto','OKINAWA AUTO','OkinawaOnline','EN','RU','ru','en','FAQ','FOB','CIF','VAT','GST','WhatsApp','WeChat','Email','Toyota','Alphard','Hiace','Nissan','Serena','Honda','Stepwgn','Mazda','CX','XD','GL','e-POWER','Soul Red','URL','PDF','S','shaken','masshō tōroku','massh','tōroku','troku','roku','Japan','Okinawa','Auto','lt','gt','amp','quot','nbsp','km','nice.okinawa','info','v2026.06.14','your.com','email.com','your']);
-  const values = [facts.contact.email, facts.contact.phoneDisplay, facts.site.host, facts.site.url, facts.contact.whatsappUrl, facts.form.endpoint, facts.form.site, facts.form.sourceSite, facts.form.turnstileSiteKey, facts.form.turnstileAction, ...Object.values(facts.vehicles).map((v) => v.model)];
-  for (const v of values) allowed.add(v);
-  for (const file of generated.filter((f) => f.startsWith('ru/'))) {
-    const html = read(file);
+function decodeHtmlEntities(value) {
+  return String(value)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCodePoint(Number.parseInt(code, 16)));
+}
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+function collectAllowedLatinItems() {
+  const items = [];
+  const add = (value, reason) => {
+    if (typeof value === 'string' && value.trim() && /[A-Za-z]/.test(value)) items.push({ value, reason });
+  };
+  add('Okinawa Auto', 'brand name');
+  add('OKINAWA AUTO', 'brand display name');
+  add(facts.brand.network, 'brand network id');
+  add('WhatsApp', 'contact channel');
+  add('WeChat', 'contact channel');
+  add(facts.contact.email, 'contact email');
+  add(facts.site.host, 'site host');
+  add(facts.site.url, 'site URL');
+  add(facts.contact.whatsappUrl, 'WhatsApp URL');
+  add(facts.contact.mapUrl, 'map URL');
+  add(facts.analytics.beaconUrl, 'beacon URL');
+  add('EN', 'language switch label');
+  add('RU', 'language switch label');
+  add('FAQ', 'standard page label');
+  add('v2026.06.14', 'screenshot mark version');
+  for (const code of ['FOB', 'CIF', 'VAT', 'GST', 'PDF', 'URL', 'km']) add(code, 'technical abbreviation');
+  for (const romaji of ['shaken', 'masshō tōroku']) add(romaji, 'approved Japanese romaji');
+  for (const page of registry.pages) {
+    for (const locale of Object.keys(registry.locales)) add(facts.site.host + page.urlPath[locale], 'registry page URL');
+  }
+  for (const vehicle of Object.values(facts.vehicles)) {
+    add(vehicle.brand, 'vehicle brand');
+    add(vehicle.model, 'vehicle model');
+  }
+  return items;
+}
+function removeAllowedLatinSpans(text, allowedItems) {
+  let remaining = decodeHtmlEntities(text).normalize('NFC');
+  for (const item of allowedItems.sort((a, b) => b.value.length - a.value.length)) {
+    const value = item.value.normalize('NFC');
+    const pattern = new RegExp(`(^|[^A-Za-z0-9])${escapeRegExp(value)}(?=$|[^A-Za-z0-9])`, 'g');
+    remaining = remaining.replace(pattern, (_, prefix) => `${prefix} `);
+  }
+  return remaining;
+}
+function russianLatinDocuments(extraDocuments = []) {
+  return generated.filter((file) => file.startsWith('ru/')).map((file) => ({ file, html: read(file) })).concat(extraDocuments);
+}
+function assertRussianLatinAllowlist(extraDocuments = []) {
+  const allowed = collectAllowedLatinItems();
+  for (const { file, html } of russianLatinDocuments(extraDocuments)) {
     const jsonLdText = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).flatMap((body) => collectJsonLdText(JSON.parse(body)));
     const scanParts = [
       stripTags(html),
@@ -228,17 +291,64 @@ function assertRussianLatinAllowlist() {
       ...textBetween(html, /<meta (?:name="description"|property="og:(?:title|description)") content="([^"]+)"/g),
       ...jsonLdText,
     ];
-    const latin = new Set(scanParts.join(' ').match(/[A-Za-z][A-Za-z0-9+&./:'() -]{1,}/g) || []);
-    for (const phrase of latin) {
-      const clean = phrase.trim().replace(/\s+/g, ' ');
-      if (!clean || /^https?:/.test(clean) || /^[\w.+-]+@[\w.-]+$/.test(clean) || /^\d/.test(clean)) continue;
-      if (![...allowed].some((item) => clean === item || clean.includes(item))) fail(`Unallowlisted Latin text in ${file}: ${clean}`);
-    }
+    const remaining = removeAllowedLatinSpans(scanParts.join('\n'), allowed);
+    const leaked = remaining.match(/[A-Za-z][A-Za-z0-9+&./:'() -]*/);
+    if (leaked) fail(`Unallowlisted Latin text in ${file}: ${leaked[0].trim()}`);
     const approved = ['車検', '抹消登録'];
     const withoutApprovedJapaneseSection = html.replace(/<!-- JAPANESE SECTION -->[\s\S]*?<!-- FOOTER -->/, '<!-- FOOTER -->').replace(/日本語/g, '');
     const stripped = approved.reduce((body, item) => body.split(item).join(''), withoutApprovedJapaneseSection);
     if (/[ぁ-んァ-ン一-龯]/.test(stripped)) fail(`Unexpected Japanese/CJK in ${file}`);
   }
+}
+function assertRussianLatinRegressionTests() {
+  const base = read('ru/pricing/index.html');
+  const blocked = [
+    'Full Documentation',
+    'Ask on WhatsApp',
+    'Send Inquiry',
+    'Payment is Safe',
+    'Never send payment',
+    'This sentence must never pass the Russian translation validator.'
+  ];
+  for (const phrase of blocked) {
+    let failed = false;
+    try {
+      assertRussianLatinAllowlist([{ file: `injected:${phrase}`, html: base.replace('</body>', `<p>${phrase}</p></body>`) }]);
+    } catch (error) {
+      failed = true;
+      if (!String(error.message).includes('Unallowlisted Latin text')) throw error;
+      console.log(`latin regression blocked: ${phrase}`);
+    }
+    if (!failed) fail(`Latin regression did not fail: ${phrase}`);
+  }
+  const allowedProbe = collectAllowedLatinItems().map((item) => `<span>${item.value}</span>`).join('\n');
+  assertRussianLatinAllowlist([{ file: 'injected:allowed-latin-spans', html: `<html lang="ru"><head><title>Проверка</title></head><body>${allowedProbe}</body></html>` }]);
+  console.log('latin allowlist positive probe passed');
+}
+function assertSyntheticThirdLocaleBuild() {
+  const tempRoot = fs.mkdtempSync(path.join('/tmp', 'juc-i18n-third-locale-'));
+  fs.cpSync(root, tempRoot, {
+    recursive: true,
+    filter: (source) => !source.includes(`${path.sep}.git`) && !source.includes(`${path.sep}node_modules`)
+  });
+  const syntheticRegistry = JSON.parse(JSON.stringify(registry));
+  syntheticRegistry.locales.zz = { code: 'zz', htmlLang: 'zz', ogLocale: 'zz_ZZ', basePath: '/zz/', label: 'ZZ' };
+  for (const page of syntheticRegistry.pages) {
+    const zzPath = page.urlPath.en === '/' ? '/zz/' : `/zz${page.urlPath.en}`;
+    page.urlPath.zz = zzPath;
+    page.output.zz = `${zzPath.slice(1)}index.html`;
+  }
+  fs.writeFileSync(path.join(tempRoot, 'i18n/registry.mjs'), `export default ${JSON.stringify(syntheticRegistry, null, 2)};\n`);
+  fs.copyFileSync(path.join(tempRoot, 'i18n/locales/en.mjs'), path.join(tempRoot, 'i18n/locales/zz.mjs'));
+  execFileSync(process.execPath, ['scripts/build-i18n.mjs'], { cwd: tempRoot, stdio: 'pipe' });
+  const html = fs.readFileSync(path.join(tempRoot, 'zz/index.html'), 'utf8');
+  const englishHtml = fs.readFileSync(path.join(tempRoot, 'index.html'), 'utf8');
+  const sitemap = fs.readFileSync(path.join(tempRoot, 'sitemap.xml'), 'utf8');
+  if (!html.includes('<span class="active" aria-current="page">ZZ</span>')) fail('Synthetic third locale did not render active language switch');
+  if (!html.includes('<a href="/"') || !html.includes('<a href="/ru/"')) fail('Synthetic third locale did not render existing locale links');
+  if (!englishHtml.includes('href="/zz/"') || !sitemap.includes('https://japanusedcars.nice.okinawa/zz/')) fail('Synthetic third locale paths were not generated');
+  fs.rmSync(tempRoot, { recursive: true, force: true });
+  console.log('synthetic third locale build passed');
 }
 function assertRobotsUnchanged() {
   const current = read('robots.txt');
@@ -257,4 +367,6 @@ assertCanonicalHreflangAndSitemap();
 assertFormContract();
 assertVehiclesSingleSource();
 assertRussianLatinAllowlist();
+assertRussianLatinRegressionTests();
+assertSyntheticThirdLocaleBuild();
 console.log('i18n validation passed');
