@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "node scripts/build-i18n.mjs",
+    "test": "node scripts/validate-i18n.mjs"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Цены на экспорт подержанных автомобилей из Японии | FOB, CIF, комиссии | Okinawa Auto</title>
+  <meta name="description" content="Как Okinawa Auto рассчитывает стоимость экспорта подержанных автомобилей из Японии: FOB, CIF, агентская комиссия аукциона, инспекция, отправка, сроки оплаты и то, что не входит в расчет.">
+  <meta property="og:title" content="Цены на экспорт подержанных автомобилей из Японии | FOB, CIF, комиссии">
+  <meta property="og:description" content="Разберитесь в формуле стоимости экспорта автомобилей с Окинавы без фиксированных цен: FOB, CIF, аукционные сборы, инспекция, фрахт и сроки оплаты.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://japanusedcars.nice.okinawa/ru/pricing/">
+  <meta property="og:locale" content="ru_RU">
+  <link rel="canonical" href="https://japanusedcars.nice.okinawa/ru/pricing/">
+  <link rel="alternate" hreflang="en" href="https://japanusedcars.nice.okinawa/pricing/">
+  <link rel="alternate" hreflang="ru" href="https://japanusedcars.nice.okinawa/ru/pricing/">
+  <link rel="alternate" hreflang="x-default" href="https://japanusedcars.nice.okinawa/pricing/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://japanusedcars.nice.okinawa/ru/pricing/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Публикуете ли вы фиксированные цены на автомобили?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Нет. Цена автомобиля рассчитывается по запросу, потому что состояние складского автомобиля, результат аукциона, порт назначения, маршрут фрахта и момент обменного курса могут изменить итоговую сумму."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Что обычно входит в FOB?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FOB обычно включает основу стоимости автомобиля, согласованную сервисную или агентскую плату, экспортное оформление в Японии, снятие с регистрации, подготовку экспортных документов и передачу для отправки из Японии."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Что обычно добавляет CIF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CIF добавляет морской фрахт и морское страхование до указанного порта назначения, когда мы можем рассчитать этот маршрут. Таможня, пошлины, налоги, портовые сборы, местная проверка, регистрация и внутренняя перевозка в стране назначения не включены, если это не указано отдельно."
+        }
+      }
+    ],
+    "inLanguage": "ru"
+  }
+  </script>
+  <style>
+    :root { --navy:#0d1b2a; --navy-mid:#162435; --navy-light:#1e3448; --gold:#c9a84c; --gold-light:#e2c47a; --cream:#f5f0e8; --gray:#8a9bb0; --border:rgba(201,168,76,0.2); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    nav, footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 4rem; border-bottom: 1px solid var(--border); background: rgba(13,27,42,0.94); }
+    footer { border-top: 1px solid var(--border); border-bottom: 0; flex-wrap: wrap; }
+    .logo { font-family: 'Cormorant Garamond', serif; color: var(--gold); text-decoration: none; letter-spacing: 0.15em; font-size: 1.4rem; font-weight: 600; }
+    .nav-links, .footer-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: wrap; }
+    a { color: var(--gold-light); }
+    .nav-links a, .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    main { padding: 0 4rem 5rem; }
+    .hero { padding: 7rem 0 4rem; max-width: 900px; }
+    .tag { color: var(--gold); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.15; }
+    h1 { font-size: clamp(3rem, 7vw, 5.6rem); }
+    h1 em, h2 em { color: var(--gold); font-style: italic; }
+    .lead { color: var(--gray); max-width: 700px; margin-top: 1.6rem; font-size: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin: 3rem 0; }
+    .card, .formula, .note { background: var(--navy-mid); border: 1px solid var(--border); padding: 2rem; }
+    .card h2 { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .card p, .formula p, .note p, li { color: var(--gray); font-size: 0.92rem; }
+    .formula { margin: 3rem 0; }
+    .formula h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .line { border-top: 1px solid var(--border); padding: 1rem 0; display: grid; grid-template-columns: 230px 1fr; gap: 1rem; }
+    .line strong { color: var(--cream); font-weight: 500; }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .faq-item { background: var(--navy-mid); border: 1px solid var(--border); padding: 1.5rem 1.7rem; }
+    .faq-item h2 { font-size: 1.45rem; margin-bottom: 0.5rem; }
+    ul { margin: 1rem 0 0 1.2rem; }
+    .cta { margin: 4rem 0 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.85rem 1.6rem; border: 1px solid var(--border); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
+    .btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 500; }
+    @media (max-width: 760px) { nav, footer, main { padding-left: 1.5rem; padding-right: 1.5rem; } nav { align-items: flex-start; flex-direction: column; } .grid, .line { grid-template-columns: 1fr; } }
+  .locale-switch{display:inline-flex;align-items:center;gap:.35rem;margin-left:.75rem;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.04em}.locale-switch a,.locale-switch span{color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:.35rem .45rem;border-radius:3px}.locale-switch .active{font-weight:700;background:rgba(255,255,255,.14)}
+</style>
+</head>
+<body>
+  <nav>
+    <a href="/ru/" class="logo">OKINAWA AUTO</a>
+    <ul class="nav-links">
+      <li><a href="/ru/how-it-works/">Как это работает</a></li>
+      <li><a href="/ru/pricing/">Цены</a></li>
+      <li><a href="/ru/faq/">FAQ</a></li>
+      <li><a href="/ru/#vehicles">Автомобили</a></li>
+    </ul>
+    <span class="locale-switch" aria-label="Переключатель языка"><a href="/pricing/">EN</a><span aria-hidden="true">/</span><span class="active" aria-current="page">RU</span></span>
+  </nav>
+  <main>
+    <section class="hero">
+      <div class="tag">Основа расчета цены</div>
+      <h1>Расчет экспорта автомобиля из Японии <em>без фиксированных цен на автомобили</em></h1>
+      <p class="lead">Мы рассчитываем цену индивидуально, а не по публичной таблице фиксированных цен. Итоговая сумма зависит от автомобиля, аукционной или складской основы, данных проверки, порта назначения, маршрута отправки и сроков оплаты.</p>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <h2>FOB Япония</h2>
+        <p>FOB — это экспортная база на стороне Японии. Обычно она включает основу стоимости автомобиля, согласованную сервисную или агентскую плату, экспортную подготовку, документы и передачу для отправки из Японии.</p>
+      </article>
+      <article class="card">
+        <h2>CIF порт назначения</h2>
+        <p>CIF начинается с FOB и добавляет морской фрахт и морское страхование до указанного порта назначения, если такой маршрут можно рассчитать.</p>
+      </article>
+    </section>
+    <section class="formula">
+      <h2>Как рассчитывается смета</h2>
+      <div class="line"><strong>Основа стоимости автомобиля</strong><p>Запрашиваемая основа по текущему складу или оценка выигрышной ставки на аукционе, в зависимости от источника автомобиля.</p></div>
+      <div class="line"><strong>Агентская плата аукциона</strong><p>Согласованная плата за поиск на аукционе, поддержку ставок, координацию покупки и коммуникацию с покупателем, если автомобиль еще не находится на складе.</p></div>
+      <div class="line"><strong>Проверка и раскрытие информации</strong><p>Разбор аукционного инспекционного листа входит в процесс принятия решения о покупке. Дополнительные сторонние проверки, если они запрошены и доступны, рассчитываются отдельно.</p></div>
+      <div class="line"><strong>Экспортное оформление в Японии</strong><p>Снятие с регистрации, подготовка экспортного сертификата, портовая обработка и координация документов.</p></div>
+      <div class="line"><strong>Фрахт и страхование</strong><p>Добавляется в расчеты CIF. Сумма меняется в зависимости от порта назначения, расписания судов, размера автомобиля и доступности маршрута.</p></div>
+      <div class="line"><strong>Расходы в стране назначения</strong><p>Импортная пошлина, VAT или GST, услуги таможенного брокера, сборы порта назначения, проверка, регистрация, местное соответствие и внутренняя доставка обычно относятся к расходам покупателя.</p></div>
+    </section>
+    <section class="note">
+      <h2>Способ и сроки оплаты</h2>
+      <ul>
+        <li>Мы подтверждаем график оплаты до обязательства покупки.</li>
+        <li>Аукционные покупки обычно требуют депозит до ставки и оплату остатка после успешной покупки.</li>
+        <li>Покупки со склада обычно следуют согласованному счету и срокам резервирования.</li>
+        <li>Банковские реквизиты предоставляются только в прямой переписке по конкретному счету.</li>
+        <li>Никогда не отправляйте платеж на счет, который не был подтвержден через наш официальный WhatsApp или в переписке с адресом info@nice.okinawa.</li>
+      </ul>
+    </section>
+    <section class="faq-list" id="faq">
+      <article class="faq-item">
+        <h2>Публикуете ли вы фиксированные цены на автомобили?</h2>
+        <p>Нет. Цена автомобиля рассчитывается по запросу, потому что состояние складского автомобиля, результат аукциона, порт назначения, маршрут фрахта и момент обменного курса могут изменить итоговую сумму.</p>
+      </article>
+      <article class="faq-item">
+        <h2>Что обычно входит в FOB?</h2>
+        <p>FOB обычно включает основу стоимости автомобиля, согласованную сервисную или агентскую плату, экспортное оформление в Японии, снятие с регистрации, подготовку экспортных документов и передачу для отправки из Японии.</p>
+      </article>
+      <article class="faq-item">
+        <h2>Что обычно добавляет CIF?</h2>
+        <p>CIF добавляет морской фрахт и морское страхование до указанного порта назначения, когда мы можем рассчитать этот маршрут. Таможня, пошлины, налоги, портовые сборы, местная проверка, регистрация и внутренняя перевозка в стране назначения не включены, если это не указано отдельно.</p>
+      </article>
+    </section>
+    <div class="cta">
+      <a class="btn primary" href="https://wa.me/817089523968">Запросить расчет</a>
+      <a class="btn" href="mailto:info@nice.okinawa">Написать на info@nice.okinawa</a>
+    </div>
+  </main>
+  <footer>
+    <div class="logo">OKINAWA AUTO</div>
+    <div class="footer-links">
+      <a href="/ru/">Главная</a>
+      <a href="/ru/how-it-works/">Как это работает</a>
+      <a href="/ru/faq/">FAQ</a>
+    </div>
+  </footer>
+  <script src="https://analytics.nice.okinawa/beacon.js" data-site="japanusedcars" defer></script>
+</body>
+</html>

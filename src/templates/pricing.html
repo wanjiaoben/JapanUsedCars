@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{text:meta.pricing.titleFull}} | {{fact:brand.name}}</title>
+  <meta name="description" content="{{attr:meta.pricing.description.beforeBrand}} {{factAttr:brand.name}} {{attr:meta.pricing.description.afterBrand}}">
+  <meta property="og:title" content="{{attr:meta.pricing.titleOg}}">
+  <meta property="og:description" content="{{attr:meta.pricing.ogDescription}}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{factAttr:site.url}}/pricing/">
+  <meta property="og:locale" content="en_US">
+  <link rel="canonical" href="{{factAttr:site.url}}/pricing/">
+  <link rel="alternate" hreflang="x-default" href="{{factAttr:site.url}}/pricing/">
+  <link rel="alternate" hreflang="en" href="{{factAttr:site.url}}/pricing/">
+  <link rel="alternate" hreflang="ru" href="{{factAttr:site.url}}/ru/pricing/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "{{text:faqPage.title.b}}Page",
+    "@id": "{{factAttr:site.url}}/pricing/#faq",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "{{json:pricing.faq.fixed.q}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{json:pricing.faq.fixed.a}}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{{json:pricing.faq.fob.q}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{json:pricing.faq.fob.a}}"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "{{json:pricing.faq.cif.q}}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{json:pricing.faq.cif.a}}"
+        }
+      }
+    ]
+  }
+  </script>
+  <style>
+    :root { --navy:#0d1b2a; --navy-mid:#162435; --navy-light:#1e3448; --gold:#c9a84c; --gold-light:#e2c47a; --cream:#f5f0e8; --gray:#8a9bb0; --border:rgba(201,168,76,0.2); }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--navy); color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    nav, footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.2rem 4rem; border-bottom: 1px solid var(--border); background: rgba(13,27,42,0.94); }
+    footer { border-top: 1px solid var(--border); border-bottom: 0; flex-wrap: wrap; }
+    .logo { font-family: 'Cormorant Garamond', serif; color: var(--gold); text-decoration: none; letter-spacing: 0.15em; font-size: 1.4rem; font-weight: 600; }
+    .nav-links, .footer-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: wrap; }
+    a { color: var(--gold-light); }
+    .nav-links a, .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    main { padding: 0 4rem 5rem; }
+    .hero { padding: 7rem 0 4rem; max-width: 900px; }
+    .tag { color: var(--gold); font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1rem; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 1.15; }
+    h1 { font-size: clamp(3rem, 7vw, 5.6rem); }
+    h1 em, h2 em { color: var(--gold); font-style: italic; }
+    .lead { color: var(--gray); max-width: 700px; margin-top: 1.6rem; font-size: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin: 3rem 0; }
+    .card, .formula, .note { background: var(--navy-mid); border: 1px solid var(--border); padding: 2rem; }
+    .card h2 { font-size: 1.8rem; margin-bottom: 0.8rem; }
+    .card p, .formula p, .note p, li { color: var(--gray); font-size: 0.92rem; }
+    .formula { margin: 3rem 0; }
+    .formula h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .line { border-top: 1px solid var(--border); padding: 1rem 0; display: grid; grid-template-columns: 230px 1fr; gap: 1rem; }
+    .line strong { color: var(--cream); font-weight: 500; }
+    .faq-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .faq-item { background: var(--navy-mid); border: 1px solid var(--border); padding: 1.5rem 1.7rem; }
+    .faq-item h2 { font-size: 1.45rem; margin-bottom: 0.5rem; }
+    ul { margin: 1rem 0 0 1.2rem; }
+    .cta { margin: 4rem 0 0; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-block; padding: 0.85rem 1.6rem; border: 1px solid var(--border); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
+    .btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 500; }
+    @media (max-width: 760px) { nav, footer, main { padding-left: 1.5rem; padding-right: 1.5rem; } nav { align-items: flex-start; flex-direction: column; } .grid, .line { grid-template-columns: 1fr; } }
+  .locale-switch{display:inline-flex;align-items:center;gap:.35rem;margin-left:.75rem;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.04em}.locale-switch a,.locale-switch span{color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:.35rem .45rem;border-radius:3px}.locale-switch .active{font-weight:700;background:rgba(255,255,255,.14)}
+</style>
+</head>
+<body>
+  <nav>
+    <a href="/" class="logo">{{fact:brand.displayName}}</a>
+    <ul class="nav-links">
+      <li><a href="/how-it-works/">{{text:nav.how}}</a></li>
+      <li><a href="/pricing/">{{text:nav.pricing}}</a></li>
+      <li><a href="/faq/">{{text:faqPage.title.b}}</a></li>
+      <li><a href="/#vehicles">{{text:nav.vehicles}}</a></li>
+    </ul>
+    <span class="locale-switch" aria-label="Language switcher"><span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="/ru/pricing/">RU</a></span>
+  </nav>
+  <main>
+    <section class="hero">
+      <div class="tag">{{text:home.guides.pricing.title}}</div>
+      <h1>{{text:pricing.title.a}} <em>{{text:pricing.title.b}}</em></h1>
+      <p class="lead">{{text:pricing.intro}}</p>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <h2>{{text:pricing.fob.title}}</h2>
+        <p>{{text:pricing.fob.text}}</p>
+      </article>
+      <article class="card">
+        <h2>{{text:pricing.cif.title}}</h2>
+        <p>{{text:pricing.cif.text}}</p>
+      </article>
+    </section>
+    <section class="formula">
+      <h2>{{text:pricing.estimate.title}}</h2>
+      <div class="line"><strong>{{text:pricing.vehicleBasis}}</strong><p>{{text:pricing.vehicleBasis.text}}</p></div>
+      <div class="line"><strong>{{text:pricing.auctionFee}}</strong><p>{{text:pricing.auctionFee.text}}</p></div>
+      <div class="line"><strong>{{text:pricing.inspection}}</strong><p>{{text:pricing.inspection.text}}</p></div>
+      <div class="line"><strong>{{text:pricing.exportHandling}}</strong><p>{{text:pricing.exportHandling.text}}</p></div>
+      <div class="line"><strong>{{text:pricing.freight}}</strong><p>{{text:pricing.freight.text}}</p></div>
+      <div class="line"><strong>{{text:pricing.destinationCosts}}</strong><p>{{text:pricing.destinationCosts.text}}</p></div>
+    </section>
+    <section class="note">
+      <h2>{{text:pricing.payment.title}}</h2>
+      <ul>
+        <li>{{text:pricing.payment.line1}}</li>
+        <li>{{text:pricing.payment.line2}}</li>
+        <li>{{text:pricing.payment.line3}}</li>
+        <li>{{text:pricing.payment.line4}}</li>
+        <li>{{text:pricing.payment.neverSend}}</li>
+      </ul>
+    </section>
+    <section class="faq-list" id="faq">
+      <article class="faq-item">
+        <h2>{{text:pricing.faq.fixed.q}}</h2>
+        <p>{{text:pricing.faq.fixed.a}}</p>
+      </article>
+      <article class="faq-item">
+        <h2>{{text:pricing.faq.fob.q}}</h2>
+        <p>{{text:pricing.faq.fob.a}}</p>
+      </article>
+      <article class="faq-item">
+        <h2>{{text:pricing.faq.cif.q}}</h2>
+        <p>{{text:pricing.faq.cif.a}}</p>
+      </article>
+    </section>
+    <div class="cta">
+      <a class="btn primary" href="{{factAttr:contact.whatsappUrl}}">{{text:pricing.cta.quote}}</a>
+      <a class="btn" href="mailto:{{fact:contact.email}}">{{text:cta.email}} {{fact:contact.email}}</a>
+    </div>
+  </main>
+  <footer>
+    <div class="logo">{{fact:brand.displayName}}</div>
+    <div class="footer-links">
+      <a href="/">{{text:nav.home}}</a>
+      <a href="/how-it-works/">{{text:nav.how}}</a>
+      <a href="/faq/">{{text:faqPage.title.b}}</a>
+    </div>
+  </footer>
+  <script src="{{factAttr:analytics.beaconUrl}}" data-site="{{fact:form.site}}" defer></script>
+</body>
+</html>
