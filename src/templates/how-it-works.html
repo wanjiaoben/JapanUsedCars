@@ -3,60 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How Japan Used Car Export Works | Okinawa Auto</title>
-  <meta name="description" content="Step-by-step guide to buying an Okinawa used car for Japan used car export, from inquiry and auction sheet review to payment, shipping, documents, and arrival at port.">
-  <meta property="og:title" content="How Japan Used Car Export Works | Okinawa Auto">
-  <meta property="og:description" content="From inquiry to arrival at port: the steps, timeline, and documents buyers prepare for Okinawa used car export.">
+  <title>{{text:meta.how.title}} | {{fact:brand.name}}</title>
+  <meta name="description" content="{{attr:meta.how.description}}">
+  <meta property="og:title" content="{{attr:meta.how.title}} | {{factAttr:brand.name}}">
+  <meta property="og:description" content="{{attr:meta.how.ogDescription}}">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://japanusedcars.nice.okinawa/how-it-works/">
-  <link rel="canonical" href="https://japanusedcars.nice.okinawa/how-it-works/">
-  <link rel="alternate" hreflang="x-default" href="https://japanusedcars.nice.okinawa/how-it-works/">
-  <link rel="alternate" hreflang="en" href="https://japanusedcars.nice.okinawa/how-it-works/">
+  <meta property="og:url" content="{{factAttr:site.url}}/how-it-works/">
+  <meta property="og:locale" content="en_US">
+  <link rel="canonical" href="{{factAttr:site.url}}/how-it-works/">
+  <link rel="alternate" hreflang="x-default" href="{{factAttr:site.url}}/how-it-works/">
+  <link rel="alternate" hreflang="en" href="{{factAttr:site.url}}/how-it-works/">
+  <link rel="alternate" hreflang="ru" href="{{factAttr:site.url}}/ru/how-it-works/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "How to buy and export a used car from Okinawa, Japan",
-    "description": "A buyer-facing process for Okinawa used car export from inquiry to arrival at the destination port.",
+    "name": "{{json:how.schema.name}}",
+    "description": "{{json:how.schema.description}}",
     "totalTime": "P4W",
     "supply": [
-      { "@type": "HowToSupply", "name": "Buyer name and contact details" },
-      { "@type": "HowToSupply", "name": "Destination country or region and port" },
-      { "@type": "HowToSupply", "name": "Consignee details required by the destination forwarder or customs broker" },
-      { "@type": "HowToSupply", "name": "Import eligibility information for the destination market" }
+      { "@type": "HowToSupply", "name": "{{json:how.schema.supply.buyer}}" },
+      { "@type": "HowToSupply", "name": "{{json:how.schema.supply.destination}}" },
+      { "@type": "HowToSupply", "name": "{{json:how.schema.supply.consignee}}" },
+      { "@type": "HowToSupply", "name": "{{json:how.schema.supply.eligibility}}" }
     ],
     "step": [
       {
         "@type": "HowToStep",
-        "name": "Send the inquiry",
-        "text": "Tell us the model, budget, preferred year range, destination country or region, and destination port."
+        "name": "{{json:how.schema.step.inquiry.name}}",
+        "text": "{{json:how.schema.step.inquiry.text}}"
       },
       {
         "@type": "HowToStep",
-        "name": "Review available vehicles",
-        "text": "We share suitable stock or auction options with photos, auction inspection sheet details, condition grade, and initial cost estimates."
+        "name": "{{json:how.schema.step.review.name}}",
+        "text": "{{json:how.schema.step.review.text}}"
       },
       {
         "@type": "HowToStep",
-        "name": "Confirm the vehicle and quote basis",
-        "text": "Confirm the vehicle, port, and whether the quote is FOB Japan or CIF to the destination port."
+        "name": "{{json:how.schema.step.quote.name}}",
+        "text": "{{json:how.schema.step.quote.text}}"
       },
       {
         "@type": "HowToStep",
-        "name": "Pay according to the agreed schedule",
-        "text": "Payment timing depends on whether the vehicle is current stock or an auction purchase. We confirm the required timing before commitment."
+        "name": "{{json:how.schema.step.payment.name}}",
+        "text": "{{json:how.schema.step.payment.text}}"
       },
       {
         "@type": "HowToStep",
-        "name": "Prepare export documents and shipping",
-        "text": "We handle Japanese deregistration, export certificate preparation, and shipping coordination from Japan."
+        "name": "{{json:how.schema.step.export.name}}",
+        "text": "{{json:how.schema.step.export.text}}"
       },
       {
         "@type": "HowToStep",
-        "name": "Receive documents and collect the vehicle",
-        "text": "After shipment, the buyer uses the provided export documents with the destination agent, customs broker, or local registration office."
+        "name": "{{json:how.schema.step.collect.name}}",
+        "text": "{{json:how.schema.step.destination.text}}"
       }
     ]
   }
@@ -90,105 +92,107 @@
     .btn { display: inline-block; padding: 0.85rem 1.6rem; border: 1px solid var(--border); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
     .btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 500; }
     @media (max-width: 760px) { nav, footer, main { padding-left: 1.5rem; padding-right: 1.5rem; } nav { align-items: flex-start; flex-direction: column; } .grid { grid-template-columns: 1fr; } .step { grid-template-columns: 1fr; } }
-  </style>
+  .locale-switch{display:inline-flex;align-items:center;gap:.35rem;margin-left:.75rem;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.04em}.locale-switch a,.locale-switch span{color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:.35rem .45rem;border-radius:3px}.locale-switch .active{font-weight:700;background:rgba(255,255,255,.14)}
+</style>
 </head>
 <body>
   <nav>
-    <a href="/" class="logo">OKINAWA AUTO</a>
+    <a href="/" class="logo">{{fact:brand.displayName}}</a>
     <ul class="nav-links">
-      <li><a href="/how-it-works/">How it works</a></li>
-      <li><a href="/pricing/">Pricing</a></li>
-      <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/#vehicles">Vehicles</a></li>
+      <li><a href="/how-it-works/">{{text:nav.how}}</a></li>
+      <li><a href="/pricing/">{{text:nav.pricing}}</a></li>
+      <li><a href="/faq/">{{text:faqPage.title.b}}</a></li>
+      <li><a href="/#vehicles">{{text:nav.vehicles}}</a></li>
     </ul>
+    <span class="locale-switch" aria-label="Language switcher"><span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="/ru/how-it-works/">RU</a></span>
   </nav>
   <main>
     <section class="hero">
-      <div class="tag">Japan used car export process</div>
-      <h1>From Okinawa inquiry to <em>vehicle arrival at port</em></h1>
-      <p class="lead">This page explains the practical steps for buying an Okinawa used car for export. The exact schedule depends on stock status, auction timing, vessel availability, and the destination country's import process.</p>
+      <div class="tag">{{text:geo.how.kicker}}</div>
+      <h1>{{text:geo.how.title.a}} <em>{{text:geo.how.title.b}}</em></h1>
+      <p class="lead">{{text:geo.how.intro}}</p>
     </section>
-    <section class="grid" aria-label="Process summary">
+    <section class="grid" aria-label="{{attr:how.aria.summary}}">
       <article class="card">
-        <h2>Typical timeline</h2>
-        <p>Stock vehicles may move faster than auction purchases. Shipping schedules and destination port handling can change the final arrival date.</p>
+        <h2>{{text:geo.how.timeline.title}}</h2>
+        <p>{{text:geo.how.timeline.text}}</p>
       </article>
       <article class="card">
-        <h2>Condition basis</h2>
-        <p>Vehicles sourced through Japanese auction houses come with an independent auction inspection sheet available on request before commitment.</p>
+        <h2>{{text:geo.how.condition.title}}</h2>
+        <p>{{text:geo.how.condition.text}}</p>
       </article>
       <article class="card">
-        <h2>Buyer role</h2>
-        <p>The buyer confirms import eligibility, prepares consignee details, and handles destination customs, taxes, registration, and local compliance.</p>
+        <h2>{{text:geo.how.buyer.title}}</h2>
+        <p>{{text:geo.how.buyer.text}}</p>
       </article>
     </section>
-    <section aria-label="Export steps">
+    <section aria-label="{{attr:how.aria.exportSteps}}">
       <article class="step">
         <div class="num">01</div>
         <div>
-          <h2>Inquiry and destination check</h2>
-          <p>Send the model, budget, preferred year range, destination country or region, destination port, and whether you need FOB or CIF guidance.</p>
+          <h2>{{text:geo.how.step1.title}}</h2>
+          <p>{{text:geo.how.step1.text}}</p>
         </div>
       </article>
       <article class="step">
         <div class="num">02</div>
         <div>
-          <h2>Vehicle selection and auction sheet review</h2>
-          <p>We share current stock or auction options. Ask for the auction inspection sheet before deciding so you can review grade, mileage, interior grade, and marked condition points.</p>
+          <h2>{{text:geo.how.step2.title}}</h2>
+          <p>{{text:geo.how.step2.text}}</p>
         </div>
       </article>
       <article class="step">
         <div class="num">03</div>
         <div>
-          <h2>Quote confirmation</h2>
-          <p>The quote states the vehicle basis and export cost basis. FOB covers costs up to Japan export handover; CIF adds ocean freight and marine insurance to the named destination port when available.</p>
+          <h2>{{text:geo.how.step3.title}}</h2>
+          <p>{{text:geo.how.step3.text}}</p>
         </div>
       </article>
       <article class="step">
         <div class="num">04</div>
         <div>
-          <h2>Payment and purchase</h2>
-          <p>Payment timing is confirmed before commitment. Auction purchases usually require faster deposit and balance timing than vehicles already held in stock.</p>
+          <h2>{{text:geo.how.step4.title}}</h2>
+          <p>{{text:geo.how.step4.text}}</p>
         </div>
       </article>
       <article class="step">
         <div class="num">05</div>
         <div>
-          <h2>Japanese export preparation</h2>
-          <p>We prepare Japanese deregistration and export documents, coordinate vehicle handover to the port side, and book shipping according to vessel availability.</p>
+          <h2>{{text:geo.how.step5.title}}</h2>
+          <p>{{text:geo.how.step5.text}}</p>
         </div>
       </article>
       <article class="step">
         <div class="num">06</div>
         <div>
-          <h2>Arrival and local import</h2>
-          <p>The buyer or destination agent uses the export documents for customs clearance, taxes, inspection, registration, and any local roadworthiness requirements.</p>
+          <h2>{{text:geo.how.step6.title}}</h2>
+          <p>{{text:geo.how.step6.text}}</p>
         </div>
       </article>
     </section>
     <section class="panel">
-      <h2>Documents buyers usually prepare</h2>
+      <h2>{{text:geo.how.docs.title}}</h2>
       <ul>
-        <li>Full buyer or company name matching destination import records.</li>
-        <li>Destination country or region, destination port, and consignee information.</li>
-        <li>Local import eligibility confirmation for vehicle age, steering side, emissions, inspection, and registration rules.</li>
-        <li>Payment sender details and bank remittance reference when payment is made.</li>
-        <li>Destination customs broker or clearing agent contact, if required by your country or region.</li>
+        <li>{{text:geo.how.docs.buyerName}}</li>
+        <li>{{text:geo.how.docs.destination}}</li>
+        <li>{{text:geo.how.docs.eligibility}}</li>
+        <li>{{text:geo.how.docs.payment}}</li>
+        <li>{{text:geo.how.docs.broker}}</li>
       </ul>
     </section>
     <div class="cta">
-      <a class="btn primary" href="https://wa.me/817089523968">Ask on WhatsApp</a>
-      <a class="btn" href="mailto:info@nice.okinawa">Email info@nice.okinawa</a>
+      <a class="btn primary" href="{{factAttr:contact.whatsappUrl}}">{{text:cta.askWhatsApp}}</a>
+      <a class="btn" href="mailto:{{fact:contact.email}}">{{text:cta.email}} {{fact:contact.email}}</a>
     </div>
   </main>
   <footer>
-    <div class="logo">OKINAWA AUTO</div>
+    <div class="logo">{{fact:brand.displayName}}</div>
     <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/pricing/">Pricing</a>
-      <a href="/faq/">FAQ</a>
+      <a href="/">{{text:nav.home}}</a>
+      <a href="/pricing/">{{text:nav.pricing}}</a>
+      <a href="/faq/">{{text:faqPage.title.b}}</a>
     </div>
   </footer>
-  <script src="https://analytics.nice.okinawa/beacon.js" data-site="japanusedcars" defer></script>
+  <script src="https://analytics.nice.okinawa/beacon.js" data-site="{{fact:form.site}}" defer></script>
 </body>
 </html>

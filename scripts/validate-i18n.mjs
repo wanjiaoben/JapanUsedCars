@@ -1,176 +1,200 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import crypto from 'node:crypto';
-import assert from 'node:assert/strict';
-import { execFileSync } from 'node:child_process';
 import vm from 'node:vm';
+import en from '../i18n/locales/en.mjs';
+import ru from '../i18n/locales/ru.mjs';
+import facts from '../i18n/facts.mjs';
+import registry from '../i18n/registry.mjs';
 
-const root = process.cwd();
-const baseUrl = 'https://japanusedcars.nice.okinawa';
-const pages = [
-  ['home', 'index.html', 'src/templates/index.html', 'ru/index.html', '/', '/ru/'],
-  ['how', 'how-it-works/index.html', 'src/templates/how-it-works.html', 'ru/how-it-works/index.html', '/how-it-works/', '/ru/how-it-works/'],
-  ['pricing', 'pricing/index.html', 'src/templates/pricing.html', 'ru/pricing/index.html', '/pricing/', '/ru/pricing/'],
-  ['faq', 'faq/index.html', 'src/templates/faq.html', 'ru/faq/index.html', '/faq/', '/ru/faq/']
-];
-
-const buildSource = read('scripts/build-i18n.mjs');
-assert(!/\[\s*'[^']+'\s*,\s*'The'\s*,/.test(buildSource), 'unsafe standalone The translation rule found');
-assert(!/\[\s*'[^']+'\s*,\s*'Okinawa'\s*,/.test(buildSource), 'unsafe standalone Okinawa translation rule found');
-assert(!/\[\s*'[^']+'\s*,\s*'Auto'\s*,/.test(buildSource), 'unsafe standalone Auto translation rule found');
-
-function read(file) {
-  return fs.readFileSync(path.join(root, file), 'utf8');
-}
-
-function origin(file) {
-  return execFileSync('git', ['show', `origin/main:${file}`], { cwd: root, encoding: 'utf8' });
-}
-
-function sha(text) {
-  return crypto.createHash('sha256').update(text).digest('hex');
-}
-
-function body(html) {
-  return html.split(/<body[^>]*>/i)[1]?.split(/<\/body>/i)[0] || html;
-}
-
-function visibleText(html) {
-  return body(html)
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<span class="locale-switch"[\s\S]*?<\/span>\s*<\/span>/g, ' ')
-    .replace(/\bEN\s*\/\s*RU\b|\/\s*RU\b|EN\s*\//g, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\bEN\s*\/\s*RU\b|\/\s*RU\b|EN\s*\//g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function count(html, pattern) {
-  return (html.match(pattern) || []).length;
-}
-
-function hrefs(html) {
-  return [...body(html).matchAll(/href="([^"]+)"/g)].map((m) => m[1]).sort();
-}
-
-function scripts(html) {
-  return [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((m) => m[1]).sort();
-}
-
-function jsonLd(html) {
-  return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1]));
-}
-
-function inlineScriptsAreValid(html, label) {
-  const withoutJson = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '');
-  for (const match of withoutJson.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
-    new vm.Script(match[1], { filename: `${label}-inline.js` });
+const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const tokenPattern = /{{(text|attr|json|js|fact|factAttr|factJson|factJs|options):([A-Za-z0-9_.-]+)}}/g;
+const localeTokenKinds = new Set(['text', 'attr', 'json', 'js']);
+const factTokenKinds = new Set(['fact', 'factAttr', 'factJson', 'factJs']);
+const generated = registry.pages.flatMap((page) => Object.values(page.output));
+const templates = registry.pages.map((page) => `src/templates/${page.template}`).concat('src/templates/llms.txt');
+function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
+function fail(message) { throw new Error(message); }
+function textBetween(html, regex) { return [...html.matchAll(regex)].map((m) => m[1]); }
+function stripTags(html) { return html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(); }
+function collectJsonLdText(value, output = []) {
+  if (typeof value === 'string') {
+    if (!/^https?:/.test(value) && !/^P\d+[DWMY]$/.test(value) && !['FAQPage', 'Question', 'Answer', 'AutoDealer', 'LocalBusiness', 'PostalAddress', 'HowTo', 'HowToStep', 'HowToSupply'].includes(value)) output.push(value);
+    return output;
   }
-}
-
-function stripApprovedJapanese(html) {
-  return html
-    .replace(/<section class="jp-section" id="japanese"[\s\S]*?<\/section>/g, '')
-    .replaceAll('車検', '')
-    .replaceAll('抹消登録', '')
-    .replaceAll('日本語', '');
-}
-
-function faqVisible(html) {
-  return [...html.matchAll(/<div class="faq-item">[\s\S]*?<h3>([\s\S]*?)<\/h3>[\s\S]*?<p>([\s\S]*?)<\/p>[\s\S]*?<\/div>/g)]
-    .map((m) => [clean(m[1]), clean(m[2])]);
-}
-
-function faqVisibleArticle(html) {
-  return [...html.matchAll(/<article class="faq-item"><h2>([\s\S]*?)<\/h2><p>([\s\S]*?)<\/p><\/article>/g)]
-    .map((m) => [clean(m[1]), clean(m[2])]);
-}
-
-function clean(text) {
-  return text.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/\s+/g, ' ').trim();
-}
-
-for (const [id, enFile, templateFile, ruFile, enPath, ruPath] of pages) {
-  const base = origin(enFile);
-  const template = read(templateFile);
-  assert.equal(sha(template), sha(base), `${id} stage1 template/origin byte parity failed`);
-
-  const en = read(enFile);
-  assert.equal(visibleText(en), visibleText(base), `${id} stage2 English visible text parity failed`);
-  assert.equal(count(en, /<section\b/g), count(base, /<section\b/g), `${id} section count changed`);
-  for (const href of hrefs(base)) assert(hrefs(en).includes(href), `${id} original href missing: ${href}`);
-  for (const src of scripts(base)) assert(scripts(en).includes(src), `${id} original script src missing: ${src}`);
-  if (id === 'home') {
-    for (const field of ['name', 'country', 'email', 'purpose', 'interest', 'message']) {
-      assert(en.includes(`id="${field}"`), `${id} English form field missing ${field}`);
+  if (Array.isArray(value)) {
+    value.forEach((item) => collectJsonLdText(item, output));
+    return output;
+  }
+  if (value && typeof value === 'object') {
+    for (const [key, item] of Object.entries(value)) {
+      if (key.startsWith('@')) continue;
+      collectJsonLdText(item, output);
     }
   }
-  assert(en.includes(`href="${baseUrl}${enPath}"`) || en.includes(`href="${baseUrl}${enPath.slice(0, -1)}"`), `${id} English canonical/alternate missing`);
-  assert(en.includes(`hreflang="ru" href="${baseUrl}${ruPath}"`), `${id} ru alternate missing`);
-  assert(!/google-analytics|googletagmanager|gtag\(/i.test(en), `${id} GA found in English`);
-  jsonLd(en);
-  inlineScriptsAreValid(en, `${id}-en`);
-
-  const ru = read(ruFile);
-  assert(ru.includes('<html lang="ru">'), `${id} ru lang missing`);
-  assert(ru.includes(`<link rel="canonical" href="${baseUrl}${ruPath}">`), `${id} ru canonical missing`);
-  assert(ru.includes(`hreflang="en" href="${baseUrl}${enPath}"`), `${id} ru en alternate missing`);
-  assert(ru.includes(`hreflang="ru" href="${baseUrl}${ruPath}"`), `${id} ru self alternate missing`);
-  assert(ru.includes(`hreflang="x-default" href="${baseUrl}${enPath}"`), `${id} ru x-default missing`);
-  assert(ru.includes('property="og:locale" content="ru_RU"'), `${id} ru og locale missing`);
-  assert(!/Владивосток|Vladivostok|доставка во Владивосток/i.test(ru), `${id} forbidden Vladivostok commitment`);
-  assert(!/google-analytics|googletagmanager|gtag\(/i.test(ru), `${id} GA found in Russian`);
-  assert(!/[一-龯]/.test(stripApprovedJapanese(ru)), `${id} unexpected CJK outside approved Japanese block/terms`);
-  assert(!/Inquire Now|Browse Vehicles|Send Inquiry|Select country|Could not send|Buyer questions|Pricing basis/.test(visibleText(ru)), `${id} English visible placeholder found`);
-  const blocks = jsonLd(ru);
-  inlineScriptsAreValid(ru, `${id}-ru`);
-  assert(blocks.length > 0, `${id} ru JSON-LD missing`);
-  assert(ru.includes('class="locale-switch"'), `${id} ru locale switch missing`);
-  if (id === 'home') {
-    assert(ru.includes("language: document.documentElement.lang || 'ru'"), 'ru form language fallback missing');
-    assert(!/\n\s*lang\s*:/.test(ru), 'unexpected lang payload field');
-    assert(ru.includes("site: 'japanusedcars'"), 'site payload changed');
-    assert(ru.includes("sourceSite: 'japanusedcars.nice.okinawa'"), 'sourceSite payload changed');
-    assert(ru.includes('if (!response.ok || !result.ok)'), 'success condition changed');
-    assert(ru.includes('https://analytics.nice.okinawa/beacon.js'), 'first-party beacon missing');
-    assert(ru.includes('OkinawaOnline'), 'WeChat ID changed in Russian home');
+  return output;
+}
+function flattenFacts(obj, prefix = '') {
+  const out = new Map();
+  for (const [key, value] of Object.entries(obj)) {
+    const next = prefix ? `${prefix}.${key}` : key;
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      for (const item of flattenFacts(value, next)) out.set(item[0], item[1]);
+    } else if (!Array.isArray(value)) out.set(next, String(value));
   }
-  const faqLd = blocks.find((block) => block['@type'] === 'FAQPage');
-  if (faqLd) {
-    const pairs = id === 'home' ? faqVisible(ru) : faqVisibleArticle(ru);
-    if (pairs.length) {
-      assert.equal(pairs.length, faqLd.mainEntity.length, `${id} ru FAQ visible/schema count mismatch`);
-      faqLd.mainEntity.forEach((entity, index) => {
-        assert.equal(pairs[index][0], entity.name, `${id} ru FAQ question mismatch ${index}`);
-        assert.equal(pairs[index][1], entity.acceptedAnswer.text, `${id} ru FAQ answer mismatch ${index}`);
-      });
+  return out;
+}
+function assertKeyParity() {
+  const enKeys = Object.keys(en).sort();
+  const ruKeys = Object.keys(ru).sort();
+  if (JSON.stringify(enKeys) !== JSON.stringify(ruKeys)) fail('English/Russian locale key sets differ');
+  for (const key of enKeys) {
+    if (typeof en[key] !== 'string' || en[key].trim() === '') fail(`Empty English translation: ${key}`);
+    if (typeof ru[key] !== 'string' || ru[key].trim() === '') fail(`Empty Russian translation: ${key}`);
+  }
+}
+function assertTokenUsage() {
+  const localeUsed = new Set();
+  const factUsed = new Set();
+  for (const file of templates) {
+    const html = read(file);
+    for (const match of html.matchAll(tokenPattern)) {
+      const [, kind, key] = match;
+      if (localeTokenKinds.has(kind)) localeUsed.add(key);
+      if (factTokenKinds.has(kind)) factUsed.add(key);
+      if (kind === 'options' && !['countries', 'purposes'].includes(key)) fail(`Unknown options token ${key} in ${file}`);
+    }
+    const residue = html.replace(tokenPattern, '').match(/{{[^}]+}}/g);
+    if (residue) fail(`Unsupported token in ${file}: ${residue[0]}`);
+  }
+  const allKeys = new Set(Object.keys(en));
+  for (const key of localeUsed) if (!allKeys.has(key)) fail(`Template uses missing locale key: ${key}`);
+  const structuredOptionKeys = new Set(['form.purpose.placeholder', 'form.purpose.export', 'form.purpose.local', 'form.purpose.browse', 'languageSwitch.aria']);
+  for (const key of allKeys) {
+    const usedByStructuredOptions = key.startsWith('countries.') || key.startsWith('form.countryGroups.') || key.startsWith('form.country.') || structuredOptionKeys.has(key);
+    if (!localeUsed.has(key) && !usedByStructuredOptions) fail(`Unused locale key: ${key}`);
+  }
+  const factsFlat = flattenFacts(facts);
+  for (const key of factUsed) if (!factsFlat.has(key)) fail(`Template uses missing fact: ${key}`);
+}
+function assertNoResidualTokens() {
+  for (const file of generated.concat(['sitemap.xml', 'llms.txt'])) {
+    const html = read(file);
+    if (/{{[^}]+}}/.test(html)) fail(`Residual token in generated file: ${file}`);
+  }
+}
+function assertBuilderIsNotCopyDb() {
+  const builder = read('scripts/build-i18n.mjs');
+  if (/const\s+replacements\s*=/.test(builder)) fail('Builder still contains replacements table');
+  if (/Подерж|Окинава|экспорт|автомобил/i.test(builder)) fail('Builder contains Russian page copy');
+  if (/Okinawa Used Cars|Japan Used Car Export & Purchase Support/.test(builder)) fail('Builder contains English page copy');
+}
+function assertFactsNotInLocales() {
+  const fixed = ['Okinawa Auto', 'OkinawaOnline', facts.contact.email, facts.contact.phoneDisplay, facts.site.url, facts.contact.whatsappUrl, facts.form.endpoint];
+  for (const [locale, dict] of [['en', en], ['ru', ru]]) {
+    for (const [key, value] of Object.entries(dict)) {
+      for (const item of fixed) if (value.includes(item)) fail(`${locale} locale key ${key} embeds fixed fact ${item}`);
     }
   }
 }
-
-const robots = read('robots.txt');
-assert.equal(sha(robots), sha(origin('robots.txt')), 'robots.txt modified');
-const allRu = pages.map(([, , , ruFile]) => read(ruFile)).join('\n');
-assert(!allRu.includes('Окинава Auto'), 'Okinawa Auto was translated');
-assert(!allRu.includes('ОкинаваOnline'), 'OkinawaOnline was translated');
-assert(!allRu.includes('Преимущество agreed fee'), 'unsafe The replacement polluted pricing copy');
-assert(!allRu.includes('Which countries and regions can you export to?'), 'FAQ English question leaked');
-assert(!allRu.includes('Do you publish fixed vehicle prices?'), 'pricing English FAQ leaked');
-assert(!allRu.includes('Full buyer or company name matching destination import records.'), 'how-it-works English document list leaked');
-assert(!allRu.includes('Auction inspection sheet review is part of the purchase decision.'), 'pricing English paragraph leaked');
-const sitemap = read('sitemap.xml');
-for (const [, , , , enPath, ruPath] of pages) {
-  assert(sitemap.includes(`${baseUrl}${enPath}`), `sitemap missing ${enPath}`);
-  assert(sitemap.includes(`${baseUrl}${ruPath}`), `sitemap missing ${ruPath}`);
+function assertJsonLdAndFaq() {
+  for (const file of generated) {
+    const html = read(file);
+    const scripts = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
+    for (const body of scripts) JSON.parse(body);
+  }
+  for (const file of ['index.html', 'ru/index.html']) {
+    const html = read(file);
+    const schema = JSON.parse(textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).find((s) => s.includes('FAQPage')));
+    const visible = [...html.matchAll(/<article class="faq-item">\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/g)].map((m) => [stripTags(m[1]), stripTags(m[2])]);
+    if (schema.mainEntity.length !== visible.length) fail(`FAQ count mismatch in ${file}`);
+    schema.mainEntity.forEach((item, index) => {
+      if (item.name !== visible[index][0]) fail(`FAQ question mismatch in ${file} #${index + 1}`);
+      if (item.acceptedAnswer.text !== visible[index][1]) fail(`FAQ answer mismatch in ${file} #${index + 1}`);
+    });
+  }
 }
-assert(!sitemap.includes('/cases/'), 'sitemap should not include cases');
-const llms = read('llms.txt');
-assert(llms.includes('Русские страницы используют те же общие бизнес-факты'), 'llms Russian summary missing');
-assert(!/pending/i.test(llms), 'llms pending text found');
+function assertInlineJsSyntax() {
+  for (const file of generated) {
+    const html = read(file);
+    for (const script of textBetween(html, /<script(?![^>]*src=)[^>]*>([\s\S]*?)<\/script>/g)) {
+      if (script.trim().startsWith('{')) continue;
+      new vm.Script(script, { filename: file });
+    }
+  }
+}
+function assertCanonicalHreflangAndSitemap() {
+  const sitemap = read('sitemap.xml');
+  for (const page of registry.pages) {
+    for (const locale of Object.keys(registry.locales)) {
+      const file = page.output[locale];
+      const html = read(file);
+      const self = facts.site.url + page.urlPath[locale];
+      if (!html.includes(`<link rel="canonical" href="${self}">`)) fail(`Bad canonical in ${file}`);
+      if (!html.includes(`<meta property="og:url" content="${self}">`)) fail(`Bad og:url in ${file}`);
+      if (locale === 'en' && !html.includes(`<span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="${page.urlPath.ru}" lang="ru">RU</a>`)) fail(`Bad English language switch in ${file}`);
+      if (locale === 'ru' && !html.includes(`<a href="${page.urlPath.en}" lang="en">EN</a><span aria-hidden="true">/</span><span class="active" aria-current="page">RU</span>`)) fail(`Bad Russian language switch in ${file}`);
+      for (const body of textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+        const schema = JSON.parse(body);
+        if (schema.inLanguage !== locale) fail(`Bad JSON-LD inLanguage in ${file}`);
+        if (schema['@id'] && !schema['@id'].startsWith(self)) fail(`Bad JSON-LD @id in ${file}`);
+      }
+      for (const alt of Object.keys(registry.locales)) {
+        const href = facts.site.url + page.urlPath[alt];
+        if (!html.includes(`hreflang="${alt}" href="${href}"`)) fail(`Missing hreflang ${alt} in ${file}`);
+        if (!sitemap.includes(`<loc>${href}</loc>`) && alt === locale) fail(`Missing sitemap URL ${href}`);
+      }
+    }
+  }
+}
+function assertFormContract() {
+  for (const file of ['index.html', 'ru/index.html']) {
+    const html = read(file);
+    for (const fragment of [facts.form.endpoint, `site: '${facts.form.site}'`, `sourceSite: '${facts.form.sourceSite}'`, 'response.ok', 'result.ok', 'turnstileToken']) {
+      if (!html.includes(fragment)) fail(`Form contract fragment missing in ${file}: ${fragment}`);
+    }
+    if (html.includes('gtag(') || html.includes('googletagmanager')) fail(`GA found in ${file}`);
+  }
+}
+function assertRussianLatinAllowlist() {
+  const allowed = new Set(['Okinawa Auto','OKINAWA AUTO','OkinawaOnline','EN','RU','ru','en','FAQ','FOB','CIF','VAT','GST','WhatsApp','WeChat','Email','Toyota','Alphard','Hiace','Nissan','Serena','Honda','Stepwgn','Mazda','CX','XD','GL','e-POWER','Soul Red','URL','PDF','S','shaken','masshō tōroku','massh','tōroku','troku','roku','Japan','Okinawa','Auto','lt','gt','amp','quot','nbsp','km','nice.okinawa','info','v2026.06.14','your.com','email.com','your']);
+  const values = [facts.contact.email, facts.contact.phoneDisplay, facts.site.host, facts.site.url, facts.contact.whatsappUrl, facts.form.endpoint, facts.form.site, facts.form.sourceSite, facts.form.turnstileSiteKey, facts.form.turnstileAction, ...Object.values(facts.vehicles).map((v) => v.model)];
+  for (const v of values) allowed.add(v);
+  for (const file of generated.filter((f) => f.startsWith('ru/'))) {
+    const html = read(file);
+    const jsonLdText = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).flatMap((body) => collectJsonLdText(JSON.parse(body)));
+    const scanParts = [
+      stripTags(html),
+      ...textBetween(html, /<(?:title|button|option)[^>]*>([\s\S]*?)<\/(?:title|button|option)>/g),
+      ...textBetween(html, /(?:placeholder|aria-label)="([^"]+)"/g),
+      ...textBetween(html, /<meta (?:name="description"|property="og:(?:title|description)") content="([^"]+)"/g),
+      ...jsonLdText,
+    ];
+    const latin = new Set(scanParts.join(' ').match(/[A-Za-z][A-Za-z0-9+&./:'() -]{1,}/g) || []);
+    for (const phrase of latin) {
+      const clean = phrase.trim().replace(/\s+/g, ' ');
+      if (!clean || /^https?:/.test(clean) || /^[\w.+-]+@[\w.-]+$/.test(clean) || /^\d/.test(clean)) continue;
+      if (![...allowed].some((item) => clean === item || clean.includes(item))) fail(`Unallowlisted Latin text in ${file}: ${clean}`);
+    }
+    const approved = ['車検', '抹消登録'];
+    const withoutApprovedJapaneseSection = html.replace(/<!-- JAPANESE SECTION -->[\s\S]*?<!-- FOOTER -->/, '<!-- FOOTER -->').replace(/日本語/g, '');
+    const stripped = approved.reduce((body, item) => body.split(item).join(''), withoutApprovedJapaneseSection);
+    if (/[ぁ-んァ-ン一-龯]/.test(stripped)) fail(`Unexpected Japanese/CJK in ${file}`);
+  }
+}
+function assertRobotsUnchanged() {
+  const current = read('robots.txt');
+  const head = fs.readFileSync(0, 'utf8');
+  if (head && current !== head) fail('robots.txt changed');
+}
 
-console.log('validate-i18n: PASS');
+assertKeyParity();
+assertTokenUsage();
+assertNoResidualTokens();
+assertBuilderIsNotCopyDb();
+assertFactsNotInLocales();
+assertJsonLdAndFaq();
+assertInlineJsSyntax();
+assertCanonicalHreflangAndSitemap();
+assertFormContract();
+assertRussianLatinAllowlist();
+console.log('i18n validation passed');

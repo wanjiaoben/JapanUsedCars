@@ -1,66 +1,75 @@
-export const sourceLocale = 'en';
-
-export const locales = {
-  en: {
-    code: 'en',
-    label: 'EN',
-    htmlLang: 'en',
-    ogLocale: 'en_US',
-    pathPrefix: '',
-    dir: 'ltr',
-    isSource: true
+export default {
+  "sourceLocale": "en",
+  "locales": {
+    "en": {
+      "code": "en",
+      "htmlLang": "en",
+      "ogLocale": "en_US",
+      "basePath": "/",
+      "label": "EN"
+    },
+    "ru": {
+      "code": "ru",
+      "htmlLang": "ru",
+      "ogLocale": "ru_RU",
+      "basePath": "/ru/",
+      "label": "RU"
+    }
   },
-  ru: {
-    code: 'ru',
-    label: 'RU',
-    htmlLang: 'ru',
-    ogLocale: 'ru_RU',
-    pathPrefix: 'ru',
-    dir: 'ltr',
-    isSource: false
-  }
+  "pages": [
+    {
+      "id": "home",
+      "template": "home.html",
+      "output": {
+        "en": "index.html",
+        "ru": "ru/index.html"
+      },
+      "urlPath": {
+        "en": "/",
+        "ru": "/ru/"
+      }
+    },
+    {
+      "id": "how",
+      "template": "how-it-works.html",
+      "output": {
+        "en": "how-it-works/index.html",
+        "ru": "ru/how-it-works/index.html"
+      },
+      "urlPath": {
+        "en": "/how-it-works/",
+        "ru": "/ru/how-it-works/"
+      }
+    },
+    {
+      "id": "pricing",
+      "template": "pricing.html",
+      "output": {
+        "en": "pricing/index.html",
+        "ru": "ru/pricing/index.html"
+      },
+      "urlPath": {
+        "en": "/pricing/",
+        "ru": "/ru/pricing/"
+      }
+    },
+    {
+      "id": "faq",
+      "template": "faq.html",
+      "output": {
+        "en": "faq/index.html",
+        "ru": "ru/faq/index.html"
+      },
+      "urlPath": {
+        "en": "/faq/",
+        "ru": "/ru/faq/"
+      }
+    }
+  ],
+  "hiddenPages": [
+    {
+      "id": "cases",
+      "urlPath": "/cases/"
+    }
+  ]
 };
-
-export const pages = [
-  {
-    id: 'home',
-    slug: '',
-    outFile: 'index.html',
-    type: 'home',
-    hasRu: true,
-    priority: '1.0'
-  },
-  {
-    id: 'how',
-    slug: 'how-it-works',
-    outFile: 'how-it-works/index.html',
-    type: 'how',
-    hasRu: true,
-    priority: '0.8'
-  },
-  {
-    id: 'pricing',
-    slug: 'pricing',
-    outFile: 'pricing/index.html',
-    type: 'pricing',
-    hasRu: true,
-    priority: '0.8'
-  },
-  {
-    id: 'faq',
-    slug: 'faq',
-    outFile: 'faq/index.html',
-    type: 'faq',
-    hasRu: true,
-    priority: '0.8'
-  },
-  {
-    id: 'cases',
-    slug: 'cases',
-    outFile: 'cases/index.html',
-    type: 'cases',
-    hasRu: false,
-    priority: '0.3',
-    noindex: true
-  }
-];

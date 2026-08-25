@@ -1,166 +1,167 @@
-export const facts = {
-  baseUrl: 'https://japanusedcars.nice.okinawa',
-  businessName: 'OKINAWA AUTO',
-  siteName: 'Okinawa Auto Japan Used Cars',
-  screenshotVersion: 'v2026.06.14',
-  contact: {
-    whatsapp: '+81 70-8952-3968',
-    whatsappUrl: 'https://wa.me/817089523968',
-    email: 'info@nice.okinawa',
-    wechat: 'OkinawaOnline'
+export default {
+  "brand": {
+    "name": "Okinawa Auto",
+    "displayName": "OKINAWA AUTO",
+    "network": "OkinawaOnline",
+    "company": "Okinawa Auto"
   },
-  form: {
-    endpoint: 'https://inquiry-nice-okinawa-preview.gerheidicn.workers.dev/api/inquiries',
-    turnstileSitekey: '0x4AAAAAADvhTRK9Z-f9ydQ1',
-    turnstileAction: 'japanusedcars-inquiry-v1',
-    site: 'japanusedcars',
-    sourceSite: 'japanusedcars.nice.okinawa',
-    defaultProject: 'Japan used car inquiry',
-    purposeOptions: [
-      ['purposeExport', 'Export to my country / region'],
-      ['purposeLocal', 'Local purchase in Okinawa'],
-      ['purposeBrowse', 'Just browsing / price check']
-    ]
+  "site": {
+    "url": "https://japanusedcars.nice.okinawa",
+    "host": "japanusedcars.nice.okinawa"
   },
-  analytics: {
-    beacon: 'https://analytics.nice.okinawa/beacon.js',
-    site: 'japanusedcars'
+  "contact": {
+    "email": "info@nice.okinawa",
+    "phoneDisplay": "+81 70-8952-3968",
+    "whatsappNumber": "817089523968",
+    "whatsappUrl": "https://wa.me/817089523968",
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=Okinawa%2C%20Japan"
   },
-  company: {
-    areaServed: ['Asia', 'Oceania', 'Middle East', 'Africa', 'Europe', 'Americas']
+  "form": {
+    "endpoint": "https://inquiry-nice-okinawa-preview.gerheidicn.workers.dev/api/inquiries",
+    "site": "japanusedcars",
+    "sourceSite": "japanusedcars.nice.okinawa",
+    "turnstileSiteKey": "0x4AAAAAADvhTRK9Z-f9ydQ1",
+    "turnstileAction": "japanusedcars-inquiry-v1"
   },
-  countries: [
-    {
-      group: 'Asia',
-      options: [
-        ['China', 'China'],
-        ['Taiwan', 'Taiwan'],
-        ['Hong Kong', 'Hong Kong'],
-        ['Macau', 'Macau'],
-        ['South Korea', 'South Korea'],
-        ['Mongolia', 'Mongolia'],
-        ['Singapore', 'Singapore'],
-        ['Malaysia', 'Malaysia'],
-        ['Thailand', 'Thailand'],
-        ['Vietnam', 'Vietnam'],
-        ['Philippines', 'Philippines'],
-        ['Indonesia', 'Indonesia'],
-        ['Myanmar', 'Myanmar'],
-        ['Sri Lanka', 'Sri Lanka'],
-        ['Bangladesh', 'Bangladesh'],
-        ['Pakistan', 'Pakistan'],
-        ['India', 'India']
-      ]
+  "currency": {
+    "code": "JPY"
+  },
+  "pricing": {
+    "publicVehiclePrice": "Inquiry"
+  },
+  "vehicles": {
+    "alphard": {
+      "id": "vehicle_01",
+      "model": "Toyota Alphard 2.5S",
+      "year": "2020",
+      "mileage": "28,000 km",
+      "colorKey": "vehicleColors.pearlWhite",
+      "image": "images/hero.jpg"
     },
-    {
-      group: 'Oceania',
-      options: [
-        ['Australia', 'Australia'],
-        ['New Zealand', 'New Zealand'],
-        ['Fiji', 'Fiji'],
-        ['Papua New Guinea', 'Papua New Guinea']
-      ]
+    "hiace": {
+      "id": "vehicle_02",
+      "model": "Toyota Hiace Van GL",
+      "year": "2019",
+      "mileage": "42,000 km",
+      "colorKey": "vehicleColors.silver",
+      "image": "images/hero.jpg"
     },
-    {
-      group: 'Middle East',
-      options: [
-        ['United Arab Emirates', 'United Arab Emirates'],
-        ['Saudi Arabia', 'Saudi Arabia'],
-        ['Oman', 'Oman'],
-        ['Jordan', 'Jordan'],
-        ['Israel', 'Israel']
-      ]
+    "serena": {
+      "id": "vehicle_03",
+      "model": "Nissan Serena e-POWER",
+      "year": "2021",
+      "mileage": "19,500 km",
+      "colorKey": "vehicleColors.darkBlue",
+      "image": "images/hero.jpg"
     },
-    {
-      group: 'Africa',
-      options: [
-        ['Kenya', 'Kenya'],
-        ['Tanzania', 'Tanzania'],
-        ['Uganda', 'Uganda'],
-        ['Zambia', 'Zambia'],
-        ['Zimbabwe', 'Zimbabwe'],
-        ['Malawi', 'Malawi'],
-        ['Mozambique', 'Mozambique'],
-        ['Botswana', 'Botswana'],
-        ['DR Congo', 'DR Congo'],
-        ['South Africa', 'South Africa'],
-        ['Nigeria', 'Nigeria'],
-        ['Ghana', 'Ghana']
-      ]
+    "stepwgn": {
+      "id": "vehicle_04",
+      "model": "Honda Stepwgn Spada",
+      "year": "2020",
+      "mileage": "33,000 km",
+      "colorKey": "vehicleColors.black",
+      "image": "images/hero.jpg"
     },
-    {
-      group: 'Europe',
-      options: [
-        ['United Kingdom', 'United Kingdom'],
-        ['Ireland', 'Ireland'],
-        ['Netherlands', 'Netherlands'],
-        ['Germany', 'Germany'],
-        ['France', 'France'],
-        ['Cyprus', 'Cyprus'],
-        ['Malta', 'Malta'],
-        ['Georgia', 'Georgia'],
-        ['Russia', 'Russia']
-      ]
-    },
-    {
-      group: 'Americas',
-      options: [
-        ['United States', 'USA'],
-        ['Canada', 'Canada'],
-        ['Chile', 'Chile'],
-        ['Paraguay', 'Paraguay'],
-        ['Bolivia', 'Bolivia'],
-        ['Guyana', 'Guyana'],
-        ['Trinidad and Tobago', 'Trinidad and Tobago'],
-        ['Jamaica', 'Jamaica']
-      ]
+    "cx5": {
+      "id": "vehicle_05",
+      "model": "Mazda CX-5 XD",
+      "year": "2021",
+      "mileage": "24,000 km",
+      "colorKey": "vehicleColors.soulRed",
+      "image": "images/hero.jpg"
     }
-  ],
-  specialCountryOptions: [
-    ['Japan (Okinawa local)', 'Japan (Okinawa Local)']
-  ],
-  otherCountryOption: ['Other country or region', 'Other'],
-  vehicles: [
+  },
+  "countryGroups": [
     {
-      maker: 'Toyota',
-      model: 'Alphard 2.5S',
-      year: '2020',
-      mileage: '28,000 km',
-      color: 'Pearl White',
-      statusKey: 'vehicle.status.availableExport'
+      "key": "asia",
+      "labelKey": "form.countryGroups.asia",
+      "countries": [
+        "China",
+        "Taiwan",
+        "Hong Kong",
+        "Macau",
+        "South Korea",
+        "Mongolia",
+        "Singapore",
+        "Malaysia",
+        "Thailand",
+        "Vietnam",
+        "Philippines",
+        "Indonesia",
+        "Myanmar",
+        "Sri Lanka",
+        "Bangladesh",
+        "Pakistan",
+        "India"
+      ]
     },
     {
-      maker: 'Nissan',
-      model: 'X-Trail 20X',
-      year: '2019',
-      mileage: '34,500 km',
-      color: 'Black',
-      statusKey: 'vehicle.status.ready'
+      "key": "oceania",
+      "labelKey": "form.countryGroups.oceania",
+      "countries": [
+        "Australia",
+        "New Zealand",
+        "Fiji",
+        "Papua New Guinea"
+      ]
     },
     {
-      maker: 'Honda',
-      model: 'Vezel Hybrid Z',
-      year: '2021',
-      mileage: '19,200 km',
-      color: 'Metallic Blue',
-      statusKey: 'vehicle.status.auction'
-    }
-  ],
-  geoPages: [
-    {
-      slug: 'how-it-works',
-      source: 'how-it-works/index.html',
-      jsonLd: 'HowTo'
+      "key": "middleEast",
+      "labelKey": "form.countryGroups.middleEast",
+      "countries": [
+        "United Arab Emirates",
+        "Saudi Arabia",
+        "Oman",
+        "Jordan",
+        "Israel"
+      ]
     },
     {
-      slug: 'pricing',
-      source: 'pricing/index.html',
-      jsonLd: 'FAQPage'
+      "key": "africa",
+      "labelKey": "form.countryGroups.africa",
+      "countries": [
+        "Kenya",
+        "Tanzania",
+        "Uganda",
+        "Zambia",
+        "Zimbabwe",
+        "Malawi",
+        "Mozambique",
+        "Botswana",
+        "DR Congo",
+        "South Africa",
+        "Nigeria",
+        "Ghana"
+      ]
     },
     {
-      slug: 'faq',
-      source: 'faq/index.html',
-      jsonLd: 'FAQPage'
+      "key": "europe",
+      "labelKey": "form.countryGroups.europe",
+      "countries": [
+        "United Kingdom",
+        "Ireland",
+        "Netherlands",
+        "Germany",
+        "France",
+        "Cyprus",
+        "Malta",
+        "Georgia",
+        "Russia"
+      ]
+    },
+    {
+      "key": "americas",
+      "labelKey": "form.countryGroups.americas",
+      "countries": [
+        "United States",
+        "Canada",
+        "Chile",
+        "Paraguay",
+        "Bolivia",
+        "Guyana",
+        "Trinidad and Tobago",
+        "Jamaica"
+      ]
     }
   ]
 };

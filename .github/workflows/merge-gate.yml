@@ -7,6 +7,25 @@ on:
   workflow_dispatch:
 
 jobs:
+  i18n-build-parity:
+    name: MERGE_GATE / i18n-build-parity
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build i18n static pages
+        run: node scripts/build-i18n.mjs
+      - name: Generated files are committed
+        run: git diff --exit-code
+      - name: Validate i18n architecture and output
+        run: node scripts/validate-i18n.mjs
+      - name: Run repository tests
+        run: npm test
+
   wan-constitution:
     name: WAN constitution version
     runs-on: ubuntu-latest

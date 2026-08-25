@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO Core -->
-  <title>Okinawa Used Cars | Japan Used Car Export & Purchase Support</title>
-  <meta name="description" content="Okinawa used car and Japan used car export support for right-hand drive vehicles, local purchase inquiries, documentation, shipping coordination, and 二手车购入代行 consultation.">
-  <meta name="keywords" content="Okinawa used car, Japan used car export, used cars Okinawa Japan, right-hand drive vehicles, buy car Japan, 二手车购入代行, 右舵車, 沖縄 中古車, used car dealer Okinawa, Toyota used car Japan">
+  <title>{{text:meta.home.title}}</title>
+  <meta name="description" content="{{attr:meta.home.description}}">
+  <meta name="keywords" content="{{attr:meta.home.keywords}}">
 
   <!-- Open Graph (for social sharing) -->
-  <meta property="og:title" content="Okinawa Used Cars | Japan Used Car Export & Purchase Support">
-  <meta property="og:description" content="Okinawa used car and Japan used car export support for right-hand drive vehicles, documentation, shipping coordination, and local purchase inquiries.">
+  <meta property="og:title" content="{{attr:meta.home.title}}">
+  <meta property="og:description" content="{{attr:meta.home.ogDescription}}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://japanusedcars.nice.okinawa">
+  <meta property="og:url" content="{{factAttr:site.url}}">
+  <meta property="og:locale" content="en_US">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Geo tags for local SEO -->
   <meta name="geo.region" content="JP-47">
-  <meta name="geo.placename" content="Okinawa, Japan">
+  <meta name="geo.placename" content="{{attr:footer.location}}">
   <meta name="geo.position" content="26.2124;127.6809">
   <meta name="ICBM" content="26.2124, 127.6809">
 
@@ -27,60 +28,60 @@
   {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
-    "name": "OKINAWA AUTO",
-    "description": "Japanese used car dealer in Okinawa specializing in export and local sales",
-    "url": "https://japanusedcars.nice.okinawa",
+    "name": "{{fact:brand.displayName}}",
+    "description": "{{json:home.schema.description}}",
+    "url": "{{factAttr:site.url}}",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Okinawa",
+      "addressLocality": "{{json:home.hero.title.okinawa}}",
       "addressCountry": "JP"
     },
     "areaServed": ["JP", "TW", "HK", "SG", "MY", "TH", "AE", "US"],
     "contactPoint": {
-      "@type": "ContactPoint",
+      "@type": "{{text:nav.contact}}Point",
       "contactType": "sales",
-      "email": "info@nice.okinawa"
+      "email": "{{fact:contact.email}}"
     }
   }
   </script>
 
-  <!-- Structured Data: FAQPage (answers pending Wan supply) -->
+  <!-- Structured Data: {{text:faqPage.title.b}}Page (answers pending Wan supply) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": "https://japanusedcars.nice.okinawa/#faq",
+    "@type": "{{text:faqPage.title.b}}Page",
+    "@id": "{{factAttr:site.url}}/#faq",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Do you offer a warranty on the vehicles?",
+        "name": "{{json:faq.warranty.q}}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. All vehicles are sold as-is. Ownership and all associated risk transfer to the buyer once the vehicle is loaded and the vessel departs Japan. This is standard practice in Japanese used car export. What protects you is disclosure before purchase: every vehicle comes with its auction inspection sheet and condition grade, so you know exactly what you are buying before you commit."
+          "text": "{{json:faq.warranty.a}}"
         }
       },
       {
         "@type": "Question",
-        "name": "Can I inspect the car before buying, and what condition information do you provide?",
+        "name": "{{json:faq.inspection.q}}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vehicles are sourced through Japanese auction houses, and neither you nor we inspect them in person — the same is true of every exporter working this market. What you get instead is the auction inspection sheet: an independent assessment carried out by the auction house, covering the overall condition grade, interior grade, mileage verification, and a diagram marking scratches, dents, and rust. Grade S is the top rating. Export vehicles are de-registered and shipped without plates, so a Japanese 車検 (shaken) certificate does not carry over. Ask us for the auction sheet on any vehicle you are considering and we will send it before you decide."
+          "text": "{{json:faq.inspection.a}}"
         }
       },
       {
         "@type": "Question",
-        "name": "Do you handle registration and ownership transfer?",
+        "name": "{{json:faq.registration.q}}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We sell for export, not for local Japanese registration. Every vehicle we ship goes through 抹消登録 (masshō tōroku), the Japanese deregistration process, and we prepare the export certificate and related documents. Registration in the destination country is handled by the buyer under local rules. One exception: if you are purchasing for rental-car operation, contact us directly and we will discuss it case by case."
+          "text": "{{json:faq.registration.a}}"
         }
       },
       {
         "@type": "Question",
-        "name": "How much is shipping, and what other costs are involved?",
+        "name": "{{json:faq.shipping.q}}",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "We quote for Europe, New Zealand, and Southeast Asia. The figure depends on destination port, vessel schedule, and vehicle size, so we quote per inquiry rather than publish a fixed rate. Send us the model you are interested in and your destination port, and we will come back with a number. Contact us any time."
+          "text": "{{json:faq.shipping.a}}"
         }
       }
     ]
@@ -402,7 +403,7 @@
     }
     .step p { font-size: 0.78rem; color: var(--gray); line-height: 1.6; }
 
-    /* ─── FAQ ─── */
+    /* ─── {{text:faqPage.title.b}} ─── */
     .faq-section { background: var(--navy); }
     .faq-list {
       display: flex; flex-direction: column;
@@ -523,10 +524,12 @@
       .jp-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
     }
-  </style>
-<link rel="canonical" href="https://japanusedcars.nice.okinawa/">
-<link rel="alternate" hreflang="x-default" href="https://japanusedcars.nice.okinawa/">
-<link rel="alternate" hreflang="en" href="https://japanusedcars.nice.okinawa/">
+  .locale-switch{display:inline-flex;align-items:center;gap:.35rem;margin-left:.75rem;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.04em}.locale-switch a,.locale-switch span{color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:.35rem .45rem;border-radius:3px}.locale-switch .active{font-weight:700;background:rgba(255,255,255,.14)}
+</style>
+<link rel="canonical" href="{{factAttr:site.url}}/">
+  <link rel="alternate" hreflang="x-default" href="{{factAttr:site.url}}/">
+  <link rel="alternate" hreflang="en" href="{{factAttr:site.url}}/">
+  <link rel="alternate" hreflang="ru" href="{{factAttr:site.url}}/ru/">
 <style id="nice-screenshot-mark-style">
 .nice-screenshot-mark {
   position: fixed;
@@ -560,119 +563,120 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">OKINAWA AUTO</a>
+  <a href="#" class="nav-logo">{{fact:brand.displayName}}</a>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#vehicles">Vehicles</a></li>
-    <li><a href="#process">Process</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="/pricing/">Pricing</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#services">{{text:nav.services}}</a></li>
+    <li><a href="#vehicles">{{text:nav.vehicles}}</a></li>
+    <li><a href="#process">{{text:nav.process}}</a></li>
+    <li><a href="#faq">{{text:faqPage.title.b}}</a></li>
+    <li><a href="/pricing/">{{text:nav.pricing}}</a></li>
+    <li><a href="#contact">{{text:nav.contact}}</a></li>
   </ul>
   <button class="nav-lang" onclick="scrollToJP()">日本語</button>
+  <span class="locale-switch" aria-label="Language switcher"><span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="/ru/">RU</a></span>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-tag">Okinawa, Japan · Est. 2024</div>
+  <div class="hero-tag">{{text:home.hero.kicker}}</div>
   <h1>
-    Okinawa Used Cars<br>
-    <em>Japan Used Car Export</em><br>
-    Okinawa
+    {{text:home.hero.title1}}<br>
+    <em>{{text:home.hero.title2}}</em><br>
+    {{text:home.hero.title.okinawa}}
   </h1>
   <p class="hero-sub">
-    Right-hand drive Japanese used cars for export worldwide or local purchase in Okinawa, with documentation and shipping coordination.
+    {{text:home.hero.desc}}
   </p>
   <div class="hero-actions">
-    <a href="#contact" class="btn-primary">Inquire Now</a>
-    <a href="#vehicles" class="btn-outline">Browse Vehicles</a>
+    <a href="#contact" class="btn-primary">{{text:home.hero.cta1}}</a>
+    <a href="#vehicles" class="btn-outline">{{text:home.hero.cta2}}</a>
   </div>
   <div class="hero-stats">
     <div class="stat">
       <div class="stat-num">50+</div>
-      <div class="stat-label">Cars in Stock</div>
+      <div class="stat-label">{{text:home.stats.stock}}</div>
     </div>
     <div class="stat">
       <div class="stat-num">15+</div>
-      <div class="stat-label">Countries & regions exported</div>
+      <div class="stat-label">{{text:home.stats.regions}}</div>
     </div>
     <div class="stat">
       <div class="stat-num">100%</div>
-      <div class="stat-label">Inspected</div>
+      <div class="stat-label">{{text:home.stats.inspected}}</div>
     </div>
   </div>
 </section>
 
 <!-- WHY JAPAN -->
 <section id="why">
-  <div class="section-tag">Why Buy from Japan</div>
-  <h2 class="section-title">The <em>Japanese advantage</em> in every vehicle</h2>
+  <div class="section-tag">{{text:home.why.kicker}}</div>
+  <h2 class="section-title">{{text:home.why.title.a}} <em>{{text:home.why.title.b}}</em> {{text:home.why.title.c}}</h2>
   <div class="divider"></div>
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">🔬</div>
-      <h3>Strict Vehicle Inspection</h3>
-      <p>Japan's shaken system enforces rigorous safety and emissions standards. Every vehicle on our lot has passed Japanese government inspection.</p>
+      <h3>{{text:home.why.inspection.title}}</h3>
+      <p>{{text:home.why.inspection.text}}</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📊</div>
-      <h3>Low Mileage, Honest Records</h3>
-      <p>Okinawa's compact geography means local vehicles accumulate less mileage. Full service history available for every car.</p>
+      <h3>{{text:home.why.mileage.title}}</h3>
+      <p>{{text:home.why.mileage.text}}</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🌊</div>
-      <h3>Okinawa Climate Advantage</h3>
-      <p>No snow, no road salt — Okinawa vehicles avoid the corrosion damage common in mainland Japan, giving you cleaner undercarriages.</p>
+      <h3>{{text:home.why.climate.title}}</h3>
+      <p>{{text:home.why.climate.text}}</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📦</div>
-      <h3>Export Documentation</h3>
-      <p>We handle all Japanese export paperwork: deregistration, export certificate, and shipping coordination to your country / region.</p>
+      <h3>{{text:home.why.docs.title}}</h3>
+      <p>{{text:home.why.docs.text}}</p>
     </div>
     <div class="why-card">
       <div class="why-icon">💬</div>
-      <h3>Multilingual Support</h3>
-      <p>English, Chinese, and Japanese communication. We understand the needs of international buyers and make the process smooth.</p>
+      <h3>{{text:home.why.lang.title}}</h3>
+      <p>{{text:home.why.lang.text}}</p>
     </div>
     <div class="why-card">
       <div class="why-icon">✈️</div>
-      <h3>Direct Port Access</h3>
-      <p>Located in Okinawa with direct access to shipping routes to Taiwan, Southeast Asia, the Middle East, and beyond.</p>
+      <h3>{{text:home.why.port.title}}</h3>
+      <p>{{text:home.why.port.text}}</p>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section class="services" id="services">
-  <div class="section-tag">What We Offer</div>
-  <h2 class="section-title">Two ways to <em>get your car</em></h2>
+  <div class="section-tag">{{text:home.offer.kicker}}</div>
+  <h2 class="section-title">{{text:home.offer.title.a}} <em>{{text:home.offer.title.b}}</em></h2>
   <div class="divider"></div>
   <div class="services-grid">
     <div class="service-block">
       <div class="service-num">01</div>
-      <h3>Japan Used Car Export</h3>
-      <p>We support Japan used car export inquiries for buyers across Asia, the Middle East, Europe, and the Americas. From selection to shipping coordination, we manage the process so you receive export-ready documentation.</p>
+      <h3>{{text:home.hero.title2}}</h3>
+      <p>{{text:home.offer.export.text}}</p>
       <div class="service-tags">
-        <span class="tag">Taiwan / Hong Kong</span>
-        <span class="tag">Southeast Asia</span>
-        <span class="tag">Middle East</span>
-        <span class="tag">Europe & USA</span>
-        <span class="tag">Full Documentation</span>
-        <span class="tag">Right-Hand Drive</span>
-        <span class="tag">Door-to-Port</span>
+        <span class="tag">{{text:home.serviceTags.taiwanHongKong}}</span>
+        <span class="tag">{{text:home.serviceTags.southeastAsia}}</span>
+        <span class="tag">{{text:home.serviceTags.middleEast}}</span>
+        <span class="tag">{{text:home.serviceTags.europeUsa}}</span>
+        <span class="tag">{{text:home.serviceTags.fullDocumentation}}</span>
+        <span class="tag">{{text:home.serviceTags.rightHandDrive}}</span>
+        <span class="tag">{{text:home.serviceTags.doorToPort}}</span>
       </div>
     </div>
     <div class="service-block">
       <div class="service-num">02</div>
-      <h3>Okinawa Used Car Purchase Support</h3>
-      <p>Residents and long-term visitors in Okinawa can inquire about local purchase support from our lot. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
+      <h3>{{text:home.offer.local.title}}</h3>
+      <p>{{text:home.offer.local.text}}</p>
       <div class="service-tags">
-        <span class="tag">Okinawa Local</span>
-        <span class="tag">English Support</span>
-        <span class="tag">Registration Help</span>
-        <span class="tag">二手车购入代行</span>
-        <span class="tag">Foreign License OK</span>
-        <span class="tag">Military Welcome</span>
+        <span class="tag">{{text:home.serviceTags.okinawaLocal}}</span>
+        <span class="tag">{{text:home.serviceTags.englishSupport}}</span>
+        <span class="tag">{{text:home.serviceTags.registrationHelp}}</span>
+        <span class="tag">{{text:home.offer.tag.auctionAgent}}</span>
+        <span class="tag">{{text:home.serviceTags.foreignLicenseOk}}</span>
+        <span class="tag">{{text:home.serviceTags.militaryWelcome}}</span>
       </div>
     </div>
   </div>
@@ -680,24 +684,24 @@
 
 <!-- BUYER GUIDES -->
 <section id="buyer-guides">
-  <div class="section-tag">Buyer Guides</div>
-  <h2 class="section-title">Plan your <em>Japan used car export</em></h2>
+  <div class="section-tag">{{text:home.guides.kicker}}</div>
+  <h2 class="section-title">{{text:home.guides.title.a}} <em>{{text:home.guides.title.b}}</em></h2>
   <div class="divider"></div>
   <div class="why-grid guide-links">
     <a class="why-card" href="/how-it-works/">
-      <h3>How it works</h3>
-      <p>From inquiry and auction sheet review to payment, export documents, shipping, and arrival at the destination port.</p>
-      <span>Read the process</span>
+      <h3>{{text:nav.how}}</h3>
+      <p>{{text:home.guides.how.text}}</p>
+      <span>{{text:home.guides.how.link}}</span>
     </a>
     <a class="why-card" href="/pricing/">
-      <h3>Pricing basis</h3>
-      <p>Understand FOB, CIF, auction agent fees, inspection, freight, and buyer-side destination costs without fixed vehicle prices.</p>
-      <span>See the formula</span>
+      <h3>{{text:home.guides.pricing.title}}</h3>
+      <p>{{text:home.guides.pricing.text}}</p>
+      <span>{{text:home.guides.pricing.link}}</span>
     </a>
     <a class="why-card" href="/faq/">
-      <h3>Export FAQ</h3>
-      <p>Answers on countries and regions, right-hand drive vehicles, age limits, payment safety, shipping schedules, and cancellations.</p>
-      <span>Open FAQ</span>
+      <h3>{{text:home.guides.faq.title}}</h3>
+      <p>{{text:home.guides.faq.text}}</p>
+      <span>{{text:home.guides.faq.link}}</span>
     </a>
   </div>
 </section>
@@ -706,11 +710,11 @@
 <section id="vehicles">
   <div class="vehicles-intro">
     <div>
-      <div class="section-tag">Current Stock</div>
-      <h2 class="section-title">Featured <em>Vehicles</em></h2>
+      <div class="section-tag">{{text:home.stock.kicker}}</div>
+      <h2 class="section-title">{{text:home.stock.title.a}} <em>{{text:nav.vehicles}}</em></h2>
     </div>
     <p style="color:var(--gray); font-size:0.88rem; max-width:300px; line-height:1.7;">
-      Stock updates regularly. Contact us for a full current inventory list.
+      {{text:home.stock.desc}}
     </p>
   </div>
   <div class="vehicle-grid">
@@ -720,11 +724,11 @@
         <div class="vehicle-make" itemprop="brand">Toyota</div>
         <h3 class="vehicle-name" itemprop="name">Alphard 2.5S</h3>
         <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Mileage <span>28,000 km</span></div>
-          <div class="spec">Color <span>Pearl White</span></div>
+          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2020</span></div>
+          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.alphard.mileage}}</span></div>
+          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.pearlWhite}}</span></div>
         </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
       </div>
     </article>
     <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
@@ -733,11 +737,11 @@
         <div class="vehicle-make" itemprop="brand">Toyota</div>
         <h3 class="vehicle-name" itemprop="name">Hiace Van GL</h3>
         <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2019</span></div>
-          <div class="spec">Mileage <span>42,000 km</span></div>
-          <div class="spec">Color <span>Silver</span></div>
+          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2019</span></div>
+          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.hiace.mileage}}</span></div>
+          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.silver}}</span></div>
         </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
       </div>
     </article>
     <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
@@ -746,11 +750,11 @@
         <div class="vehicle-make" itemprop="brand">Nissan</div>
         <h3 class="vehicle-name" itemprop="name">Serena e-POWER</h3>
         <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Mileage <span>19,500 km</span></div>
-          <div class="spec">Color <span>Dark Blue</span></div>
+          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2021</span></div>
+          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.serena.mileage}}</span></div>
+          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.darkBlue}}</span></div>
         </div>
-        <div class="vehicle-status">Local & Export</div>
+        <div class="vehicle-status">{{text:vehicle.status.localExport}}</div>
       </div>
     </article>
     <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
@@ -759,11 +763,11 @@
         <div class="vehicle-make" itemprop="brand">Honda</div>
         <h3 class="vehicle-name" itemprop="name">Stepwgn Spada</h3>
         <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Mileage <span>33,000 km</span></div>
-          <div class="spec">Color <span>Black</span></div>
+          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2020</span></div>
+          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.stepwgn.mileage}}</span></div>
+          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.black}}</span></div>
         </div>
-        <div class="vehicle-status">Local Stock</div>
+        <div class="vehicle-status">{{text:vehicle.status.local}}</div>
       </div>
     </article>
     <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
@@ -772,79 +776,79 @@
         <div class="vehicle-make" itemprop="brand">Mazda</div>
         <h3 class="vehicle-name" itemprop="name">CX-5 XD</h3>
         <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Mileage <span>24,000 km</span></div>
-          <div class="spec">Color <span>Soul Red</span></div>
+          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2021</span></div>
+          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.cx5.mileage}}</span></div>
+          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.soulRed}}</span></div>
         </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
       </div>
     </article>
     <article class="vehicle-card" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; min-height:200px;">
       <div style="font-size:2rem; color:var(--gold)">+</div>
-      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">More vehicles available.<br>Contact us for full inventory.</p>
-      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">View All</a>
+      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">{{text:home.stock.more}}<br>{{text:home.stock.contact}}</p>
+      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">{{text:home.stock.viewAll}}</a>
     </article>
   </div>
   <p style="color:var(--gray); font-size:0.88rem; max-width:720px; line-height:1.7; margin-top:2rem;">
-    Every vehicle comes with its auction inspection sheet — an independent condition report issued by the Japanese auction house, not by us. Ask for it on any listing.
+    {{text:home.trust.auction}}
   </p>
 </section>
 
 <!-- PROCESS -->
 <section class="process" id="process">
-  <div class="section-tag">How It Works</div>
-  <h2 class="section-title">From <em>inquiry to delivery</em> — step by step</h2>
+  <div class="section-tag">{{text:home.process.kicker}}</div>
+  <h2 class="section-title">{{text:home.process.title.a}} <em>{{text:home.process.title.b}}</em> {{text:home.process.title.c}}</h2>
   <div class="divider"></div>
   <div class="process-steps">
     <div class="step">
       <div class="step-num">01</div>
-      <h4>Inquiry</h4>
-      <p>Tell us what you're looking for — model, budget, year, destination country / region.</p>
+      <h4>{{text:home.process.inquiry.title}}</h4>
+      <p>{{text:home.process.inquiry.text}}</p>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <h4>Selection</h4>
-      <p>We send you matching options with photos, inspection reports, and pricing.</p>
+      <h4>{{text:home.process.selection.title}}</h4>
+      <p>{{text:home.process.selection.text}}</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
-      <h4>Agreement</h4>
-      <p>Confirm your vehicle, review the contract, and pay the deposit to secure it.</p>
+      <h4>{{text:home.process.agreement.title}}</h4>
+      <p>{{text:home.process.agreement.text}}</p>
     </div>
     <div class="step">
       <div class="step-num">04</div>
-      <h4>Export / Prep</h4>
-      <p>We handle Japanese deregistration, export certification, and shipping booking.</p>
+      <h4>{{text:home.process.export.title}}</h4>
+      <p>{{text:home.process.export.text}}</p>
     </div>
     <div class="step">
       <div class="step-num">05</div>
-      <h4>Delivery</h4>
-      <p>Vehicle arrives at your designated port with full documentation for local registration.</p>
+      <h4>{{text:home.process.delivery.title}}</h4>
+      <p>{{text:home.process.delivery.text}}</p>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- {{text:faqPage.title.b}} -->
 <section class="faq-section" id="faq">
-  <div class="section-tag">FAQ</div>
-  <h2 class="section-title">Okinawa used car and <em>Japan used car export</em> FAQ</h2>
+  <div class="section-tag">{{text:faqPage.title.b}}</div>
+  <h2 class="section-title">{{text:home.faq.title.a}} <em>{{text:home.guides.title.b}}</em> {{text:faqPage.title.b}}</h2>
   <div class="divider"></div>
   <div class="faq-list">
     <article class="faq-item">
-      <h3>Do you offer a warranty on the vehicles?</h3>
-      <p>No. All vehicles are sold as-is. Ownership and all associated risk transfer to the buyer once the vehicle is loaded and the vessel departs Japan. This is standard practice in Japanese used car export. What protects you is disclosure before purchase: every vehicle comes with its auction inspection sheet and condition grade, so you know exactly what you are buying before you commit.</p>
+      <h3>{{text:faq.warranty.q}}</h3>
+      <p>{{text:faq.warranty.a}}</p>
     </article>
     <article class="faq-item">
-      <h3>Can I inspect the car before buying, and what condition information do you provide?</h3>
-      <p>Vehicles are sourced through Japanese auction houses, and neither you nor we inspect them in person — the same is true of every exporter working this market. What you get instead is the auction inspection sheet: an independent assessment carried out by the auction house, covering the overall condition grade, interior grade, mileage verification, and a diagram marking scratches, dents, and rust. Grade S is the top rating. Export vehicles are de-registered and shipped without plates, so a Japanese 車検 (shaken) certificate does not carry over. Ask us for the auction sheet on any vehicle you are considering and we will send it before you decide.</p>
+      <h3>{{text:faq.inspection.q}}</h3>
+      <p>{{text:faq.inspection.a}}</p>
     </article>
     <article class="faq-item">
-      <h3>Do you handle registration and ownership transfer?</h3>
-      <p>We sell for export, not for local Japanese registration. Every vehicle we ship goes through 抹消登録 (masshō tōroku), the Japanese deregistration process, and we prepare the export certificate and related documents. Registration in the destination country is handled by the buyer under local rules. One exception: if you are purchasing for rental-car operation, contact us directly and we will discuss it case by case.</p>
+      <h3>{{text:faq.registration.q}}</h3>
+      <p>{{text:faq.registration.a}}</p>
     </article>
     <article class="faq-item">
-      <h3>How much is shipping, and what other costs are involved?</h3>
-      <p>We quote for Europe, New Zealand, and Southeast Asia. The figure depends on destination port, vessel schedule, and vehicle size, so we quote per inquiry rather than publish a fixed rate. Send us the model you are interested in and your destination port, and we will come back with a number. Contact us any time.</p>
+      <h3>{{text:faq.shipping.q}}</h3>
+      <p>{{text:faq.shipping.a}}</p>
     </article>
   </div>
 </section>
@@ -853,32 +857,32 @@
 <section id="contact">
   <div class="contact-wrap">
     <div>
-      <div class="section-tag">Get in Touch</div>
-      <h2 class="section-title">Ready to find your <em>next car?</em></h2>
+      <div class="section-tag">{{text:home.contact.kicker}}</div>
+      <h2 class="section-title">{{text:home.contact.title.a}} <em>{{text:home.contact.title.b}}</em></h2>
       <div class="divider"></div>
       <p style="color:var(--gray); line-height:1.8; font-size:0.92rem;">
-        Whether you're buying locally in Okinawa or importing to your country / region, we're here to help. Reach out via your preferred channel — we respond within 24 hours.
+        {{text:home.contact.text}}
       </p>
       <div class="contact-methods">
-        <a href="https://wa.me/817089523968" class="contact-method" target="_blank" rel="noopener">
+        <a href="{{factAttr:contact.whatsappUrl}}" class="contact-method" target="_blank" rel="noopener">
           <div class="contact-icon">💬</div>
           <div>
             <div class="contact-label">WhatsApp</div>
-            <div class="contact-value">+81 70-8952-3968</div>
+            <div class="contact-value">{{fact:contact.phoneDisplay}}</div>
           </div>
         </a>
-        <a href="weixin://dl/chat?OkinawaOnline" class="contact-method">
+        <a href="weixin://dl/chat?{{fact:brand.network}}" class="contact-method">
           <div class="contact-icon">💚</div>
           <div>
             <div class="contact-label">WeChat ID</div>
-            <div class="contact-value">OkinawaOnline</div>
+            <div class="contact-value">{{fact:brand.network}}</div>
           </div>
         </a>
-        <a href="mailto:info@nice.okinawa" class="contact-method">
+        <a href="mailto:{{fact:contact.email}}" class="contact-method">
           <div class="contact-icon">✉️</div>
           <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">info@nice.okinawa</div>
+            <div class="contact-label">{{text:form.email}}</div>
+            <div class="contact-value">{{fact:contact.email}}</div>
           </div>
         </a>
       </div>
@@ -886,118 +890,46 @@
 
     <!-- INQUIRY FORM -->
     <div>
-      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; margin-bottom:1.5rem;">Send an Inquiry</h3>
+      <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:400; margin-bottom:1.5rem;">{{text:form.heading}}</h3>
       <div class="inquiry-form">
         <div class="form-row">
           <div class="field">
-            <label for="name">Your Name</label>
+            <label for="name">{{text:form.name}}</label>
             <input type="text" id="name" placeholder="John Smith">
           </div>
           <div class="field">
-            <label for="country">Country / region</label>
+            <label for="country">{{text:form.country}}</label>
             <select id="country">
-              <option value="">Select country or region</option>
-              <option value="Japan (Okinawa Local)">Japan (Okinawa local)</option>
-              <optgroup label="Asia">
-                <option>China</option>
-                <option>Taiwan</option>
-                <option>Hong Kong</option>
-                <option>Macau</option>
-                <option>South Korea</option>
-                <option>Mongolia</option>
-                <option>Singapore</option>
-                <option>Malaysia</option>
-                <option>Thailand</option>
-                <option>Vietnam</option>
-                <option>Philippines</option>
-                <option>Indonesia</option>
-                <option>Myanmar</option>
-                <option>Sri Lanka</option>
-                <option>Bangladesh</option>
-                <option>Pakistan</option>
-                <option>India</option>
-              </optgroup>
-              <optgroup label="Oceania">
-                <option>Australia</option>
-                <option>New Zealand</option>
-                <option>Fiji</option>
-                <option>Papua New Guinea</option>
-              </optgroup>
-              <optgroup label="Middle East">
-                <option value="United Arab Emirates">United Arab Emirates</option>
-                <option>Saudi Arabia</option>
-                <option>Oman</option>
-                <option>Jordan</option>
-                <option>Israel</option>
-              </optgroup>
-              <optgroup label="Africa">
-                <option>Kenya</option>
-                <option>Tanzania</option>
-                <option>Uganda</option>
-                <option>Zambia</option>
-                <option>Zimbabwe</option>
-                <option>Malawi</option>
-                <option>Mozambique</option>
-                <option>Botswana</option>
-                <option>DR Congo</option>
-                <option>South Africa</option>
-                <option>Nigeria</option>
-                <option>Ghana</option>
-              </optgroup>
-              <optgroup label="Europe">
-                <option>United Kingdom</option>
-                <option>Ireland</option>
-                <option>Netherlands</option>
-                <option>Germany</option>
-                <option>France</option>
-                <option>Cyprus</option>
-                <option>Malta</option>
-                <option>Georgia</option>
-                <option>Russia</option>
-              </optgroup>
-              <optgroup label="Americas">
-                <option value="USA">United States</option>
-                <option>Canada</option>
-                <option>Chile</option>
-                <option>Paraguay</option>
-                <option>Bolivia</option>
-                <option>Guyana</option>
-                <option>Trinidad and Tobago</option>
-                <option>Jamaica</option>
-              </optgroup>
-              <option value="Other">Other country or region</option>
-            </select>
+                  {{options:countries}}
+                </select>
           </div>
         </div>
         <div class="form-row">
           <div class="field">
-            <label for="email">Email</label>
+            <label for="email">{{text:form.email}}</label>
             <input type="email" id="email" placeholder="you@email.com">
           </div>
           <div class="field">
-            <label for="purpose">Purpose</label>
+            <label for="purpose">{{text:form.purpose}}</label>
             <select id="purpose">
-              <option value="">Select</option>
-              <option>Export to my country / region</option>
-              <option>Local purchase in Okinawa</option>
-              <option>Just browsing / price check</option>
-            </select>
+                  {{options:purposes}}
+                </select>
           </div>
         </div>
         <div class="field">
-          <label for="interest">Vehicle Interest</label>
-          <input type="text" id="interest" placeholder="e.g. Toyota Alphard, budget ~$20,000 USD">
+          <label for="interest">{{text:form.interest}}</label>
+          <input type="text" id="interest" placeholder="{{attr:form.interest.placeholder}}">
         </div>
         <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" rows="4" placeholder="Any specific requirements, preferred colors, year range..."></textarea>
+          <label for="message">{{text:form.message}}</label>
+          <textarea id="message" rows="4" placeholder="{{attr:form.message.placeholder}}"></textarea>
         </div>
         <p class="form-note">
-          * Please include your destination country or port if you need an export quote.
+          {{text:form.note}}
         </p>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAADvhTRK9Z-f9ydQ1" data-action="japanusedcars-inquiry-v1"></div>
+        <div class="cf-turnstile" data-sitekey="{{factAttr:form.turnstileSiteKey}}" data-action="{{factAttr:form.turnstileAction}}"></div>
         <div class="inquiry-status" id="inquiry-status" aria-live="polite"></div>
-        <button class="btn-primary form-submit" id="inquiry-submit" style="width:100%;" onclick="handleSubmit(event)">Send Inquiry →</button>
+        <button class="btn-primary form-submit" id="inquiry-submit" style="width:100%;" onclick="handleSubmit(event)">{{text:form.submit}}</button>
       </div>
     </div>
   </div>
@@ -1027,8 +959,8 @@
       <div style="border:1px solid var(--border); padding:2.5rem;">
         <p style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; margin-bottom:1.5rem;">お問い合わせ</p>
         <div style="display:flex; flex-direction:column; gap:0.8rem;">
-          <p style="font-size:0.88rem; color:var(--gray);">📧 info@nice.okinawa</p>
-          <p style="font-size:0.88rem; color:var(--gray);">💬 WhatsApp: +81 70-8952-3968</p>
+          <p style="font-size:0.88rem; color:var(--gray);">📧 {{fact:contact.email}}</p>
+          <p style="font-size:0.88rem; color:var(--gray);">💬 WhatsApp: {{fact:contact.phoneDisplay}}</p>
           <p style="font-size:0.88rem; color:var(--gray);">🕐 対応時間：平日 10:00〜18:00（日本時間）</p>
         </div>
         <a href="#contact" class="btn-primary" style="display:inline-block; margin-top:2rem; font-size:0.8rem;">
@@ -1041,14 +973,14 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">OKINAWA AUTO</div>
-  <div class="footer-text">© 2024 Okinawa Auto · japanusedcars.nice.okinawa · Okinawa, Japan</div>
+  <div class="footer-logo">{{fact:brand.displayName}}</div>
+  <div class="footer-text">© 2024 {{fact:brand.name}} · {{fact:site.host}} · {{text:footer.location}}</div>
   <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#vehicles">Vehicles</a>
-    <a href="/how-it-works/">How it works</a>
-    <a href="/pricing/">Pricing</a>
-    <a href="#contact">Contact</a>
+    <a href="#services">{{text:nav.services}}</a>
+    <a href="#vehicles">{{text:nav.vehicles}}</a>
+    <a href="/how-it-works/">{{text:nav.how}}</a>
+    <a href="/pricing/">{{text:nav.pricing}}</a>
+    <a href="#contact">{{text:nav.contact}}</a>
     <a href="#japanese">日本語</a>
   </div>
 </footer>
@@ -1062,11 +994,11 @@
 
   function inquiryMessage(key) {
     const messages = {
-      sending: 'Sending your inquiry...',
-      ok: 'Thank you! We received your inquiry and will reply within 24 hours.',
-      missingContact: 'Please enter your email. If this keeps failing, email info@nice.okinawa or use WhatsApp.',
-      missingTurnstile: 'Please complete the security check. If this keeps failing, email info@nice.okinawa or use WhatsApp.',
-      error: 'Could not send. Please email info@nice.okinawa or use WhatsApp instead.'
+      sending: '{{js:form.status.sending}}',
+      ok: '{{js:form.status.ok}}',
+      missingContact: '{{js:form.status.missingContact.beforeEmail}}{{factJs:contact.email}}{{js:form.status.missingContact.afterEmail}}',
+      missingTurnstile: '{{js:form.status.missingTurnstile.beforeEmail}}{{factJs:contact.email}}{{js:form.status.missingTurnstile.afterEmail}}',
+      error: '{{js:form.status.error.beforeEmail}}{{factJs:contact.email}}{{js:form.status.error.afterEmail}}'
     };
     return messages[key] || messages.error;
   }
@@ -1097,18 +1029,18 @@
     const interest = getField('interest');
     const message = getField('message');
     return {
-      site: 'japanusedcars',
-      sourceSite: 'japanusedcars.nice.okinawa',
+      site: '{{fact:form.site}}',
+      sourceSite: '{{fact:site.host}}',
       date: '',
       guests: '',
       project: interest || purpose || 'Japan used car inquiry',
       contact: email,
       remarks: [
         name ? `Name: ${name}` : '',
-        country ? `Country / region: ${country}` : '',
-        purpose ? `Purpose: ${purpose}` : '',
+        country ? `{{text:form.country}}: ${country}` : '',
+        purpose ? `{{text:form.purpose}}: ${purpose}` : '',
         interest ? `Vehicle interest: ${interest}` : '',
-        message ? `Message: ${message}` : ''
+        message ? `{{text:form.message}}: ${message}` : ''
       ].filter(Boolean).join('\n'),
       language: document.documentElement.lang || 'en',
       turnstileToken
@@ -1175,8 +1107,8 @@
     observer.observe(el);
   });
 </script>
-<div class="nice-screenshot-mark" aria-label="Page address and version">japanusedcars.nice.okinawa/ · v2026.06.14</div>
+<div class="nice-screenshot-mark" aria-label="{{attr:screenshotMark.aria}}">{{fact:site.host}}/ · v2026.06.14</div>
   <script src="https://analytics.nice.okinawa/beacon.js"
-    data-site="japanusedcars" defer></script>
+    data-site="{{fact:form.site}}" defer></script>
 </body>
 </html>

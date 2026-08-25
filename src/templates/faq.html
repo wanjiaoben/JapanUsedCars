@@ -3,72 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Japan Used Car Export FAQ | Okinawa Auto</title>
-  <meta name="description" content="FAQ for Okinawa used car and Japan used car export buyers: export countries and regions, right-hand drive cars, age limits, payment safety, shipping schedules, cancellations, and documents.">
-  <meta property="og:title" content="Japan Used Car Export FAQ | Okinawa Auto">
-  <meta property="og:description" content="Answers for international buyers considering Okinawa used cars and Japan used car export.">
+  <title>{{text:meta.faq.title}} | {{fact:brand.name}}</title>
+  <meta name="description" content="{{attr:meta.faq.description}}">
+  <meta property="og:title" content="{{attr:meta.faq.title}} | {{factAttr:brand.name}}">
+  <meta property="og:description" content="{{attr:meta.faq.ogDescription}}">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://japanusedcars.nice.okinawa/faq/">
-  <link rel="canonical" href="https://japanusedcars.nice.okinawa/faq/">
-  <link rel="alternate" hreflang="x-default" href="https://japanusedcars.nice.okinawa/faq/">
-  <link rel="alternate" hreflang="en" href="https://japanusedcars.nice.okinawa/faq/">
+  <meta property="og:url" content="{{factAttr:site.url}}/faq/">
+  <meta property="og:locale" content="en_US">
+  <link rel="canonical" href="{{factAttr:site.url}}/faq/">
+  <link rel="alternate" hreflang="x-default" href="{{factAttr:site.url}}/faq/">
+  <link rel="alternate" hreflang="en" href="{{factAttr:site.url}}/faq/">
+  <link rel="alternate" hreflang="ru" href="{{factAttr:site.url}}/ru/faq/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "@id": "https://japanusedcars.nice.okinawa/faq/#faq",
+    "@type": "{{text:faqPage.title.b}}Page",
+    "@id": "{{factAttr:site.url}}/faq/#faq",
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Which countries and regions can you export to?",
-        "acceptedAnswer": { "@type": "Answer", "text": "We handle inquiries from Asia, Oceania, the Middle East, Africa, Europe, the Americas, and other countries or regions. Export availability depends on destination port access, vessel schedules, local import rules, and the vehicle itself." }
+        "name": "{{json:faqPage.exportCountries.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.exportCountries.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Are Japanese used cars right-hand drive?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Most Japanese domestic vehicles are right-hand drive. Buyers should confirm that right-hand drive registration is allowed in their destination country or region before purchase." }
+        "name": "{{json:faqPage.rhd.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.rhd.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Can you export left-hand drive vehicles?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Left-hand drive vehicles are uncommon in Japanese domestic stock. If you specifically need left-hand drive, tell us before the search begins so we can check whether suitable inventory exists." }
+        "name": "{{json:faqPage.lhd.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.lhd.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Do destination countries have year or mileage restrictions?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Many destinations have vehicle age, mileage, emissions, inspection, or steering-side rules. The buyer is responsible for confirming local import eligibility before purchase commitment." }
+        "name": "{{json:faqPage.ageMileage.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.ageMileage.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Do you provide the auction inspection sheet?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Vehicles sourced through Japanese auction houses come with an independent auction inspection sheet. Ask for it on any vehicle you are considering before you decide." }
+        "name": "{{json:faqPage.auctionSheet.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.auctionSheet.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Is payment safe?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Payment instructions are provided only for a specific invoice through our official WhatsApp or info@nice.okinawa email thread. Do not send money to account details that were not confirmed through those official channels." }
+        "name": "{{json:faqPage.paymentSafe.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{text:faqPage.paymentSafe.a.beforeEmail}}{{fact:contact.email}}{{text:faqPage.paymentSafe.a.afterEmail}}" }
       },
       {
         "@type": "Question",
-        "name": "When do I pay?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Payment timing depends on whether the vehicle is current stock or an auction purchase. We confirm deposit, balance, and document release timing before purchase commitment." }
+        "name": "{{json:faqPage.whenPay.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.whenPay.a}}" }
       },
       {
         "@type": "Question",
-        "name": "How long does shipping take?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Shipping time depends on the destination port, vessel schedule, transshipment route, and port handling. We quote and discuss timing per inquiry rather than publish a fixed schedule." }
+        "name": "{{json:faqPage.shippingTime.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.shippingTime.a}}" }
       },
       {
         "@type": "Question",
-        "name": "Can I cancel after committing to a vehicle?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Cancellation terms depend on the purchase stage. Auction bids and confirmed purchases may create costs that cannot be reversed. We explain the commitment point before bidding or purchase." }
+        "name": "{{json:faqPage.cancel.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.cancel.a}}" }
       },
       {
         "@type": "Question",
-        "name": "What documents are provided for export?",
-        "acceptedAnswer": { "@type": "Answer", "text": "For export vehicles, we prepare Japanese deregistration and export certificate documents. Destination customs, tax, inspection, registration, and local compliance documents are handled by the buyer or destination agent under local rules." }
+        "name": "{{json:faqPage.documents.q}}",
+        "acceptedAnswer": { "@type": "Answer", "text": "{{json:faqPage.documents.a}}" }
       }
     ]
   }
@@ -98,49 +100,51 @@
     .btn { display: inline-block; padding: 0.85rem 1.6rem; border: 1px solid var(--border); text-decoration: none; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.82rem; }
     .btn.primary { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 500; }
     @media (max-width: 760px) { nav, footer, main { padding-left: 1.5rem; padding-right: 1.5rem; } nav { align-items: flex-start; flex-direction: column; } }
-  </style>
+  .locale-switch{display:inline-flex;align-items:center;gap:.35rem;margin-left:.75rem;font-family:'DM Sans',sans-serif;font-size:.78rem;letter-spacing:.04em}.locale-switch a,.locale-switch span{color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,.3);padding:.35rem .45rem;border-radius:3px}.locale-switch .active{font-weight:700;background:rgba(255,255,255,.14)}
+</style>
 </head>
 <body>
   <nav>
-    <a href="/" class="logo">OKINAWA AUTO</a>
+    <a href="/" class="logo">{{fact:brand.displayName}}</a>
     <ul class="nav-links">
-      <li><a href="/how-it-works/">How it works</a></li>
-      <li><a href="/pricing/">Pricing</a></li>
-      <li><a href="/faq/">FAQ</a></li>
-      <li><a href="/#vehicles">Vehicles</a></li>
+      <li><a href="/how-it-works/">{{text:nav.how}}</a></li>
+      <li><a href="/pricing/">{{text:nav.pricing}}</a></li>
+      <li><a href="/faq/">{{text:faqPage.title.b}}</a></li>
+      <li><a href="/#vehicles">{{text:nav.vehicles}}</a></li>
     </ul>
+    <span class="locale-switch" aria-label="Language switcher"><span class="active" aria-current="page">EN</span><span aria-hidden="true">/</span><a href="/ru/faq/">RU</a></span>
   </nav>
   <main>
     <section class="hero">
-      <div class="tag">Buyer questions</div>
-      <h1>Japan used car export <em>FAQ</em></h1>
-      <p class="lead">These answers explain the buying and export basis before you choose a vehicle. Destination import rules vary, so buyers should confirm local eligibility before purchase commitment.</p>
+      <div class="tag">{{text:faqPage.kicker}}</div>
+      <h1>{{text:home.guides.title.b}} <em>{{text:faqPage.title.b}}</em></h1>
+      <p class="lead">{{text:faqPage.intro}}</p>
     </section>
     <section class="faq-list" id="faq">
-      <article class="faq-item"><h2>Which countries and regions can you export to?</h2><p>We handle inquiries from Asia, Oceania, the Middle East, Africa, Europe, the Americas, and other countries or regions. Export availability depends on destination port access, vessel schedules, local import rules, and the vehicle itself.</p></article>
-      <article class="faq-item"><h2>Are Japanese used cars right-hand drive?</h2><p>Most Japanese domestic vehicles are right-hand drive. Buyers should confirm that right-hand drive registration is allowed in their destination country or region before purchase.</p></article>
-      <article class="faq-item"><h2>Can you export left-hand drive vehicles?</h2><p>Left-hand drive vehicles are uncommon in Japanese domestic stock. If you specifically need left-hand drive, tell us before the search begins so we can check whether suitable inventory exists.</p></article>
-      <article class="faq-item"><h2>Do destination countries have year or mileage restrictions?</h2><p>Many destinations have vehicle age, mileage, emissions, inspection, or steering-side rules. The buyer is responsible for confirming local import eligibility before purchase commitment.</p></article>
-      <article class="faq-item"><h2>Do you provide the auction inspection sheet?</h2><p>Yes. Vehicles sourced through Japanese auction houses come with an independent auction inspection sheet. Ask for it on any vehicle you are considering before you decide.</p></article>
-      <article class="faq-item"><h2>Is payment safe?</h2><p>Payment instructions are provided only for a specific invoice through our official WhatsApp or info@nice.okinawa email thread. Do not send money to account details that were not confirmed through those official channels.</p></article>
-      <article class="faq-item"><h2>When do I pay?</h2><p>Payment timing depends on whether the vehicle is current stock or an auction purchase. We confirm deposit, balance, and document release timing before purchase commitment.</p></article>
-      <article class="faq-item"><h2>How long does shipping take?</h2><p>Shipping time depends on the destination port, vessel schedule, transshipment route, and port handling. We quote and discuss timing per inquiry rather than publish a fixed schedule.</p></article>
-      <article class="faq-item"><h2>Can I cancel after committing to a vehicle?</h2><p>Cancellation terms depend on the purchase stage. Auction bids and confirmed purchases may create costs that cannot be reversed. We explain the commitment point before bidding or purchase.</p></article>
-      <article class="faq-item"><h2>What documents are provided for export?</h2><p>For export vehicles, we prepare Japanese deregistration and export certificate documents. Destination customs, tax, inspection, registration, and local compliance documents are handled by the buyer or destination agent under local rules.</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.exportCountries.q}}</h2><p>{{text:faqPage.exportCountries.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.rhd.q}}</h2><p>{{text:faqPage.rhd.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.lhd.q}}</h2><p>{{text:faqPage.lhd.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.ageMileage.q}}</h2><p>{{text:faqPage.ageMileage.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.auctionSheet.q}}</h2><p>{{text:faqPage.auctionSheet.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.paymentSafe.q}}</h2><p>{{text:faqPage.paymentSafe.a.beforeEmail}}{{fact:contact.email}}{{text:faqPage.paymentSafe.a.afterEmail}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.whenPay.q}}</h2><p>{{text:faqPage.whenPay.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.shippingTime.q}}</h2><p>{{text:faqPage.shippingTime.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.cancel.q}}</h2><p>{{text:faqPage.cancel.a}}</p></article>
+      <article class="faq-item"><h2>{{text:faqPage.documents.q}}</h2><p>{{text:faqPage.documents.a}}</p></article>
     </section>
     <div class="cta">
-      <a class="btn primary" href="https://wa.me/817089523968">Ask on WhatsApp</a>
-      <a class="btn" href="mailto:info@nice.okinawa">Email info@nice.okinawa</a>
+      <a class="btn primary" href="{{factAttr:contact.whatsappUrl}}">{{text:cta.askWhatsApp}}</a>
+      <a class="btn" href="mailto:{{fact:contact.email}}">{{text:cta.email}} {{fact:contact.email}}</a>
     </div>
   </main>
   <footer>
-    <div class="logo">OKINAWA AUTO</div>
+    <div class="logo">{{fact:brand.displayName}}</div>
     <div class="footer-links">
-      <a href="/">Home</a>
-      <a href="/how-it-works/">How it works</a>
-      <a href="/pricing/">Pricing</a>
+      <a href="/">{{text:nav.home}}</a>
+      <a href="/how-it-works/">{{text:nav.how}}</a>
+      <a href="/pricing/">{{text:nav.pricing}}</a>
     </div>
   </footer>
-  <script src="https://analytics.nice.okinawa/beacon.js" data-site="japanusedcars" defer></script>
+  <script src="https://analytics.nice.okinawa/beacon.js" data-site="{{fact:form.site}}" defer></script>
 </body>
 </html>
