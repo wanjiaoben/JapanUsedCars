@@ -8,6 +8,7 @@ import registry from '../i18n/registry.mjs';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const tokenPattern = /{{(text|attr|json|js|fact|factAttr|factJson|factJs|options):([A-Za-z0-9_.-]+)}}/g;
+const vehicleTokenPattern = /{{vehicles}}/g;
 const localeTokenKinds = new Set(['text', 'attr', 'json', 'js']);
 const factTokenKinds = new Set(['fact', 'factAttr', 'factJson', 'factJs']);
 const generated = registry.pages.flatMap((page) => Object.values(page.output));
@@ -63,14 +64,26 @@ function assertTokenUsage() {
       if (factTokenKinds.has(kind)) factUsed.add(key);
       if (kind === 'options' && !['countries', 'purposes'].includes(key)) fail(`Unknown options token ${key} in ${file}`);
     }
-    const residue = html.replace(tokenPattern, '').match(/{{[^}]+}}/g);
+    const residue = html.replace(tokenPattern, '').replace(vehicleTokenPattern, '').match(/{{[^}]+}}/g);
     if (residue) fail(`Unsupported token in ${file}: ${residue[0]}`);
   }
   const allKeys = new Set(Object.keys(en));
   for (const key of localeUsed) if (!allKeys.has(key)) fail(`Template uses missing locale key: ${key}`);
-  const structuredOptionKeys = new Set(['form.purpose.placeholder', 'form.purpose.export', 'form.purpose.local', 'form.purpose.browse', 'languageSwitch.aria']);
+  const structuredOptionKeys = new Set([
+    'form.purpose.placeholder',
+    'form.purpose.export',
+    'form.purpose.local',
+    'form.purpose.browse',
+    'languageSwitch.aria',
+    'vehicle.year',
+    'vehicle.mileage',
+    'vehicle.color',
+    'vehicle.status.export',
+    'vehicle.status.local',
+    'vehicle.status.localExport'
+  ]);
   for (const key of allKeys) {
-    const usedByStructuredOptions = key.startsWith('countries.') || key.startsWith('form.countryGroups.') || key.startsWith('form.country.') || structuredOptionKeys.has(key);
+    const usedByStructuredOptions = key.startsWith('countries.') || key.startsWith('form.countryGroups.') || key.startsWith('form.country.') || key.startsWith('vehicleColors.') || structuredOptionKeys.has(key);
     if (!localeUsed.has(key) && !usedByStructuredOptions) fail(`Unused locale key: ${key}`);
   }
   const factsFlat = flattenFacts(facts);
@@ -153,7 +166,53 @@ function assertFormContract() {
       if (!html.includes(fragment)) fail(`Form contract fragment missing in ${file}: ${fragment}`);
     }
     if (html.includes('gtag(') || html.includes('googletagmanager')) fail(`GA found in ${file}`);
+    for (const purpose of facts.form.purposes) {
+      if (!html.includes(`<option value="${purpose.value}">`)) fail(`Purpose stable value missing in ${file}: ${purpose.value}`);
+    }
   }
+  if (!read('index.html').includes(facts.analytics.beaconUrl) || !read('ru/index.html').includes(facts.analytics.beaconUrl)) fail('Beacon URL missing from generated pages');
+  const templateText = templates.map((file) => read(file)).join('\n');
+  const builder = read('scripts/build-i18n.mjs');
+  const localeText = JSON.stringify({ en, ru });
+  for (const fixed of [facts.form.endpoint, facts.analytics.beaconUrl]) {
+    if (templateText.includes(fixed)) fail(`Template hardcodes shared runtime URL: ${fixed}`);
+    if (builder.includes(fixed)) fail(`Builder hardcodes shared runtime URL: ${fixed}`);
+    if (localeText.includes(fixed)) fail(`Locale hardcodes shared runtime URL: ${fixed}`);
+  }
+}
+function assertVehiclesSingleSource() {
+  const template = read('src/templates/home.html');
+  const builder = read('scripts/build-i18n.mjs');
+  if (!template.includes('{{vehicles}}')) fail('Home template missing {{vehicles}} token');
+  const seen = new Set();
+  for (const [key, vehicle] of Object.entries(facts.vehicles)) {
+    for (const field of ['id', 'brand', 'model', 'year', 'mileage', 'colorKey', 'statusKey']) {
+      if (typeof vehicle[field] !== 'string' || vehicle[field].trim() === '') fail(`Vehicle ${key} missing ${field}`);
+    }
+    if (seen.has(vehicle.id)) fail(`Duplicate vehicle id ${vehicle.id}`);
+    seen.add(vehicle.id);
+    for (const locale of [en, ru]) {
+      if (typeof locale[vehicle.colorKey] !== 'string' || !locale[vehicle.colorKey].trim()) fail(`Vehicle ${key} unknown colorKey ${vehicle.colorKey}`);
+      if (typeof locale[vehicle.statusKey] !== 'string' || !locale[vehicle.statusKey].trim()) fail(`Vehicle ${key} unknown statusKey ${vehicle.statusKey}`);
+    }
+    if (!vehicle.media || typeof vehicle.media !== 'object') fail(`Vehicle ${key} missing media`);
+    if (vehicle.media.type === 'emoji') {
+      if (typeof vehicle.media.value !== 'string' || vehicle.media.value.trim() === '') fail(`Vehicle ${key} empty emoji media`);
+    } else if (vehicle.media.type === 'image') {
+      if (!fs.existsSync(path.join(root, vehicle.media.value || ''))) fail(`Vehicle ${key} image missing: ${vehicle.media.value}`);
+    } else {
+      fail(`Vehicle ${key} unsupported media type ${vehicle.media.type}`);
+    }
+    for (const factText of [vehicle.brand, vehicle.model, vehicle.year, vehicle.mileage, vehicle.media?.value]) {
+      if (factText && template.includes(factText)) fail(`Vehicle fact leaked into template: ${factText}`);
+      if (factText && builder.includes(factText)) fail(`Vehicle fact leaked into builder: ${factText}`);
+    }
+  }
+  if (/images\/hero\.jpg/.test(JSON.stringify(facts))) fail('facts still reference nonexistent images/hero.jpg');
+  const cardCount = (read('index.html').match(/class="vehicle-card" itemscope itemtype="https:\/\/schema.org\/Car"/g) || []).length;
+  const ruCardCount = (read('ru/index.html').match(/class="vehicle-card" itemscope itemtype="https:\/\/schema.org\/Car"/g) || []).length;
+  const expected = Object.keys(facts.vehicles).length;
+  if (cardCount !== expected || ruCardCount !== expected) fail(`Generated vehicle count mismatch en=${cardCount} ru=${ruCardCount} expected=${expected}`);
 }
 function assertRussianLatinAllowlist() {
   const allowed = new Set(['Okinawa Auto','OKINAWA AUTO','OkinawaOnline','EN','RU','ru','en','FAQ','FOB','CIF','VAT','GST','WhatsApp','WeChat','Email','Toyota','Alphard','Hiace','Nissan','Serena','Honda','Stepwgn','Mazda','CX','XD','GL','e-POWER','Soul Red','URL','PDF','S','shaken','masshō tōroku','massh','tōroku','troku','roku','Japan','Okinawa','Auto','lt','gt','amp','quot','nbsp','km','nice.okinawa','info','v2026.06.14','your.com','email.com','your']);
@@ -196,5 +255,6 @@ assertJsonLdAndFaq();
 assertInlineJsSyntax();
 assertCanonicalHreflangAndSitemap();
 assertFormContract();
+assertVehiclesSingleSource();
 assertRussianLatinAllowlist();
 console.log('i18n validation passed');

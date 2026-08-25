@@ -21,7 +21,21 @@ export default {
     "site": "japanusedcars",
     "sourceSite": "japanusedcars.nice.okinawa",
     "turnstileSiteKey": "0x4AAAAAADvhTRK9Z-f9ydQ1",
-    "turnstileAction": "japanusedcars-inquiry-v1"
+    "turnstileAction": "japanusedcars-inquiry-v1",
+    "purposes": [
+      {
+        "value": "Export to my country / region",
+        "labelKey": "form.purpose.export"
+      },
+      {
+        "value": "Local purchase in Okinawa",
+        "labelKey": "form.purpose.local"
+      },
+      {
+        "value": "Just browsing / price check",
+        "labelKey": "form.purpose.browse"
+      }
+    ]
   },
   "currency": {
     "code": "JPY"
@@ -32,43 +46,68 @@ export default {
   "vehicles": {
     "alphard": {
       "id": "vehicle_01",
-      "model": "Toyota Alphard 2.5S",
+      "brand": "Toyota",
+      "model": "Alphard 2.5S",
       "year": "2020",
       "mileage": "28,000 km",
       "colorKey": "vehicleColors.pearlWhite",
-      "image": "images/hero.jpg"
+      "statusKey": "vehicle.status.export",
+      "media": {
+        "type": "emoji",
+        "value": "🚗"
+      }
     },
     "hiace": {
       "id": "vehicle_02",
-      "model": "Toyota Hiace Van GL",
+      "brand": "Toyota",
+      "model": "Hiace Van GL",
       "year": "2019",
       "mileage": "42,000 km",
       "colorKey": "vehicleColors.silver",
-      "image": "images/hero.jpg"
+      "statusKey": "vehicle.status.export",
+      "media": {
+        "type": "emoji",
+        "value": "🚙"
+      }
     },
     "serena": {
       "id": "vehicle_03",
-      "model": "Nissan Serena e-POWER",
+      "brand": "Nissan",
+      "model": "Serena e-POWER",
       "year": "2021",
       "mileage": "19,500 km",
       "colorKey": "vehicleColors.darkBlue",
-      "image": "images/hero.jpg"
+      "statusKey": "vehicle.status.localExport",
+      "media": {
+        "type": "emoji",
+        "value": "🏎️"
+      }
     },
     "stepwgn": {
       "id": "vehicle_04",
-      "model": "Honda Stepwgn Spada",
+      "brand": "Honda",
+      "model": "Stepwgn Spada",
       "year": "2020",
       "mileage": "33,000 km",
       "colorKey": "vehicleColors.black",
-      "image": "images/hero.jpg"
+      "statusKey": "vehicle.status.local",
+      "media": {
+        "type": "emoji",
+        "value": "🚐"
+      }
     },
     "cx5": {
       "id": "vehicle_05",
-      "model": "Mazda CX-5 XD",
+      "brand": "Mazda",
+      "model": "CX-5 XD",
       "year": "2021",
       "mileage": "24,000 km",
       "colorKey": "vehicleColors.soulRed",
-      "image": "images/hero.jpg"
+      "statusKey": "vehicle.status.export",
+      "media": {
+        "type": "emoji",
+        "value": "🚘"
+      }
     }
   },
   "countryGroups": [
@@ -163,5 +202,8 @@ export default {
         "Jamaica"
       ]
     }
-  ]
+  ],
+  "analytics": {
+    "beaconUrl": "https://analytics.nice.okinawa/beacon.js"
+  }
 };

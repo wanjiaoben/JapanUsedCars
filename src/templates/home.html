@@ -718,71 +718,7 @@
     </p>
   </div>
   <div class="vehicle-grid">
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
-      <div class="vehicle-img">🚗</div>
-      <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Alphard 2.5S</h3>
-        <div class="vehicle-specs">
-          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.alphard.mileage}}</span></div>
-          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.pearlWhite}}</span></div>
-        </div>
-        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
-      </div>
-    </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
-      <div class="vehicle-img">🚙</div>
-      <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Hiace Van GL</h3>
-        <div class="vehicle-specs">
-          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2019</span></div>
-          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.hiace.mileage}}</span></div>
-          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.silver}}</span></div>
-        </div>
-        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
-      </div>
-    </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
-      <div class="vehicle-img">🏎️</div>
-      <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Nissan</div>
-        <h3 class="vehicle-name" itemprop="name">Serena e-POWER</h3>
-        <div class="vehicle-specs">
-          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.serena.mileage}}</span></div>
-          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.darkBlue}}</span></div>
-        </div>
-        <div class="vehicle-status">{{text:vehicle.status.localExport}}</div>
-      </div>
-    </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
-      <div class="vehicle-img">🚐</div>
-      <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Honda</div>
-        <h3 class="vehicle-name" itemprop="name">Stepwgn Spada</h3>
-        <div class="vehicle-specs">
-          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.stepwgn.mileage}}</span></div>
-          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.black}}</span></div>
-        </div>
-        <div class="vehicle-status">{{text:vehicle.status.local}}</div>
-      </div>
-    </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
-      <div class="vehicle-img">🚘</div>
-      <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Mazda</div>
-        <h3 class="vehicle-name" itemprop="name">CX-5 XD</h3>
-        <div class="vehicle-specs">
-          <div class="spec">{{text:vehicle.year}} <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">{{text:vehicle.mileage}} <span>{{fact:vehicles.cx5.mileage}}</span></div>
-          <div class="spec">{{text:vehicle.color}} <span>{{text:vehicleColors.soulRed}}</span></div>
-        </div>
-        <div class="vehicle-status">{{text:vehicle.status.export}}</div>
-      </div>
-    </article>
+    {{vehicles}}
     <article class="vehicle-card" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; min-height:200px;">
       <div style="font-size:2rem; color:var(--gold)">+</div>
       <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">{{text:home.stock.more}}<br>{{text:home.stock.contact}}</p>
@@ -990,7 +926,7 @@
     document.getElementById('japanese').scrollIntoView({ behavior: 'smooth' });
   }
 
-  const INQUIRY_ENDPOINT = 'https://inquiry-nice-okinawa-preview.gerheidicn.workers.dev/api/inquiries';
+  const INQUIRY_ENDPOINT = '{{factJs:form.endpoint}}';
 
   function inquiryMessage(key) {
     const messages = {
@@ -1108,7 +1044,7 @@
   });
 </script>
 <div class="nice-screenshot-mark" aria-label="{{attr:screenshotMark.aria}}">{{fact:site.host}}/ · v2026.06.14</div>
-  <script src="https://analytics.nice.okinawa/beacon.js"
+  <script src="{{factAttr:analytics.beaconUrl}}"
     data-site="{{fact:form.site}}" defer></script>
 </body>
 </html>

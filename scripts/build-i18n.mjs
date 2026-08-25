@@ -8,6 +8,7 @@ import registry from '../i18n/registry.mjs';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const locales = { en, ru };
 const tokenPattern = /{{(text|attr|json|js|fact|factAttr|factJson|factJs|options):([A-Za-z0-9_.-]+)}}/g;
+const vehicleTokenPattern = /{{vehicles}}/g;
 
 function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
 function write(file, body) {
@@ -63,13 +64,52 @@ function renderOptions(kind, locale) {
     return lines.join('\n                  ');
   }
   if (kind === 'purposes') {
-    const purposes = ['form.purpose.export', 'form.purpose.local', 'form.purpose.browse'];
     return [
       '<option value="">' + escapeHtml(requireLocale(locale, 'form.purpose.placeholder')) + '</option>',
-      ...purposes.map((key) => `<option>${escapeHtml(requireLocale(locale, key))}</option>`),
+      ...facts.form.purposes.map((purpose) => `<option value="${escapeAttr(purpose.value)}">${escapeHtml(requireLocale(locale, purpose.labelKey))}</option>`),
     ].join('\n                  ');
   }
   throw new Error(`Unknown options token: ${kind}`);
+}
+function renderVehicleMedia(vehicle) {
+  if (!vehicle.media || typeof vehicle.media !== 'object') throw new Error(`Vehicle ${vehicle.id} missing media`);
+  if (vehicle.media.type === 'emoji') return escapeHtml(vehicle.media.value);
+  if (vehicle.media.type === 'image') {
+    const imagePath = String(vehicle.media.value || '');
+    if (!imagePath || !fs.existsSync(path.join(root, imagePath))) throw new Error(`Vehicle ${vehicle.id} image not found: ${imagePath}`);
+    return `<img src="${escapeAttr(imagePath)}" alt="${escapeAttr(vehicle.brand + ' ' + vehicle.model)}">`;
+  }
+  throw new Error(`Vehicle ${vehicle.id} has unsupported media type: ${vehicle.media.type}`);
+}
+function validateVehicle(vehicle, seenIds) {
+  for (const field of ['id', 'brand', 'model', 'year', 'mileage', 'colorKey', 'statusKey']) {
+    if (typeof vehicle[field] !== 'string' || vehicle[field].trim() === '') throw new Error(`Vehicle missing ${field}`);
+  }
+  if (seenIds.has(vehicle.id)) throw new Error(`Duplicate vehicle id: ${vehicle.id}`);
+  seenIds.add(vehicle.id);
+  for (const locale of Object.keys(locales)) {
+    requireLocale(locale, vehicle.colorKey);
+    requireLocale(locale, vehicle.statusKey);
+  }
+}
+function renderVehicles(locale) {
+  const seenIds = new Set();
+  return Object.values(facts.vehicles).map((vehicle) => {
+    validateVehicle(vehicle, seenIds);
+    return `<article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+      <div class="vehicle-img">${renderVehicleMedia(vehicle)}</div>
+      <div class="vehicle-body">
+        <div class="vehicle-make" itemprop="brand">${escapeHtml(vehicle.brand)}</div>
+        <h3 class="vehicle-name" itemprop="name">${escapeHtml(vehicle.model)}</h3>
+        <div class="vehicle-specs">
+          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.year'))} <span itemprop="vehicleModelDate">${escapeHtml(vehicle.year)}</span></div>
+          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.mileage'))} <span>${escapeHtml(vehicle.mileage)}</span></div>
+          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.color'))} <span>${escapeHtml(requireLocale(locale, vehicle.colorKey))}</span></div>
+        </div>
+        <div class="vehicle-status">${escapeHtml(requireLocale(locale, vehicle.statusKey))}</div>
+      </div>
+    </article>`;
+  }).join('\n    ');
 }
 function resolveToken(type, key, locale) {
   if (type === 'options') return renderOptions(key, locale);
@@ -132,6 +172,7 @@ function injectLanguageSwitch(html, locale, page) {
 }
 function renderPage(page, locale) {
   let html = read(`src/templates/${page.template}`);
+  html = html.replace(vehicleTokenPattern, () => renderVehicles(locale));
   html = html.replace(tokenPattern, (_, type, key) => resolveToken(type, key, locale));
   if (/{{[^}]+}}/.test(html)) throw new Error(`Residual token in ${page.template} for ${locale}`);
   html = injectLocale(html, locale);
