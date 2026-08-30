@@ -232,9 +232,9 @@
     }
     .stat { text-align: right; }
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300; color: var(--gold);
-      line-height: 1;
+      font-size: 0.78rem; font-weight: 500; color: var(--gold);
+      line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase;
+      max-width: 150px;
     }
     .stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; margin-top: 0.3rem; }
 
@@ -374,12 +374,16 @@
     }
     .spec { font-size: 0.78rem; color: var(--gray); }
     .spec span { color: var(--cream); }
+    .vehicle-category {
+      font-size: 0.85rem; color: var(--gray); line-height: 1.6;
+    }
     .vehicle-status {
       display: inline-block;
       font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 0.2rem 0.6rem; margin-top: 1rem;
       background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
       color: var(--gold);
+      text-decoration: none;
     }
 
     /* ─── PROCESS ─── */
@@ -600,20 +604,17 @@
   </p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Отправить запрос</a>
-    <a href="#vehicles" class="btn-outline">Смотреть автомобили</a>
+    <a href="#vehicles" class="btn-outline">Смотреть примеры моделей</a>
   </div>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">автомобилей в наличии</div>
+      <div class="stat-num">Подбор со склада и аукциона</div>
     </div>
     <div class="stat">
-      <div class="stat-num">15+</div>
-      <div class="stat-label">стран и регионов экспорта</div>
+      <div class="stat-num">Проверка аукционного листа</div>
     </div>
     <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">проверено</div>
+      <div class="stat-num">Экспортные документы в Японии</div>
     </div>
   </div>
 </section>
@@ -621,23 +622,23 @@
 <!-- WHY JAPAN -->
 <section id="why">
   <div class="section-tag">Почему покупают из Японии</div>
-  <h2 class="section-title">Преимущество <em>японских автомобилей</em> в каждой машине</h2>
+  <h2 class="section-title">Преимущество <em>японских автомобилей</em> по каждому запросу</h2>
   <div class="divider"></div>
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">🔬</div>
       <h3>Строгая проверка автомобилей</h3>
-      <p>Японская система shaken применяет строгие требования к безопасности и выбросам. Каждый автомобиль на нашей площадке прошел государственную проверку в Японии.</p>
+      <p>Статус проверки и доступные записи о состоянии раскрываются по каждому конкретному автомобилю до принятия обязательства покупки. Для автомобилей с аукциона предоставляется соответствующий аукционный лист.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📊</div>
       <h3>Небольшой пробег и честные записи</h3>
-      <p>Компактная география Окинавы помогает местным автомобилям набирать меньше пробега. Полная сервисная история доступна по каждому автомобилю.</p>
+      <p>Пробег, история использования и записи обслуживания проверяются по конкретному автомобилю. Сервисные и ремонтные записи передаются, когда они доступны.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🌊</div>
-      <h3>Климатическое преимущество Окинавы</h3>
-      <p>Нет снега и дорожной соли — автомобили Окинавы избегают коррозии, часто встречающейся на материковой Японии, поэтому днище обычно чище.</p>
+      <h3>Проверка днища и коррозии</h3>
+      <p>Окинава находится у моря, поэтому соленый воздух может влиять на автомобили. Состояние днища проверяется по конкретной машине с учетом доступных фото, записей осмотра и раскрытой продавцом информации, а не исходя из предположения, что автомобиль естественно без ржавчины.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📦</div>
@@ -666,7 +667,7 @@
     <div class="service-block">
       <div class="service-num">01</div>
       <h3>Экспорт подержанных автомобилей из Японии</h3>
-      <p>Мы принимаем запросы на экспорт подержанных автомобилей из Японии от покупателей из Азии, Ближнего Востока, Европы и Америки. От подбора до координации отправки мы ведем процесс так, чтобы вы получили документы, готовые для экспорта.</p>
+      <p>Мы принимаем запросы на экспорт подержанных автомобилей из Японии от покупателей из Азии, Ближнего Востока, Европы и Америки. Мы занимаемся подбором на стороне Японии, раскрытием информации об автомобиле, снятием с регистрации, подготовкой экспортного сертификата и координацией отправки.</p>
       <div class="service-tags">
         <span class="tag">Тайвань / Гонконг</span>
         <span class="tag">Юго-Восточная Азия</span>
@@ -680,7 +681,7 @@
     <div class="service-block">
       <div class="service-num">02</div>
       <h3>Поддержка покупки автомобиля в Окинаве</h3>
-      <p>Жители и долгосрочные посетители Окинавы могут запросить поддержку покупки автомобиля с нашей площадки. Мы помогаем с иностранными водительскими правами, местной регистрацией и можем направить по вопросам страховки.</p>
+      <p>Жители и долгосрочные посетители Окинавы могут запросить поддержку покупки автомобиля через нашу команду. Мы помогаем с иностранными водительскими правами, местной регистрацией и можем направить по вопросам страховки.</p>
       <div class="service-tags">
         <span class="tag">Местные покупки на Окинаве</span>
         <span class="tag">Поддержка на английском</span>
@@ -721,83 +722,63 @@
 <section id="vehicles">
   <div class="vehicles-intro">
     <div>
-      <div class="section-tag">Текущие примеры</div>
-      <h2 class="section-title">Рекомендуемые <em>Автомобили</em></h2>
+      <div class="section-tag">Модели, которые мы можем помочь найти</div>
+      <h2 class="section-title">Популярные запросы на японские <em>автомобили</em></h2>
     </div>
     <p style="color:var(--gray); font-size:0.88rem; max-width:300px; line-height:1.7;">
-      Наличие регулярно меняется. Свяжитесь с нами для актуального списка автомобилей.
+      Это примеры моделей, а не текущий склад. Мы можем помочь с подбором из японских источников или на аукционном рынке; фактический год, комплектация, состояние, цена и экспортная допустимость подтверждаются по конкретному запросу.
     </p>
   </div>
   <div class="vehicle-grid">
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚗</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Alphard 2.5S</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Год <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Пробег <span>28,000 km</span></div>
-          <div class="spec">Цвет <span>Перламутровый белый</span></div>
-        </div>
-        <div class="vehicle-status">Доступен для экспортного запроса</div>
+        <div class="vehicle-make">Toyota</div>
+        <h3 class="vehicle-name">Alphard 2.5S</h3>
+        <p class="vehicle-category">Премиальный минивэн</p>
+        <a class="vehicle-status" href="#contact">Попросить подобрать эту модель</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚙</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Hiace Van GL</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Год <span itemprop="vehicleModelDate">2019</span></div>
-          <div class="spec">Пробег <span>42,000 km</span></div>
-          <div class="spec">Цвет <span>Серебристый</span></div>
-        </div>
-        <div class="vehicle-status">Доступен для экспортного запроса</div>
+        <div class="vehicle-make">Toyota</div>
+        <h3 class="vehicle-name">Hiace Van GL</h3>
+        <p class="vehicle-category">Пассажирский / коммерческий фургон</p>
+        <a class="vehicle-status" href="#contact">Попросить подобрать эту модель</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🏎️</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Nissan</div>
-        <h3 class="vehicle-name" itemprop="name">Serena e-POWER</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Год <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Пробег <span>19,500 km</span></div>
-          <div class="spec">Цвет <span>Темно-синий</span></div>
-        </div>
-        <div class="vehicle-status">Местный запрос и экспорт</div>
+        <div class="vehicle-make">Nissan</div>
+        <h3 class="vehicle-name">Serena e-POWER</h3>
+        <p class="vehicle-category">Гибридный минивэн</p>
+        <a class="vehicle-status" href="#contact">Попросить подобрать эту модель</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚐</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Honda</div>
-        <h3 class="vehicle-name" itemprop="name">Stepwgn Spada</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Год <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Пробег <span>33,000 km</span></div>
-          <div class="spec">Цвет <span>Черный</span></div>
-        </div>
-        <div class="vehicle-status">Местный склад</div>
+        <div class="vehicle-make">Honda</div>
+        <h3 class="vehicle-name">Stepwgn Spada</h3>
+        <p class="vehicle-category">Семейный минивэн</p>
+        <a class="vehicle-status" href="#contact">Попросить подобрать эту модель</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚘</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Mazda</div>
-        <h3 class="vehicle-name" itemprop="name">CX-5 XD</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Год <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Пробег <span>24,000 km</span></div>
-          <div class="spec">Цвет <span>красный металлик</span></div>
-        </div>
-        <div class="vehicle-status">Доступен для экспортного запроса</div>
+        <div class="vehicle-make">Mazda</div>
+        <h3 class="vehicle-name">CX-5 XD</h3>
+        <p class="vehicle-category">Дизельный кроссовер</p>
+        <a class="vehicle-status" href="#contact">Попросить подобрать эту модель</a>
       </div>
     </article>
     <article class="vehicle-card" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; min-height:200px;">
       <div style="font-size:2rem; color:var(--gold)">+</div>
-      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">Доступны и другие автомобили.<br>Свяжитесь с нами для полного списка.</p>
-      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">Смотреть все</a>
+      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">Ищете другую модель?<br>Сообщите модель, бюджет и порт назначения.</p>
+      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">Попросить подобрать модель</a>
     </article>
   </div>
   <p style="color:var(--gray); font-size:0.88rem; max-width:720px; line-height:1.7; margin-top:2rem;">
@@ -819,7 +800,7 @@
     <div class="step">
       <div class="step-num">02</div>
       <h4>Подбор</h4>
-      <p>Мы отправляем подходящие варианты с фотографиями, отчетами проверки и расчетом цены.</p>
+      <p>Мы отправляем подходящие варианты для подбора с фотографиями, доступными записями о состоянии, данными аукционного листа при наличии и расчетом цены.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
@@ -834,7 +815,7 @@
     <div class="step">
       <div class="step-num">05</div>
       <h4>Доставка</h4>
-      <p>Автомобиль прибывает в указанный порт с полным пакетом документов для местной регистрации.</p>
+      <p>Автомобиль прибывает в указанный порт с японскими экспортными документами. Таможенное оформление, налоги, проверка, модификация, страхование и регистрация в стране назначения выполняются покупателем или партнером в стране назначения, если конкретная смета не говорит иначе.</p>
     </div>
   </div>
 </section>
