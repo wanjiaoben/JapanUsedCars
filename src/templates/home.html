@@ -221,9 +221,9 @@
     }
     .stat { text-align: right; }
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300; color: var(--gold);
-      line-height: 1;
+      font-size: 0.78rem; font-weight: 500; color: var(--gold);
+      line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase;
+      max-width: 150px;
     }
     .stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; margin-top: 0.3rem; }
 
@@ -363,12 +363,16 @@
     }
     .spec { font-size: 0.78rem; color: var(--gray); }
     .spec span { color: var(--cream); }
+    .vehicle-category {
+      font-size: 0.85rem; color: var(--gray); line-height: 1.6;
+    }
     .vehicle-status {
       display: inline-block;
       font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 0.2rem 0.6rem; margin-top: 1rem;
       background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
       color: var(--gold);
+      text-decoration: none;
     }
 
     /* ─── PROCESS ─── */
@@ -593,16 +597,13 @@
   </div>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">{{text:home.stats.stock}}</div>
+      <div class="stat-num">{{text:home.stats.sourcing}}</div>
     </div>
     <div class="stat">
-      <div class="stat-num">15+</div>
-      <div class="stat-label">{{text:home.stats.regions}}</div>
+      <div class="stat-num">{{text:home.stats.inspected}}</div>
     </div>
     <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">{{text:home.stats.inspected}}</div>
+      <div class="stat-num">{{text:home.stats.docs}}</div>
     </div>
   </div>
 </section>
@@ -711,7 +712,7 @@
   <div class="vehicles-intro">
     <div>
       <div class="section-tag">{{text:home.stock.kicker}}</div>
-      <h2 class="section-title">{{text:home.stock.title.a}} <em>{{text:nav.vehicles}}</em></h2>
+      <h2 class="section-title">{{text:home.stock.title.a}} <em>{{text:home.stock.title.b}}</em></h2>
     </div>
     <p style="color:var(--gray); font-size:0.88rem; max-width:300px; line-height:1.7;">
       {{text:home.stock.desc}}

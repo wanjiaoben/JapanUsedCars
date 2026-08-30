@@ -76,15 +76,15 @@ function assertTokenUsage() {
     'form.purpose.local',
     'form.purpose.browse',
     'languageSwitch.aria',
-    'vehicle.year',
-    'vehicle.mileage',
-    'vehicle.color',
-    'vehicle.status.export',
-    'vehicle.status.local',
-    'vehicle.status.localExport'
+    'vehicle.category.dieselSuv',
+    'vehicle.category.familyMpv',
+    'vehicle.category.hybridMpv',
+    'vehicle.category.luxuryMpv',
+    'vehicle.category.passengerCommercialVan',
+    'vehicle.cta.sourceModel'
   ]);
   for (const key of allKeys) {
-    const usedByStructuredOptions = key.startsWith('countries.') || key.startsWith('form.countryGroups.') || key.startsWith('form.country.') || key.startsWith('vehicleColors.') || structuredOptionKeys.has(key);
+    const usedByStructuredOptions = key.startsWith('countries.') || key.startsWith('form.countryGroups.') || key.startsWith('form.country.') || structuredOptionKeys.has(key);
     if (!localeUsed.has(key) && !usedByStructuredOptions) fail(`Unused locale key: ${key}`);
   }
   const factsFlat = flattenFacts(facts);
@@ -195,14 +195,17 @@ function assertVehiclesSingleSource() {
   if (!template.includes('{{vehicles}}')) fail('Home template missing {{vehicles}} token');
   const seen = new Set();
   for (const [key, vehicle] of Object.entries(facts.vehicles)) {
-    for (const field of ['id', 'brand', 'model', 'year', 'mileage', 'colorKey', 'statusKey']) {
+    for (const field of ['id', 'brand', 'model', 'categoryKey']) {
       if (typeof vehicle[field] !== 'string' || vehicle[field].trim() === '') fail(`Vehicle ${key} missing ${field}`);
+    }
+    for (const forbidden of ['year', 'mileage', 'colorKey', 'statusKey']) {
+      if (Object.prototype.hasOwnProperty.call(vehicle, forbidden)) fail(`Example vehicle ${key} must not define ${forbidden}`);
     }
     if (seen.has(vehicle.id)) fail(`Duplicate vehicle id ${vehicle.id}`);
     seen.add(vehicle.id);
     for (const locale of [en, ru]) {
-      if (typeof locale[vehicle.colorKey] !== 'string' || !locale[vehicle.colorKey].trim()) fail(`Vehicle ${key} unknown colorKey ${vehicle.colorKey}`);
-      if (typeof locale[vehicle.statusKey] !== 'string' || !locale[vehicle.statusKey].trim()) fail(`Vehicle ${key} unknown statusKey ${vehicle.statusKey}`);
+      if (typeof locale[vehicle.categoryKey] !== 'string' || !locale[vehicle.categoryKey].trim()) fail(`Vehicle ${key} unknown categoryKey ${vehicle.categoryKey}`);
+      if (typeof locale['vehicle.cta.sourceModel'] !== 'string' || !locale['vehicle.cta.sourceModel'].trim()) fail(`Vehicle ${key} missing source CTA`);
     }
     if (!vehicle.media || typeof vehicle.media !== 'object') fail(`Vehicle ${key} missing media`);
     if (vehicle.media.type === 'emoji') {
@@ -212,16 +215,39 @@ function assertVehiclesSingleSource() {
     } else {
       fail(`Vehicle ${key} unsupported media type ${vehicle.media.type}`);
     }
-    for (const factText of [vehicle.brand, vehicle.model, vehicle.year, vehicle.mileage, vehicle.media?.value]) {
+    for (const factText of [vehicle.brand, vehicle.model, vehicle.media?.value]) {
       if (factText && template.includes(factText)) fail(`Vehicle fact leaked into template: ${factText}`);
       if (factText && builder.includes(factText)) fail(`Vehicle fact leaked into builder: ${factText}`);
     }
   }
   if (/images\/hero\.jpg/.test(JSON.stringify(facts))) fail('facts still reference nonexistent images/hero.jpg');
-  const cardCount = (read('index.html').match(/class="vehicle-card" itemscope itemtype="https:\/\/schema.org\/Car"/g) || []).length;
-  const ruCardCount = (read('ru/index.html').match(/class="vehicle-card" itemscope itemtype="https:\/\/schema.org\/Car"/g) || []).length;
+  const cardCount = (read('index.html').match(/<div class="vehicle-img">/g) || []).length;
+  const ruCardCount = (read('ru/index.html').match(/<div class="vehicle-img">/g) || []).length;
   const expected = Object.keys(facts.vehicles).length;
   if (cardCount !== expected || ruCardCount !== expected) fail(`Generated vehicle count mismatch en=${cardCount} ru=${ruCardCount} expected=${expected}`);
+}
+function assertNoForbiddenClaims() {
+  const forbidden = [
+    'Current Stock',
+    'Available for Export',
+    'Local Stock',
+    'Local & Export',
+    '50+ Cars in Stock',
+    '15+ Countries Exported',
+    '100% Inspected',
+    'Every vehicle on our lot has passed Japanese government inspection',
+    'Full service history available for every car',
+    'ready-to-register vehicle'
+  ];
+  for (const file of generated.concat(['llms.txt'])) {
+    const body = read(file);
+    for (const phrase of forbidden) {
+      if (body.includes(phrase)) fail(`Forbidden claim remains in ${file}: ${phrase}`);
+    }
+    if (/<article class="vehicle-card"[^>]*itemscope|itemtype="https:\/\/schema\.org\/Car"|@type"\s*:\s*"Product"|@type"\s*:\s*"Offer"|itemprop="availability"/i.test(body)) {
+      fail(`Inventory schema or availability marker remains in ${file}`);
+    }
+  }
 }
 function decodeHtmlEntities(value) {
   return String(value)
@@ -366,6 +392,7 @@ assertInlineJsSyntax();
 assertCanonicalHreflangAndSitemap();
 assertFormContract();
 assertVehiclesSingleSource();
+assertNoForbiddenClaims();
 assertRussianLatinAllowlist();
 assertRussianLatinRegressionTests();
 assertSyntheticThirdLocaleBuild();

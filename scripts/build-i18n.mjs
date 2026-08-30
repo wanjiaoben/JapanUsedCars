@@ -83,31 +83,30 @@ function renderVehicleMedia(vehicle) {
   throw new Error(`Vehicle ${vehicle.id} has unsupported media type: ${vehicle.media.type}`);
 }
 function validateVehicle(vehicle, seenIds) {
-  for (const field of ['id', 'brand', 'model', 'year', 'mileage', 'colorKey', 'statusKey']) {
+  for (const field of ['id', 'brand', 'model', 'categoryKey']) {
     if (typeof vehicle[field] !== 'string' || vehicle[field].trim() === '') throw new Error(`Vehicle missing ${field}`);
+  }
+  for (const forbidden of ['year', 'mileage', 'colorKey', 'statusKey']) {
+    if (Object.prototype.hasOwnProperty.call(vehicle, forbidden)) throw new Error(`Example vehicle ${vehicle.id} must not define ${forbidden}`);
   }
   if (seenIds.has(vehicle.id)) throw new Error(`Duplicate vehicle id: ${vehicle.id}`);
   seenIds.add(vehicle.id);
   for (const locale of Object.keys(locales)) {
-    requireLocale(locale, vehicle.colorKey);
-    requireLocale(locale, vehicle.statusKey);
+    requireLocale(locale, vehicle.categoryKey);
+    requireLocale(locale, 'vehicle.cta.sourceModel');
   }
 }
 function renderVehicles(locale) {
   const seenIds = new Set();
   return Object.values(facts.vehicles).map((vehicle) => {
     validateVehicle(vehicle, seenIds);
-    return `<article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    return `<article class="vehicle-card">
       <div class="vehicle-img">${renderVehicleMedia(vehicle)}</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">${escapeHtml(vehicle.brand)}</div>
-        <h3 class="vehicle-name" itemprop="name">${escapeHtml(vehicle.model)}</h3>
-        <div class="vehicle-specs">
-          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.year'))} <span itemprop="vehicleModelDate">${escapeHtml(vehicle.year)}</span></div>
-          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.mileage'))} <span>${escapeHtml(vehicle.mileage)}</span></div>
-          <div class="spec">${escapeHtml(requireLocale(locale, 'vehicle.color'))} <span>${escapeHtml(requireLocale(locale, vehicle.colorKey))}</span></div>
-        </div>
-        <div class="vehicle-status">${escapeHtml(requireLocale(locale, vehicle.statusKey))}</div>
+        <div class="vehicle-make">${escapeHtml(vehicle.brand)}</div>
+        <h3 class="vehicle-name">${escapeHtml(vehicle.model)}</h3>
+        <p class="vehicle-category">${escapeHtml(requireLocale(locale, vehicle.categoryKey))}</p>
+        <a class="vehicle-status" href="#contact">${escapeHtml(requireLocale(locale, 'vehicle.cta.sourceModel'))}</a>
       </div>
     </article>`;
   }).join('\n    ');

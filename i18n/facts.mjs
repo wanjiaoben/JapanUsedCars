@@ -45,65 +45,50 @@ export default {
   },
   "vehicles": {
     "alphard": {
-      "id": "vehicle_01",
+      "id": "example_alphard",
       "brand": "Toyota",
       "model": "Alphard 2.5S",
-      "year": "2020",
-      "mileage": "28,000 km",
-      "colorKey": "vehicleColors.pearlWhite",
-      "statusKey": "vehicle.status.export",
+      "categoryKey": "vehicle.category.luxuryMpv",
       "media": {
         "type": "emoji",
         "value": "🚗"
       }
     },
     "hiace": {
-      "id": "vehicle_02",
+      "id": "example_hiace",
       "brand": "Toyota",
       "model": "Hiace Van GL",
-      "year": "2019",
-      "mileage": "42,000 km",
-      "colorKey": "vehicleColors.silver",
-      "statusKey": "vehicle.status.export",
+      "categoryKey": "vehicle.category.passengerCommercialVan",
       "media": {
         "type": "emoji",
         "value": "🚙"
       }
     },
     "serena": {
-      "id": "vehicle_03",
+      "id": "example_serena",
       "brand": "Nissan",
       "model": "Serena e-POWER",
-      "year": "2021",
-      "mileage": "19,500 km",
-      "colorKey": "vehicleColors.darkBlue",
-      "statusKey": "vehicle.status.localExport",
+      "categoryKey": "vehicle.category.hybridMpv",
       "media": {
         "type": "emoji",
         "value": "🏎️"
       }
     },
     "stepwgn": {
-      "id": "vehicle_04",
+      "id": "example_stepwgn",
       "brand": "Honda",
       "model": "Stepwgn Spada",
-      "year": "2020",
-      "mileage": "33,000 km",
-      "colorKey": "vehicleColors.black",
-      "statusKey": "vehicle.status.local",
+      "categoryKey": "vehicle.category.familyMpv",
       "media": {
         "type": "emoji",
         "value": "🚐"
       }
     },
     "cx5": {
-      "id": "vehicle_05",
+      "id": "example_cx5",
       "brand": "Mazda",
       "model": "CX-5 XD",
-      "year": "2021",
-      "mileage": "24,000 km",
-      "colorKey": "vehicleColors.soulRed",
-      "statusKey": "vehicle.status.export",
+      "categoryKey": "vehicle.category.dieselSuv",
       "media": {
         "type": "emoji",
         "value": "🚘"

@@ -232,9 +232,9 @@
     }
     .stat { text-align: right; }
     .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 300; color: var(--gold);
-      line-height: 1;
+      font-size: 0.78rem; font-weight: 500; color: var(--gold);
+      line-height: 1.35; letter-spacing: 0.12em; text-transform: uppercase;
+      max-width: 150px;
     }
     .stat-label { font-size: 0.72rem; color: var(--gray); letter-spacing: 0.1em; margin-top: 0.3rem; }
 
@@ -374,12 +374,16 @@
     }
     .spec { font-size: 0.78rem; color: var(--gray); }
     .spec span { color: var(--cream); }
+    .vehicle-category {
+      font-size: 0.85rem; color: var(--gray); line-height: 1.6;
+    }
     .vehicle-status {
       display: inline-block;
       font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
       padding: 0.2rem 0.6rem; margin-top: 1rem;
       background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
       color: var(--gold);
+      text-decoration: none;
     }
 
     /* ─── PROCESS ─── */
@@ -600,20 +604,17 @@
   </p>
   <div class="hero-actions">
     <a href="#contact" class="btn-primary">Inquire Now</a>
-    <a href="#vehicles" class="btn-outline">Browse Vehicles</a>
+    <a href="#vehicles" class="btn-outline">View Example Models</a>
   </div>
   <div class="hero-stats">
     <div class="stat">
-      <div class="stat-num">50+</div>
-      <div class="stat-label">Cars in Stock</div>
+      <div class="stat-num">Stock and auction sourcing</div>
     </div>
     <div class="stat">
-      <div class="stat-num">15+</div>
-      <div class="stat-label">Countries &amp; regions exported</div>
+      <div class="stat-num">Auction sheet review</div>
     </div>
     <div class="stat">
-      <div class="stat-num">100%</div>
-      <div class="stat-label">Inspected</div>
+      <div class="stat-num">Japan-side export documents</div>
     </div>
   </div>
 </section>
@@ -621,23 +622,23 @@
 <!-- WHY JAPAN -->
 <section id="why">
   <div class="section-tag">Why Buy from Japan</div>
-  <h2 class="section-title">The <em>Japanese advantage</em> in every vehicle</h2>
+  <h2 class="section-title">The <em>Japanese advantage</em> with each inquiry</h2>
   <div class="divider"></div>
   <div class="why-grid">
     <div class="why-card">
       <div class="why-icon">🔬</div>
       <h3>Strict Vehicle Inspection</h3>
-      <p>Japan's shaken system enforces rigorous safety and emissions standards. Every vehicle on our lot has passed Japanese government inspection.</p>
+      <p>Inspection status and available condition records are disclosed for each specific vehicle before purchase commitment. Auction-sourced vehicles include the relevant auction inspection sheet.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📊</div>
       <h3>Low Mileage, Honest Records</h3>
-      <p>Okinawa's compact geography means local vehicles accumulate less mileage. Full service history available for every car.</p>
+      <p>Mileage, usage history, and maintenance records are reviewed per specific vehicle. Service and maintenance records are shared when available.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">🌊</div>
-      <h3>Okinawa Climate Advantage</h3>
-      <p>No snow, no road salt — Okinawa vehicles avoid the corrosion damage common in mainland Japan, giving you cleaner undercarriages.</p>
+      <h3>Underbody and Corrosion Review</h3>
+      <p>Okinawa is coastal, so salt air can affect vehicles. Underbody condition is reviewed per vehicle using available photos, inspection records, and seller disclosures rather than assuming any car is naturally rust-free.</p>
     </div>
     <div class="why-card">
       <div class="why-icon">📦</div>
@@ -666,7 +667,7 @@
     <div class="service-block">
       <div class="service-num">01</div>
       <h3>Japan Used Car Export</h3>
-      <p>We support Japan used car export inquiries for buyers across Asia, the Middle East, Europe, and the Americas. From selection to shipping coordination, we manage the process so you receive export-ready documentation.</p>
+      <p>We support Japan used car export inquiries for buyers across Asia, the Middle East, Europe, and the Americas. We handle Japan-side sourcing, vehicle information disclosure, deregistration, export certificate preparation, and shipping coordination.</p>
       <div class="service-tags">
         <span class="tag">Taiwan / Hong Kong</span>
         <span class="tag">Southeast Asia</span>
@@ -680,7 +681,7 @@
     <div class="service-block">
       <div class="service-num">02</div>
       <h3>Okinawa Used Car Purchase Support</h3>
-      <p>Residents and long-term visitors in Okinawa can inquire about local purchase support from our lot. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
+      <p>Residents and long-term visitors in Okinawa can inquire about local purchase support through our team. We support foreign license transfers, help with local registration, and can assist with insurance referrals.</p>
       <div class="service-tags">
         <span class="tag">Okinawa Local</span>
         <span class="tag">English Support</span>
@@ -721,83 +722,63 @@
 <section id="vehicles">
   <div class="vehicles-intro">
     <div>
-      <div class="section-tag">Current Stock</div>
-      <h2 class="section-title">Featured <em>Vehicles</em></h2>
+      <div class="section-tag">Models We Can Help Source</div>
+      <h2 class="section-title">Popular Japanese Vehicle <em>Requests</em></h2>
     </div>
     <p style="color:var(--gray); font-size:0.88rem; max-width:300px; line-height:1.7;">
-      Stock updates regularly. Contact us for a full current inventory list.
+      These are example models, not current stock. We can help source from Japan-based supply or the auction market; actual year, specification, condition, price, and export eligibility are confirmed per inquiry.
     </p>
   </div>
   <div class="vehicle-grid">
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚗</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Alphard 2.5S</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Mileage <span>28,000 km</span></div>
-          <div class="spec">Color <span>Pearl White</span></div>
-        </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-make">Toyota</div>
+        <h3 class="vehicle-name">Alphard 2.5S</h3>
+        <p class="vehicle-category">Luxury MPV</p>
+        <a class="vehicle-status" href="#contact">Ask us to source this model</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚙</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Toyota</div>
-        <h3 class="vehicle-name" itemprop="name">Hiace Van GL</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2019</span></div>
-          <div class="spec">Mileage <span>42,000 km</span></div>
-          <div class="spec">Color <span>Silver</span></div>
-        </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-make">Toyota</div>
+        <h3 class="vehicle-name">Hiace Van GL</h3>
+        <p class="vehicle-category">Passenger / Commercial Van</p>
+        <a class="vehicle-status" href="#contact">Ask us to source this model</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🏎️</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Nissan</div>
-        <h3 class="vehicle-name" itemprop="name">Serena e-POWER</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Mileage <span>19,500 km</span></div>
-          <div class="spec">Color <span>Dark Blue</span></div>
-        </div>
-        <div class="vehicle-status">Local &amp; Export</div>
+        <div class="vehicle-make">Nissan</div>
+        <h3 class="vehicle-name">Serena e-POWER</h3>
+        <p class="vehicle-category">Hybrid MPV</p>
+        <a class="vehicle-status" href="#contact">Ask us to source this model</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚐</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Honda</div>
-        <h3 class="vehicle-name" itemprop="name">Stepwgn Spada</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2020</span></div>
-          <div class="spec">Mileage <span>33,000 km</span></div>
-          <div class="spec">Color <span>Black</span></div>
-        </div>
-        <div class="vehicle-status">Local Stock</div>
+        <div class="vehicle-make">Honda</div>
+        <h3 class="vehicle-name">Stepwgn Spada</h3>
+        <p class="vehicle-category">Family MPV</p>
+        <a class="vehicle-status" href="#contact">Ask us to source this model</a>
       </div>
     </article>
-    <article class="vehicle-card" itemscope itemtype="https://schema.org/Car">
+    <article class="vehicle-card">
       <div class="vehicle-img">🚘</div>
       <div class="vehicle-body">
-        <div class="vehicle-make" itemprop="brand">Mazda</div>
-        <h3 class="vehicle-name" itemprop="name">CX-5 XD</h3>
-        <div class="vehicle-specs">
-          <div class="spec">Year <span itemprop="vehicleModelDate">2021</span></div>
-          <div class="spec">Mileage <span>24,000 km</span></div>
-          <div class="spec">Color <span>Soul Red</span></div>
-        </div>
-        <div class="vehicle-status">Available for Export</div>
+        <div class="vehicle-make">Mazda</div>
+        <h3 class="vehicle-name">CX-5 XD</h3>
+        <p class="vehicle-category">Diesel SUV</p>
+        <a class="vehicle-status" href="#contact">Ask us to source this model</a>
       </div>
     </article>
     <article class="vehicle-card" style="display:flex; align-items:center; justify-content:center; flex-direction:column; gap:1rem; padding:2rem; min-height:200px;">
       <div style="font-size:2rem; color:var(--gold)">+</div>
-      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">More vehicles available.<br>Contact us for full inventory.</p>
-      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">View All</a>
+      <p style="color:var(--gray); font-size:0.88rem; text-align:center; line-height:1.7;">Looking for something else?<br>Tell us the model, budget, and destination port.</p>
+      <a href="#contact" class="btn-outline" style="font-size:0.78rem; padding:0.6rem 1.5rem;">Ask us to source a model</a>
     </article>
   </div>
   <p style="color:var(--gray); font-size:0.88rem; max-width:720px; line-height:1.7; margin-top:2rem;">
@@ -819,7 +800,7 @@
     <div class="step">
       <div class="step-num">02</div>
       <h4>Selection</h4>
-      <p>We send you matching options with photos, inspection reports, and pricing.</p>
+      <p>We send matching source options with photos, available condition records, auction sheet details when applicable, and pricing.</p>
     </div>
     <div class="step">
       <div class="step-num">03</div>
@@ -834,7 +815,7 @@
     <div class="step">
       <div class="step-num">05</div>
       <h4>Delivery</h4>
-      <p>Vehicle arrives at your designated port with full documentation for local registration.</p>
+      <p>Vehicle arrives at your designated port with Japan-side export documents. Destination clearance, taxes, inspection, modification, insurance, and registration are handled by the buyer or destination partner unless a specific quote says otherwise.</p>
     </div>
   </div>
 </section>
