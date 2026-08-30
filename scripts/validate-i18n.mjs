@@ -18,6 +18,9 @@ function pageLocales(page) {
 function pageHreflang(page, locale) {
   return page.hreflang?.[locale] || locale;
 }
+function pageOgLocale(page, locale) {
+  return page.ogLocale?.[locale] || registry.locales[locale].ogLocale;
+}
 const generated = registry.pages.flatMap((page) => pageLocales(page).map((locale) => page.output[locale]));
 const templates = registry.pages.map((page) => `src/templates/${page.template}`).concat('src/templates/llms.txt');
 function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
@@ -161,6 +164,12 @@ function assertCanonicalHreflangAndSitemap() {
       const self = facts.site.url + page.urlPath[locale];
       if (!html.includes(`<link rel="canonical" href="${self}">`)) fail(`Bad canonical in ${file}`);
       if (!html.includes(`<meta property="og:url" content="${self}">`)) fail(`Bad og:url in ${file}`);
+      const expectedOg = `<meta property="og:locale" content="${pageOgLocale(page, locale)}">`;
+      if (!html.includes(expectedOg)) fail(`Bad og:locale in ${file}: expected ${pageOgLocale(page, locale)}`);
+      if (file === 'uk/index.html' && (html.includes('en_US') || !html.includes('content="en_GB"'))) fail('UK og:locale must be en_GB only');
+      if (file === 'ireland/index.html' && (html.includes('en_US') || !html.includes('content="en_IE"'))) fail('Ireland og:locale must be en_IE only');
+      if (file === 'index.html' && !html.includes('content="en_US"')) fail('English home og:locale regressed');
+      if (file === 'ru/index.html' && !html.includes('content="ru_RU"')) fail('Russian home og:locale regressed');
       if (localesForPage.length > 1) {
         for (const code of localesForPage) {
           const localeInfo = registry.locales[code];
@@ -169,8 +178,9 @@ function assertCanonicalHreflangAndSitemap() {
             : `<a href="${page.urlPath[code]}">${localeInfo.label}</a>`;
           if (!html.includes(expected)) fail(`Bad ${locale} language switch in ${file}: missing ${code}`);
         }
-      } else if (html.includes('href="/ru/uk/"') || html.includes('href="/ru/ireland/"')) {
-        fail(`False Russian country alternate found in ${file}`);
+      } else {
+        if (/<link rel="alternate"\b/.test(html)) fail(`Single-locale page must not include alternates in ${file}`);
+        if (html.includes('href="/ru/uk/"') || html.includes('href="/ru/ireland/"')) fail(`False Russian country alternate found in ${file}`);
       }
       for (const body of textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
         const schema = JSON.parse(body);
@@ -179,13 +189,18 @@ function assertCanonicalHreflangAndSitemap() {
       }
       for (const alt of localesForPage) {
         const href = facts.site.url + page.urlPath[alt];
-        if (!html.includes(`hreflang="${pageHreflang(page, alt)}" href="${href}"`)) fail(`Missing hreflang ${alt} in ${file}`);
+        if (localesForPage.length > 1 && !html.includes(`hreflang="${pageHreflang(page, alt)}" href="${href}"`)) fail(`Missing hreflang ${alt} in ${file}`);
         if (!sitemap.includes(`<loc>${href}</loc>`) && alt === locale) fail(`Missing sitemap URL ${href}`);
       }
     }
   }
   for (const nonexistent of ['/ru/uk/', '/ru/ireland/']) {
     if (sitemap.includes(nonexistent)) fail(`Sitemap contains nonexistent localized country URL: ${nonexistent}`);
+  }
+  for (const singlePath of ['/uk/', '/ireland/']) {
+    const blockMatch = sitemap.match(new RegExp(`<url>\\s*<loc>${escapeRegExp(facts.site.url + singlePath)}<\\/loc>[\\s\\S]*?<\\/url>`));
+    if (!blockMatch) fail(`Sitemap block missing for ${singlePath}`);
+    if (blockMatch[0].includes('xhtml:link')) fail(`Single-locale sitemap URL must not include alternate links: ${singlePath}`);
   }
 }
 function assertFormContract() {
@@ -275,7 +290,7 @@ function assertNoForbiddenClaims() {
     for (const phrase of forbidden) {
       if (body.includes(phrase)) fail(`Forbidden claim remains in ${file}: ${phrase}`);
     }
-    if (/<article class="vehicle-card"[^>]*itemscope|itemtype="https:\/\/schema\.org\/Car"|@type"\s*:\s*"Product"|@type"\s*:\s*"Offer"|itemprop="availability"/i.test(body)) {
+    if (/<article class="vehicle-card"[^>]*itemscope|itemtype="https:\/\/schema\.org\/Car"|@type"\s*:\s*"(?:Car|Product|Offer|AggregateRating)"|"availability"\s*:|itemprop="availability"/i.test(body)) {
       fail(`Inventory schema or availability marker remains in ${file}`);
     }
   }
@@ -287,18 +302,18 @@ function assertCountryGuidePages() {
   const llms = read('llms.txt');
   const sitemap = read('sitemap.xml');
   const expected = [
-    ['uk/index.html', uk, '<html lang="en-GB">', 'https://japanusedcars.nice.okinawa/uk/', 5],
-    ['ireland/index.html', ie, '<html lang="en-IE">', 'https://japanusedcars.nice.okinawa/ireland/', 6],
+    ['uk/index.html', uk, '<html lang="en-GB">', 'https://japanusedcars.nice.okinawa/uk/', 7],
+    ['ireland/index.html', ie, '<html lang="en-IE">', 'https://japanusedcars.nice.okinawa/ireland/', 9],
   ];
   for (const [file, html, lang, url, minFaq] of expected) {
     if (!html.includes(lang)) fail(`Bad country page lang in ${file}`);
     if (!html.includes(`<link rel="canonical" href="${url}">`)) fail(`Bad country page canonical in ${file}`);
     if (!html.includes(`<meta property="og:url" content="${url}">`)) fail(`Bad country page og:url in ${file}`);
-    if (!html.includes(`<link rel="alternate" hreflang="x-default" href="${url}">`)) fail(`Bad x-default in ${file}`);
+    if (/<link rel="alternate"\b/.test(html)) fail(`Country page must not include rel alternate in ${file}`);
     if (html.includes('/ru/uk/') || html.includes('/ru/ireland/')) fail(`Country page contains false ru route in ${file}`);
     const faqs = (html.match(/<article class="faq-item">/g) || []).length;
     if (faqs < minFaq) fail(`Country page FAQ count too low in ${file}: ${faqs}`);
-    if (/@type"\s*:\s*"(?:Car|Product|Offer|AggregateRating)"|availability/i.test(html)) fail(`Inventory schema marker found in ${file}`);
+    if (/@type"\s*:\s*"(?:Car|Product|Offer|AggregateRating)"|"availability"\s*:|itemprop="availability"/i.test(html)) fail(`Inventory schema marker found in ${file}`);
     if (!html.includes('Last checked: 30 August 2026')) fail(`Official source checked date missing in ${file}`);
   }
   for (const fragment of ['href="/uk/"', 'Importing to the UK', 'href="/ireland/"', 'Importing to Ireland']) {
@@ -318,6 +333,27 @@ function assertCountryGuidePages() {
   for (const irelandOnly of ['VRT', 'NOx', 'NCTS']) {
     if (!ie.includes(irelandOnly)) fail(`Ireland guide missing ${irelandOnly}`);
     if (uk.includes(irelandOnly)) fail(`UK guide contains Ireland-only term ${irelandOnly}`);
+  }
+  for (const phrase of [
+    'What is NOVA?',
+    'Can JUC provide an exact landed price before bidding?',
+    'If the vehicle was first registered or manufactured more than 10 years ago, it might not need approval. Check the vehicle-specific exemption and current GOV.UK requirements before relying on this route.'
+  ]) {
+    if (!uk.includes(phrase)) fail(`UK guide missing required phrase: ${phrase}`);
+  }
+  for (const phrase of [
+    'How much does it cost to import a used car from Japan to Ireland?',
+    'How is the NOx levy charged?',
+    'Should I check insurance before bidding?'
+  ]) {
+    if (!ie.includes(phrase)) fail(`Ireland guide missing required FAQ: ${phrase}`);
+  }
+  for (const oldUrl of [
+    'https://www.revenue.ie/en/vrt/registration-of-imported-used-vehicles/index.aspx',
+    'https://www.revenue.ie/en/vrt/registration-of-imported-used-vehicles/registering-vehicles-from-the-japan.aspx',
+    'https://www.revenue.ie/en/vrt/registering-a-vehicle/vrt-and-registration.aspx'
+  ]) {
+    if (ie.includes(oldUrl)) fail(`Ireland guide still contains retired Revenue URL: ${oldUrl}`);
   }
 }
 function decodeHtmlEntities(value) {

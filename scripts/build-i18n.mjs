@@ -120,6 +120,9 @@ function pageHtmlLang(page, locale) {
 function pageHreflang(page, locale) {
   return page.hreflang?.[locale] || locale;
 }
+function pageOgLocale(page, locale) {
+  return page.ogLocale?.[locale] || registry.locales[locale].ogLocale;
+}
 function resolveToken(type, key, locale) {
   if (type === 'options') return renderOptions(key, locale);
   const isFact = type.startsWith('fact');
@@ -136,13 +139,18 @@ function absolutize(locale, page) {
 function injectAlternates(html, locale, page) {
   const canonical = `<link rel="canonical" href="${absolutize(locale, page)}">`;
   const localesForPage = pageLocales(page);
-  const alternates = localesForPage.map((code) => `<link rel="alternate" hreflang="${pageHreflang(page, code)}" href="${absolutize(code, page)}">`).join('\n  ');
+  const alternates = localesForPage.length > 1
+    ? localesForPage.map((code) => `<link rel="alternate" hreflang="${pageHreflang(page, code)}" href="${absolutize(code, page)}">`).join('\n  ')
+    : '';
   const defaultLocale = localesForPage.includes(registry.sourceLocale) ? registry.sourceLocale : localesForPage[0];
-  const xDefault = `<link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}">`;
+  const xDefault = localesForPage.length > 1
+    ? `<link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}">`
+    : '';
+  const alternateBlock = localesForPage.length > 1 ? `\n  ${alternates}\n  ${xDefault}` : '';
   return html
     .replace(/<meta property="og:url" content="[^"]+">/, `<meta property="og:url" content="${absolutize(locale, page)}">`)
     .replace(/<link rel="canonical" href="[^"]+">/, canonical)
-    .replace(/(?:\n\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)+/, `\n  ${alternates}\n  ${xDefault}`);
+    .replace(/(?:\n\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)+/, alternateBlock);
 }
 function injectJsonLdLocale(html, locale, page) {
   return html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (_, body) => {
@@ -159,7 +167,7 @@ function injectLocale(html, locale, page) {
   const localeInfo = registry.locales[locale];
   return html
     .replace(/<html lang="[^"]+">/, `<html lang="${pageHtmlLang(page, locale)}">`)
-    .replace(/<meta property="og:locale" content="[^"]+">/, `<meta property="og:locale" content="${localeInfo.ogLocale}">`);
+    .replace(/<meta property="og:locale" content="[^"]+">/, `<meta property="og:locale" content="${pageOgLocale(page, locale)}">`);
 }
 function localizeLinks(html, locale) {
   if (locale === registry.sourceLocale) return html;
@@ -213,6 +221,7 @@ function renderSitemap() {
   const urls = registry.pages.flatMap((page) => pageLocales(page).map((locale) => {
     const loc = absolutize(locale, page);
     const localesForPage = pageLocales(page);
+    if (localesForPage.length === 1) return `  <url>\n    <loc>${loc}</loc>\n  </url>`;
     const links = localesForPage.map((code) => `    <xhtml:link rel="alternate" hreflang="${pageHreflang(page, code)}" href="${absolutize(code, page)}" />`).join('\n');
     const defaultLocale = localesForPage.includes(registry.sourceLocale) ? registry.sourceLocale : localesForPage[0];
     const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}" />`;

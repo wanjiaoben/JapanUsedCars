@@ -74,6 +74,9 @@ export default {
       "htmlLang": {
         "en": "en-GB"
       },
+      "ogLocale": {
+        "en": "en_GB"
+      },
       "hreflang": {
         "en": "en-GB"
       },
@@ -92,6 +95,9 @@ export default {
       ],
       "htmlLang": {
         "en": "en-IE"
+      },
+      "ogLocale": {
+        "en": "en_IE"
       },
       "hreflang": {
         "en": "en-IE"
