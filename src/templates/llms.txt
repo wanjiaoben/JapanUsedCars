@@ -45,6 +45,8 @@ GEO buyer pages:
 - How it works: explains the export steps from inquiry to arrival at the destination port, including the documents buyers usually prepare.
 - Pricing: explains FOB and CIF quote logic, auction agent fees, inspection, freight, payment timing, and buyer-side destination costs without publishing fixed vehicle prices.
 - FAQ: answers buyer questions about export countries and regions, right-hand drive vehicles, local import restrictions, payment safety, shipping schedules, cancellations, and export documents.
+- UK guide: https://japanusedcars.nice.okinawa/uk/ explains Japan-side sourcing and UK-side import, NOVA, approval, DVLA registration, tax and insurance responsibilities for buyers.
+- Ireland guide: https://japanusedcars.nice.okinawa/ireland/ explains Japan-side sourcing and Ireland-side Customs Duty, 23% import VAT, VRT, NOx levy, NCTS timing, documents and insurance responsibilities for buyers.
 
 Russian pages:
 - https://japanusedcars.nice.okinawa/ru/

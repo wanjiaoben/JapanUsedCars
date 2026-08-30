@@ -111,6 +111,18 @@ function renderVehicles(locale) {
     </article>`;
   }).join('\n    ');
 }
+function pageLocales(page) {
+  return page.locales || Object.keys(registry.locales);
+}
+function pageHtmlLang(page, locale) {
+  return page.htmlLang?.[locale] || registry.locales[locale].htmlLang;
+}
+function pageHreflang(page, locale) {
+  return page.hreflang?.[locale] || locale;
+}
+function pageOgLocale(page, locale) {
+  return page.ogLocale?.[locale] || registry.locales[locale].ogLocale;
+}
 function resolveToken(type, key, locale) {
   if (type === 'options') return renderOptions(key, locale);
   const isFact = type.startsWith('fact');
@@ -126,17 +138,24 @@ function absolutize(locale, page) {
 }
 function injectAlternates(html, locale, page) {
   const canonical = `<link rel="canonical" href="${absolutize(locale, page)}">`;
-  const alternates = Object.keys(registry.locales).map((code) => `<link rel="alternate" hreflang="${code}" href="${absolutize(code, page)}">`).join('\n  ');
-  const xDefault = `<link rel="alternate" hreflang="x-default" href="${absolutize(registry.sourceLocale, page)}">`;
+  const localesForPage = pageLocales(page);
+  const alternates = localesForPage.length > 1
+    ? localesForPage.map((code) => `<link rel="alternate" hreflang="${pageHreflang(page, code)}" href="${absolutize(code, page)}">`).join('\n  ')
+    : '';
+  const defaultLocale = localesForPage.includes(registry.sourceLocale) ? registry.sourceLocale : localesForPage[0];
+  const xDefault = localesForPage.length > 1
+    ? `<link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}">`
+    : '';
+  const alternateBlock = localesForPage.length > 1 ? `\n  ${alternates}\n  ${xDefault}` : '';
   return html
     .replace(/<meta property="og:url" content="[^"]+">/, `<meta property="og:url" content="${absolutize(locale, page)}">`)
     .replace(/<link rel="canonical" href="[^"]+">/, canonical)
-    .replace(/(?:\n\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)+/, `\n  ${alternates}\n  ${xDefault}`);
+    .replace(/(?:\n\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)+/, alternateBlock);
 }
 function injectJsonLdLocale(html, locale, page) {
   return html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (_, body) => {
     const schema = JSON.parse(body);
-    schema.inLanguage = locale;
+    schema.inLanguage = pageHreflang(page, locale);
     if (schema['@id']) {
       const hash = new URL(schema['@id']).hash;
       schema['@id'] = `${absolutize(locale, page)}${hash}`;
@@ -144,11 +163,11 @@ function injectJsonLdLocale(html, locale, page) {
     return `<script type="application/ld+json">\n  ${JSON.stringify(schema, null, 2).replace(/\n/g, '\n  ')}\n  </script>`;
   });
 }
-function injectLocale(html, locale) {
+function injectLocale(html, locale, page) {
   const localeInfo = registry.locales[locale];
   return html
-    .replace(/<html lang="[^"]+">/, `<html lang="${localeInfo.htmlLang}">`)
-    .replace(/<meta property="og:locale" content="[^"]+">/, `<meta property="og:locale" content="${localeInfo.ogLocale}">`);
+    .replace(/<html lang="[^"]+">/, `<html lang="${pageHtmlLang(page, locale)}">`)
+    .replace(/<meta property="og:locale" content="[^"]+">/, `<meta property="og:locale" content="${pageOgLocale(page, locale)}">`);
 }
 function localizeLinks(html, locale) {
   if (locale === registry.sourceLocale) return html;
@@ -158,14 +177,18 @@ function localizeLinks(html, locale) {
   for (const registeredPage of pagesBySourcePath) {
     const sourcePath = registeredPage.urlPath[sourceLocale];
     const localePath = registeredPage.urlPath[locale];
+    if (!sourcePath || !localePath) continue;
     output = output.replaceAll(`href="${sourcePath}"`, `href="${localePath}"`);
     output = output.replaceAll(`href="${sourcePath}#`, `href="${localePath}#`);
   }
   return output;
 }
 function injectLanguageSwitch(html, locale, page) {
+  const localesForPage = pageLocales(page);
+  if (localesForPage.length < 2) return html;
   const label = escapeAttr(requireLocale(locale, 'languageSwitch.aria'));
-  const controls = Object.entries(registry.locales).map(([code, localeInfo]) => {
+  const controls = localesForPage.map((code) => {
+    const localeInfo = registry.locales[code];
     const labelText = escapeHtml(localeInfo.label);
     return code === locale
       ? `<span class="active" aria-current="page">${labelText}</span>`
@@ -186,7 +209,7 @@ function renderPage(page, locale) {
   html = html.replace(vehicleTokenPattern, () => renderVehicles(locale));
   html = html.replace(tokenPattern, (_, type, key) => resolveToken(type, key, locale));
   if (/{{[^}]+}}/.test(html)) throw new Error(`Residual token in ${page.template} for ${locale}`);
-  html = injectLocale(html, locale);
+  html = injectLocale(html, locale, page);
   html = injectAlternates(html, locale, page);
   html = injectJsonLdLocale(html, locale, page);
   html = localizeLinks(html, locale);
@@ -195,10 +218,13 @@ function renderPage(page, locale) {
   write(page.output[locale], html);
 }
 function renderSitemap() {
-  const urls = registry.pages.flatMap((page) => Object.keys(registry.locales).map((locale) => {
+  const urls = registry.pages.flatMap((page) => pageLocales(page).map((locale) => {
     const loc = absolutize(locale, page);
-    const links = Object.keys(registry.locales).map((code) => `    <xhtml:link rel="alternate" hreflang="${code}" href="${absolutize(code, page)}" />`).join('\n');
-    const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${absolutize(registry.sourceLocale, page)}" />`;
+    const localesForPage = pageLocales(page);
+    if (localesForPage.length === 1) return `  <url>\n    <loc>${loc}</loc>\n  </url>`;
+    const links = localesForPage.map((code) => `    <xhtml:link rel="alternate" hreflang="${pageHreflang(page, code)}" href="${absolutize(code, page)}" />`).join('\n');
+    const defaultLocale = localesForPage.includes(registry.sourceLocale) ? registry.sourceLocale : localesForPage[0];
+    const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}" />`;
     return `  <url>\n    <loc>${loc}</loc>\n${links}\n${xDefault}\n  </url>`;
   }));
   write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`);
@@ -211,7 +237,7 @@ function renderLlms() {
 }
 
 for (const page of registry.pages) {
-  for (const locale of Object.keys(registry.locales)) renderPage(page, locale);
+  for (const locale of pageLocales(page)) renderPage(page, locale);
 }
 renderSitemap();
 renderLlms();

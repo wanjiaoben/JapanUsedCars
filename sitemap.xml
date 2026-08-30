@@ -48,4 +48,10 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://japanusedcars.nice.okinawa/ru/faq/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://japanusedcars.nice.okinawa/faq/" />
   </url>
+  <url>
+    <loc>https://japanusedcars.nice.okinawa/uk/</loc>
+  </url>
+  <url>
+    <loc>https://japanusedcars.nice.okinawa/ireland/</loc>
+  </url>
 </urlset>
