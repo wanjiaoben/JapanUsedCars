@@ -12,7 +12,13 @@ const tokenPattern = /{{(text|attr|json|js|fact|factAttr|factJson|factJs|options
 const vehicleTokenPattern = /{{vehicles}}/g;
 const localeTokenKinds = new Set(['text', 'attr', 'json', 'js']);
 const factTokenKinds = new Set(['fact', 'factAttr', 'factJson', 'factJs']);
-const generated = registry.pages.flatMap((page) => Object.values(page.output));
+function pageLocales(page) {
+  return page.locales || Object.keys(registry.locales);
+}
+function pageHreflang(page, locale) {
+  return page.hreflang?.[locale] || locale;
+}
+const generated = registry.pages.flatMap((page) => pageLocales(page).map((locale) => page.output[locale]));
 const templates = registry.pages.map((page) => `src/templates/${page.template}`).concat('src/templates/llms.txt');
 function read(file) { return fs.readFileSync(path.join(root, file), 'utf8'); }
 function fail(message) { throw new Error(message); }
@@ -120,9 +126,12 @@ function assertJsonLdAndFaq() {
     const scripts = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g);
     for (const body of scripts) JSON.parse(body);
   }
-  for (const file of ['index.html', 'ru/index.html']) {
+  for (const file of ['index.html', 'ru/index.html', 'uk/index.html', 'ireland/index.html']) {
+    if (!fs.existsSync(path.join(root, file))) continue;
     const html = read(file);
-    const schema = JSON.parse(textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).find((s) => s.includes('FAQPage')));
+    const faqBody = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).find((s) => s.includes('FAQPage'));
+    if (!faqBody) continue;
+    const schema = JSON.parse(faqBody);
     const visible = [...html.matchAll(/<article class="faq-item">\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>\s*<\/article>/g)].map((m) => [stripTags(m[1]), stripTags(m[2])]);
     if (schema.mainEntity.length !== visible.length) fail(`FAQ count mismatch in ${file}`);
     schema.mainEntity.forEach((item, index) => {
@@ -142,30 +151,41 @@ function assertInlineJsSyntax() {
 }
 function assertCanonicalHreflangAndSitemap() {
   const sitemap = read('sitemap.xml');
+  const locCount = (sitemap.match(/<loc>/g) || []).length;
+  if (locCount !== 10) fail(`Expected sitemap to contain 10 URLs, found ${locCount}`);
   for (const page of registry.pages) {
-    for (const locale of Object.keys(registry.locales)) {
+    const localesForPage = pageLocales(page);
+    for (const locale of localesForPage) {
       const file = page.output[locale];
       const html = read(file);
       const self = facts.site.url + page.urlPath[locale];
       if (!html.includes(`<link rel="canonical" href="${self}">`)) fail(`Bad canonical in ${file}`);
       if (!html.includes(`<meta property="og:url" content="${self}">`)) fail(`Bad og:url in ${file}`);
-      for (const [code, localeInfo] of Object.entries(registry.locales)) {
-        const expected = code === locale
-          ? `<span class="active" aria-current="page">${localeInfo.label}</span>`
-          : `<a href="${page.urlPath[code]}">${localeInfo.label}</a>`;
-        if (!html.includes(expected)) fail(`Bad ${locale} language switch in ${file}: missing ${code}`);
+      if (localesForPage.length > 1) {
+        for (const code of localesForPage) {
+          const localeInfo = registry.locales[code];
+          const expected = code === locale
+            ? `<span class="active" aria-current="page">${localeInfo.label}</span>`
+            : `<a href="${page.urlPath[code]}">${localeInfo.label}</a>`;
+          if (!html.includes(expected)) fail(`Bad ${locale} language switch in ${file}: missing ${code}`);
+        }
+      } else if (html.includes('href="/ru/uk/"') || html.includes('href="/ru/ireland/"')) {
+        fail(`False Russian country alternate found in ${file}`);
       }
       for (const body of textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
         const schema = JSON.parse(body);
-        if (schema.inLanguage !== locale) fail(`Bad JSON-LD inLanguage in ${file}`);
+        if (schema.inLanguage !== pageHreflang(page, locale)) fail(`Bad JSON-LD inLanguage in ${file}`);
         if (schema['@id'] && !schema['@id'].startsWith(self)) fail(`Bad JSON-LD @id in ${file}`);
       }
-      for (const alt of Object.keys(registry.locales)) {
+      for (const alt of localesForPage) {
         const href = facts.site.url + page.urlPath[alt];
-        if (!html.includes(`hreflang="${alt}" href="${href}"`)) fail(`Missing hreflang ${alt} in ${file}`);
+        if (!html.includes(`hreflang="${pageHreflang(page, alt)}" href="${href}"`)) fail(`Missing hreflang ${alt} in ${file}`);
         if (!sitemap.includes(`<loc>${href}</loc>`) && alt === locale) fail(`Missing sitemap URL ${href}`);
       }
     }
+  }
+  for (const nonexistent of ['/ru/uk/', '/ru/ireland/']) {
+    if (sitemap.includes(nonexistent)) fail(`Sitemap contains nonexistent localized country URL: ${nonexistent}`);
   }
 }
 function assertFormContract() {
@@ -237,7 +257,18 @@ function assertNoForbiddenClaims() {
     '100% Inspected',
     'Every vehicle on our lot has passed Japanese government inspection',
     'Full service history available for every car',
-    'ready-to-register vehicle'
+    'ready-to-register vehicle',
+    'Guaranteed registration',
+    'Guaranteed IVA/VRT/NCT approval',
+    'All cars over 10 years are exempt',
+    'All Japanese imports need the same modifications',
+    'All Japanese imports lack immobilisers',
+    '0% duty for every Japanese vehicle',
+    'Exact landed price without vehicle-specific inputs',
+    'JUC handles UK or Irish registration',
+    'Ready-to-register vehicle',
+    'Current inventory',
+    'Available now'
   ];
   for (const file of generated.concat(['llms.txt'])) {
     const body = read(file);
@@ -247,6 +278,46 @@ function assertNoForbiddenClaims() {
     if (/<article class="vehicle-card"[^>]*itemscope|itemtype="https:\/\/schema\.org\/Car"|@type"\s*:\s*"Product"|@type"\s*:\s*"Offer"|itemprop="availability"/i.test(body)) {
       fail(`Inventory schema or availability marker remains in ${file}`);
     }
+  }
+}
+function assertCountryGuidePages() {
+  const uk = read('uk/index.html');
+  const ie = read('ireland/index.html');
+  const home = read('index.html');
+  const llms = read('llms.txt');
+  const sitemap = read('sitemap.xml');
+  const expected = [
+    ['uk/index.html', uk, '<html lang="en-GB">', 'https://japanusedcars.nice.okinawa/uk/', 5],
+    ['ireland/index.html', ie, '<html lang="en-IE">', 'https://japanusedcars.nice.okinawa/ireland/', 6],
+  ];
+  for (const [file, html, lang, url, minFaq] of expected) {
+    if (!html.includes(lang)) fail(`Bad country page lang in ${file}`);
+    if (!html.includes(`<link rel="canonical" href="${url}">`)) fail(`Bad country page canonical in ${file}`);
+    if (!html.includes(`<meta property="og:url" content="${url}">`)) fail(`Bad country page og:url in ${file}`);
+    if (!html.includes(`<link rel="alternate" hreflang="x-default" href="${url}">`)) fail(`Bad x-default in ${file}`);
+    if (html.includes('/ru/uk/') || html.includes('/ru/ireland/')) fail(`Country page contains false ru route in ${file}`);
+    const faqs = (html.match(/<article class="faq-item">/g) || []).length;
+    if (faqs < minFaq) fail(`Country page FAQ count too low in ${file}: ${faqs}`);
+    if (/@type"\s*:\s*"(?:Car|Product|Offer|AggregateRating)"|availability/i.test(html)) fail(`Inventory schema marker found in ${file}`);
+    if (!html.includes('Last checked: 30 August 2026')) fail(`Official source checked date missing in ${file}`);
+  }
+  for (const fragment of ['href="/uk/"', 'Importing to the UK', 'href="/ireland/"', 'Importing to Ireland']) {
+    if (!home.includes(fragment)) fail(`Home country guide entry missing: ${fragment}`);
+  }
+  for (const url of ['https://japanusedcars.nice.okinawa/uk/', 'https://japanusedcars.nice.okinawa/ireland/']) {
+    if (!sitemap.includes(`<loc>${url}</loc>`)) fail(`Country URL missing from sitemap: ${url}`);
+    if (!llms.includes(url)) fail(`Country URL missing from llms.txt: ${url}`);
+  }
+  for (const forbidden of ['/ru/uk/', '/ru/ireland/']) {
+    if (fs.existsSync(path.join(root, forbidden.slice(1), 'index.html'))) fail(`Generated forbidden localized country page: ${forbidden}`);
+  }
+  for (const ukOnly of ['NOVA', 'DVLA', 'IVA']) {
+    if (!uk.includes(ukOnly)) fail(`UK guide missing ${ukOnly}`);
+    if (ie.includes(ukOnly)) fail(`Ireland guide contains UK-only term ${ukOnly}`);
+  }
+  for (const irelandOnly of ['VRT', 'NOx', 'NCTS']) {
+    if (!ie.includes(irelandOnly)) fail(`Ireland guide missing ${irelandOnly}`);
+    if (uk.includes(irelandOnly)) fail(`UK guide contains Ireland-only term ${irelandOnly}`);
   }
 }
 function decodeHtmlEntities(value) {
@@ -283,10 +354,10 @@ function collectAllowedLatinItems() {
   add('RU', 'language switch label');
   add('FAQ', 'standard page label');
   add('v2026.06.14', 'screenshot mark version');
-  for (const code of ['FOB', 'CIF', 'VAT', 'GST', 'PDF', 'URL', 'km']) add(code, 'technical abbreviation');
+  for (const code of ['FOB', 'CIF', 'VAT', 'GST', 'PDF', 'URL', 'km', 'NOVA', 'DVLA', 'VRT', 'NCTS']) add(code, 'technical abbreviation');
   for (const romaji of ['shaken', 'masshō tōroku']) add(romaji, 'approved Japanese romaji');
   for (const page of registry.pages) {
-    for (const locale of Object.keys(registry.locales)) add(facts.site.host + page.urlPath[locale], 'registry page URL');
+    for (const locale of pageLocales(page)) add(facts.site.host + page.urlPath[locale], 'registry page URL');
   }
   for (const vehicle of Object.values(facts.vehicles)) {
     add(vehicle.brand, 'vehicle brand');
@@ -360,6 +431,7 @@ function assertSyntheticThirdLocaleBuild() {
   const syntheticRegistry = JSON.parse(JSON.stringify(registry));
   syntheticRegistry.locales.zz = { code: 'zz', htmlLang: 'zz', ogLocale: 'zz_ZZ', basePath: '/zz/', label: 'ZZ' };
   for (const page of syntheticRegistry.pages) {
+    if (page.locales && !page.locales.includes('ru')) continue;
     const zzPath = page.urlPath.en === '/' ? '/zz/' : `/zz${page.urlPath.en}`;
     page.urlPath.zz = zzPath;
     page.output.zz = `${zzPath.slice(1)}index.html`;
@@ -393,6 +465,7 @@ assertCanonicalHreflangAndSitemap();
 assertFormContract();
 assertVehiclesSingleSource();
 assertNoForbiddenClaims();
+assertCountryGuidePages();
 assertRussianLatinAllowlist();
 assertRussianLatinRegressionTests();
 assertSyntheticThirdLocaleBuild();

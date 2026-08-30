@@ -64,6 +64,44 @@ export default {
         "en": "/faq/",
         "ru": "/ru/faq/"
       }
+    },
+    {
+      "id": "uk",
+      "template": "country-uk.html",
+      "locales": [
+        "en"
+      ],
+      "htmlLang": {
+        "en": "en-GB"
+      },
+      "hreflang": {
+        "en": "en-GB"
+      },
+      "output": {
+        "en": "uk/index.html"
+      },
+      "urlPath": {
+        "en": "/uk/"
+      }
+    },
+    {
+      "id": "ireland",
+      "template": "country-ireland.html",
+      "locales": [
+        "en"
+      ],
+      "htmlLang": {
+        "en": "en-IE"
+      },
+      "hreflang": {
+        "en": "en-IE"
+      },
+      "output": {
+        "en": "ireland/index.html"
+      },
+      "urlPath": {
+        "en": "/ireland/"
+      }
     }
   ],
   "hiddenPages": [
