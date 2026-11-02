@@ -113,7 +113,7 @@ export default {
   "form.purpose": "Purpose",
   "form.purpose.browse": "Just browsing / price check",
   "form.purpose.export": "Export to my country / region",
-  "form.purpose.local": "Local purchase in Okinawa",
+  "form.purpose.local": "Purchase in Japan on my behalf",
   "form.purpose.placeholder": "Select",
   "form.status.error.afterEmail": " or use WhatsApp instead.",
   "form.status.error.beforeEmail": "Could not send. Please email ",
