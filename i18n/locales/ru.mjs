@@ -113,7 +113,7 @@ export default {
   "form.purpose": "Цель",
   "form.purpose.browse": "Пока смотрю и проверяю цену",
   "form.purpose.export": "Экспорт в мою страну или регион",
-  "form.purpose.local": "Покупка в Окинаве",
+  "form.purpose.local": "Покупка в Японии от моего имени",
   "form.purpose.placeholder": "Выберите",
   "form.status.error.afterEmail": " или используйте WhatsApp.",
   "form.status.error.beforeEmail": "Не удалось отправить заявку. Напишите на ",
