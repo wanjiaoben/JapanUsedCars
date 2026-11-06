@@ -218,6 +218,8 @@ function renderPage(page, locale) {
   write(page.output[locale], html);
 }
 function renderSitemap() {
+  const previous = fs.existsSync(path.join(root, 'sitemap.xml')) ? read('sitemap.xml') : '';
+  if (previous && !previous.includes('</urlset>')) throw new Error('Invalid existing sitemap');
   const urls = registry.pages.flatMap((page) => pageLocales(page).map((locale) => {
     const loc = absolutize(locale, page);
     const localesForPage = pageLocales(page);
@@ -227,7 +229,14 @@ function renderSitemap() {
     const xDefault = `    <xhtml:link rel="alternate" hreflang="x-default" href="${absolutize(defaultLocale, page)}" />`;
     return `  <url>\n    <loc>${loc}</loc>\n${links}\n${xDefault}\n  </url>`;
   }));
-  write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n</urlset>\n`);
+  // Keep existing article and other reviewed URLs outside the native page registry.
+  const retainedUrls = [];
+  const generatedLocations = new Set(urls.map(block => /<loc>([^<]+)<\/loc>/.exec(block)?.[1]));
+  for (const block of previous.match(/<url(?:\s[^>]*)?>[\s\S]*?<\/url>/g) || []) {
+    const loc = /<loc>([^<]+)<\/loc>/.exec(block)?.[1];
+    if (loc && !generatedLocations.has(loc)) { retainedUrls.push(block); generatedLocations.add(loc); }
+  }
+  write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join('\n')}\n${retainedUrls.join('')}</urlset>\n`);
 }
 function renderLlms() {
   const template = read('src/templates/llms.txt');
@@ -241,3 +250,12 @@ for (const page of registry.pages) {
 }
 renderSitemap();
 renderLlms();
+
+// Optional article input; the native pages are always rebuilt first.
+if (fs.existsSync(path.join(root, 'content/workplace-news.json'))) {
+  const {spawnSync} = await import('node:child_process');
+  const result = spawnSync('python3', [path.join(root, 'scripts/build-workplace-news.py')], {cwd:root, stdio:'inherit'});
+  if (result.error || result.status !== 0) throw new Error('Article build failed');
+  const {renderNewsCards} = await import('./render-news-cards.mjs');
+  renderNewsCards(root, 'JapanUsedCars');
+}

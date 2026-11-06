@@ -154,8 +154,21 @@ function assertInlineJsSyntax() {
 }
 function assertCanonicalHreflangAndSitemap() {
   const sitemap = read('sitemap.xml');
-  const locCount = (sitemap.match(/<loc>/g) || []).length;
-  if (locCount !== 10) fail(`Expected sitemap to contain 10 URLs, found ${locCount}`);
+  const expectedUrls = registry.pages.flatMap(page => pageLocales(page).map(locale => facts.site.url + page.urlPath[locale]));
+  if (fs.existsSync(path.join(root, 'content/workplace-news.json'))) {
+    const news = JSON.parse(read('content/workplace-news.json'));
+    const slug = 'okinawa-workplace-communication-scenarios';
+    if (news.task !== 'M1105-02' || news.site !== 'JapanUsedCars' || news.slug !== slug || news.origin !== facts.site.url ||
+        Object.keys(news.locales).sort().join(',') !== 'en,ru' || news.locales.en !== '' || news.locales.ru !== 'ru/') fail('Unexpected optional news scope');
+    for (const prefix of ['', 'ru/']) {
+      const relative = `${prefix}news/${slug}/index.html`;
+      const url = `${facts.site.url}/${prefix}news/${slug}/`;
+      if (!read(relative).includes(`<link rel="canonical" href="${url}">`)) fail(`Bad news canonical in ${relative}`);
+      expectedUrls.push(url);
+    }
+  }
+  const actualUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+  if (actualUrls.length !== new Set(actualUrls).size || actualUrls.sort().join('\n') !== expectedUrls.sort().join('\n')) fail('Unexpected or missing sitemap URLs');
   for (const page of registry.pages) {
     const localesForPage = pageLocales(page);
     for (const locale of localesForPage) {
