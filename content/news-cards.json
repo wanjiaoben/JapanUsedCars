@@ -1,0 +1,19 @@
+[
+  {
+    "id": "M1105-02",
+    "locales": {
+      "en": {
+        "title": "Clearer multilingual handovers: five fictional workplace examples",
+        "body": "Businesses working across languages can use clear handovers, clarification and written guidance. Read five illustrative training scenarios from other service sectors—not a vehicle transaction, automotive client case study or promise of results.",
+        "cta": "Read the full article on our main site",
+        "url": "https://japanusedcars.nice.okinawa/news/okinawa-workplace-communication-scenarios/"
+      },
+      "ru": {
+        "title": "Понятная передача информации на разных языках: пять вымышленных рабочих ситуаций",
+        "body": "В многоязычной работе полезны ясная передача информации, уточнения и письменные инструкции. Пять учебных ситуаций из других сфер услуг — не описание автомобильной сделки, не история клиента автобизнеса и не гарантия результата.",
+        "cta": "Читать статью на основном сайте (на английском)",
+        "url": "https://japanusedcars.nice.okinawa/ru/news/okinawa-workplace-communication-scenarios/"
+      }
+    }
+  }
+]
