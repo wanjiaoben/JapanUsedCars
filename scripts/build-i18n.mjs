@@ -204,6 +204,28 @@ function injectFooterUrl(html, locale, page) {
   const marker = `${facts.site.host}${page.urlPath[locale]} · v2026.06.14`;
   return html.replace(new RegExp(`${facts.site.host.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^<]*· v2026\\.06\\.14`), marker);
 }
+function injectContactDock(html, locale, page) {
+  // Floating email + WhatsApp entry on every page (the two supported contact channels).
+  const dock = page.dock || {};
+  const aria = dock.aria || requireLocale(locale, 'dock.aria');
+  const emailLabel = dock.emailLabel || requireLocale(locale, 'dock.email.label');
+  const prefill = dock.whatsappPrefill || requireLocale(locale, 'dock.whatsapp.prefill');
+  const whatsappHref = `${facts.contact.whatsappUrl}?text=${encodeURIComponent(prefill)}`;
+  const markup = `<style>
+  .contact-dock { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); z-index: 2147482000; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .contact-dock a { display: inline-block; padding: 11px 16px; border-radius: 999px; font: 600 14px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; text-decoration: none; box-shadow: 0 6px 18px rgba(10, 22, 40, 0.28); }
+  .contact-dock .dock-whatsapp { background: #128c4a; color: #fff; }
+  .contact-dock .dock-email { background: #0a1628; color: #f4e9d0; border: 1px solid rgba(244, 233, 208, 0.35); }
+  @media print { .contact-dock { display: none; } }
+  </style>
+  <div class="contact-dock" role="complementary" aria-label="${escapeAttr(aria)}">
+    <a class="dock-whatsapp" href="${escapeAttr(whatsappHref)}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="dock-email" href="mailto:${escapeAttr(facts.contact.email)}">${escapeHtml(emailLabel)}</a>
+  </div>
+`;
+  if (!html.includes('</body>')) throw new Error('Missing </body> for contact dock');
+  return html.replace('</body>', `${markup}</body>`);
+}
 function renderPage(page, locale) {
   let html = read(`src/templates/${page.template}`);
   html = html.replace(vehicleTokenPattern, () => renderVehicles(locale));
@@ -215,6 +237,7 @@ function renderPage(page, locale) {
   html = localizeLinks(html, locale);
   html = injectLanguageSwitch(html, locale, page);
   html = injectFooterUrl(html, locale, page);
+  html = injectContactDock(html, locale, page);
   write(page.output[locale], html);
 }
 function renderSitemap() {
