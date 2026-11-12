@@ -160,5 +160,16 @@
     </div>
   </footer>
   <script src="https://analytics.nice.okinawa/beacon.js" data-site="japanusedcars" defer></script>
+<style>
+  .contact-dock { position: fixed; right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); z-index: 2147482000; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .contact-dock a { display: inline-block; padding: 11px 16px; border-radius: 999px; font: 600 14px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0; text-decoration: none; box-shadow: 0 6px 18px rgba(10, 22, 40, 0.28); }
+  .contact-dock .dock-whatsapp { background: #128c4a; color: #fff; }
+  .contact-dock .dock-email { background: #0a1628; color: #f4e9d0; border: 1px solid rgba(244, 233, 208, 0.35); }
+  @media print { .contact-dock { display: none; } }
+  </style>
+  <div class="contact-dock" role="complementary" aria-label="Быстрая связь">
+    <a class="dock-whatsapp" href="https://wa.me/817089523968?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9F%D1%80%D0%BE%D1%88%D1%83%20%D1%80%D0%B0%D1%81%D1%81%D1%87%D0%B8%D1%82%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%BF%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D1%8F%20%D0%B8%D0%B7%20%D0%AF%D0%BF%D0%BE%D0%BD%D0%B8%D0%B8%20%D0%BD%D0%B0%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%D1%85%20%D0%A1%D0%98%D0%A4.%20%D0%9C%D0%BE%D0%B4%D0%B5%D0%BB%D1%8C%3A%20%2F%20%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B0%20%D0%BD%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%3A%20" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="dock-email" href="mailto:info@nice.okinawa">Почта</a>
+  </div>
 </body>
 </html>

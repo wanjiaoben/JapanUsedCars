@@ -85,6 +85,9 @@ function assertTokenUsage() {
     'form.purpose.local',
     'form.purpose.browse',
     'languageSwitch.aria',
+    'dock.aria',
+    'dock.email.label',
+    'dock.whatsapp.prefill',
     'vehicle.category.dieselSuv',
     'vehicle.category.familyMpv',
     'vehicle.category.hybridMpv',
@@ -369,6 +372,58 @@ function assertCountryGuidePages() {
     if (ie.includes(oldUrl)) fail(`Ireland guide still contains retired Revenue URL: ${oldUrl}`);
   }
 }
+function assertSchemaTypesAreSchemaOrgNames() {
+  // Regression gate: a translated string once leaked into "@type" (ContactPoint became a Russian word + "Point").
+  for (const file of generated) {
+    const html = read(file);
+    for (const body of textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      for (const [, type] of body.matchAll(/"@type"\s*:\s*"([^"]*)"/g)) {
+        if (!/^[A-Za-z]+$/.test(type)) fail(`Non schema.org @type in ${file}: ${type}`);
+      }
+    }
+  }
+  for (const template of templates) {
+    if (/"@type"\s*:\s*"[^"]*{{/.test(read(template))) fail(`Tokenised @type in ${template}`);
+  }
+}
+function assertContactDock() {
+  for (const file of generated) {
+    const html = read(file);
+    if ((html.match(/class="contact-dock"/g) || []).length !== 1) fail(`Contact dock missing or duplicated in ${file}`);
+    const dock = html.slice(html.indexOf('class="contact-dock"'));
+    if (!dock.includes(`href="${facts.contact.whatsappUrl}?text=`)) fail(`Contact dock WhatsApp link missing in ${file}`);
+    if (!dock.includes(`href="mailto:${facts.contact.email}"`)) fail(`Contact dock email link missing in ${file}`);
+    if (/href="tel:|line\.me/i.test(html)) fail(`Unsupported contact channel in ${file}`);
+  }
+}
+function assertNewGuidePages() {
+  const llms = read('llms.txt');
+  const sitemap = read('sitemap.xml');
+  const home = read('index.html');
+  const expected = [
+    ['new-zealand/index.html', '<html lang="en-NZ">', '/new-zealand/', 7, 'Last checked: 13 November 2026', ['TDN', 'Kai mark', 'MPI']],
+    ['hong-kong/index.html', '<html lang="zh-HK">', '/hong-kong/', 7, '最後核對：2026年11月13日', ['CED336', 'TD22', '46%', '132%']],
+    ['auction-sheet/index.html', '<html lang="en">', '/auction-sheet/', 6, 'Last reviewed: 13 November 2026', ['RA', 'XX', 'Reiwa']],
+  ];
+  for (const [file, lang, urlPath, faqCount, checked, terms] of expected) {
+    const html = read(file);
+    const url = facts.site.url + urlPath;
+    if (!html.includes(lang)) fail(`Bad guide page lang in ${file}`);
+    if (!html.includes(`<link rel="canonical" href="${url}">`)) fail(`Bad guide page canonical in ${file}`);
+    if (!html.includes(checked)) fail(`Checked date missing in ${file}`);
+    for (const term of terms) if (!html.includes(term)) fail(`Guide ${file} missing ${term}`);
+    const faqBody = textBetween(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g).find((body) => body.includes('FAQPage'));
+    const entities = JSON.parse(faqBody).mainEntity;
+    const visible = [...html.matchAll(/<article class="faq-item">\s*<h3>([\s\S]*?)<\/h3>\s*<p>([\s\S]*?)<\/p>/g)].map((m) => [decodeHtmlEntities(m[1]), decodeHtmlEntities(m[2])]);
+    if (entities.length !== faqCount || visible.length !== faqCount) fail(`FAQ count mismatch in ${file}`);
+    entities.forEach((entity, index) => {
+      if (entity.name !== visible[index][0] || entity.acceptedAnswer.text !== visible[index][1]) fail(`FAQ JSON-LD differs from visible text in ${file}: ${entity.name}`);
+    });
+    if (!sitemap.includes(`<loc>${url}</loc>`)) fail(`Guide URL missing from sitemap: ${url}`);
+    if (!llms.includes(url)) fail(`Guide URL missing from llms.txt: ${url}`);
+    if (!home.includes(`href="${urlPath}"`)) fail(`Home entry missing for ${urlPath}`);
+  }
+}
 function decodeHtmlEntities(value) {
   return String(value)
     .replace(/&amp;/g, '&')
@@ -515,6 +570,9 @@ assertFormContract();
 assertVehiclesSingleSource();
 assertNoForbiddenClaims();
 assertCountryGuidePages();
+assertSchemaTypesAreSchemaOrgNames();
+assertContactDock();
+assertNewGuidePages();
 assertRussianLatinAllowlist();
 assertRussianLatinRegressionTests();
 assertSyntheticThirdLocaleBuild();

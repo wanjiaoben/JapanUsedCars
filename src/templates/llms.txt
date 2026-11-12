@@ -47,6 +47,9 @@ GEO buyer pages:
 - FAQ: answers buyer questions about export countries and regions, right-hand drive vehicles, local import restrictions, payment safety, shipping schedules, cancellations, and export documents.
 - UK guide: https://japanusedcars.nice.okinawa/uk/ explains Japan-side sourcing and UK-side import, NOVA, approval, DVLA registration, tax and insurance responsibilities for buyers.
 - Ireland guide: https://japanusedcars.nice.okinawa/ireland/ explains Japan-side sourcing and Ireland-side Customs Duty, 23% import VAT, VRT, NOx levy, NCTS timing, documents and insurance responsibilities for buyers.
+- New Zealand guide: https://japanusedcars.nice.okinawa/new-zealand/ explains what NZTA expects on the Japanese export certificate (type designation number, model code, emissions code), frontal impact dates, electronic stability control, border inspection, MPI biosecurity, entry certification and buyer-side responsibilities.
+- Hong Kong guide (Traditional Chinese): https://japanusedcars.nice.okinawa/hong-kong/ explains EPD emissions and noise approval, the 14-day customs declaration and 30-day import return (CED336), vehicle examination, first registration with form TD22, first registration tax bands of 46%, 86%, 115% and 132%, and buyer-side responsibilities. 香港買家入口日本右軚二手車指南。
+- Auction sheet guide: https://japanusedcars.nice.okinawa/auction-sheet/ explains Japanese auction sheet overall grades (S, 6, 5, 4.5, 4, 3.5, 3, R, RA), interior grades, body map damage codes (A, U, B, W, S, C, P, X, XX, Y, G) and Japanese era year conversion.
 
 Russian pages:
 - https://japanusedcars.nice.okinawa/ru/

@@ -324,5 +324,17 @@ export default {
   "vehicle.category.hybridMpv": "Hybrid MPV",
   "vehicle.category.luxuryMpv": "Luxury MPV",
   "vehicle.category.passengerCommercialVan": "Passenger / Commercial Van",
-  "vehicle.cta.sourceModel": "Ask us to source this model"
+  "vehicle.cta.sourceModel": "Ask us to source this model",
+  "dock.aria": "Quick contact",
+  "dock.email.label": "Email",
+  "dock.whatsapp.prefill": "Hello, I'd like a CIF quote for a used car from Japan. Model: / Destination: ",
+  "home.guides.nz.title": "Importing to New Zealand",
+  "home.guides.nz.text": "What NZTA expects on the Japanese export certificate, plus border inspection, biosecurity, and entry certification.",
+  "home.guides.nz.link": "Read the New Zealand guide",
+  "home.guides.hk.title": "Importing to Hong Kong",
+  "home.guides.hk.text": "A Chinese-language guide to emissions approval, customs deadlines, vehicle examination, and first registration tax.",
+  "home.guides.hk.link": "Read the Hong Kong guide",
+  "home.guides.auction.title": "Reading an auction sheet",
+  "home.guides.auction.text": "Overall grades, interior grades, body map damage codes, and Japanese era years explained in plain English.",
+  "home.guides.auction.link": "Read the auction sheet guide"
 };

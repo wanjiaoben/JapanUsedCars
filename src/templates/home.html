@@ -38,7 +38,7 @@
     },
     "areaServed": ["JP", "TW", "HK", "SG", "MY", "TH", "AE", "US"],
     "contactPoint": {
-      "@type": "{{text:nav.contact}}Point",
+      "@type": "ContactPoint",
       "contactType": "sales",
       "email": "{{fact:contact.email}}"
     }
@@ -49,7 +49,7 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "{{text:faqPage.title.b}}Page",
+    "@type": "FAQPage",
     "@id": "{{factAttr:site.url}}/#faq",
     "mainEntity": [
       {
@@ -714,6 +714,21 @@
       <p>{{text:home.guides.ireland.text}}</p>
       <span>{{text:home.guides.ireland.link}}</span>
     </a>
+    <a class="why-card" href="/new-zealand/">
+      <h3>{{text:home.guides.nz.title}}</h3>
+      <p>{{text:home.guides.nz.text}}</p>
+      <span>{{text:home.guides.nz.link}}</span>
+    </a>
+    <a class="why-card" href="/hong-kong/">
+      <h3>{{text:home.guides.hk.title}}</h3>
+      <p>{{text:home.guides.hk.text}}</p>
+      <span>{{text:home.guides.hk.link}}</span>
+    </a>
+    <a class="why-card" href="/auction-sheet/">
+      <h3>{{text:home.guides.auction.title}}</h3>
+      <p>{{text:home.guides.auction.text}}</p>
+      <span>{{text:home.guides.auction.link}}</span>
+    </a>
   </div>
 </section>
 
@@ -929,6 +944,9 @@
     <a href="/pricing/">{{text:nav.pricing}}</a>
     <a href="/uk/">{{text:home.guides.uk.title}}</a>
     <a href="/ireland/">{{text:home.guides.ireland.title}}</a>
+    <a href="/new-zealand/">{{text:home.guides.nz.title}}</a>
+    <a href="/hong-kong/">{{text:home.guides.hk.title}}</a>
+    <a href="/auction-sheet/">{{text:home.guides.auction.title}}</a>
     <a href="#contact">{{text:nav.contact}}</a>
     <a href="#japanese">日本語</a>
   </div>
