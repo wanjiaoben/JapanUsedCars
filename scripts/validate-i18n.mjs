@@ -386,6 +386,15 @@ function assertSchemaTypesAreSchemaOrgNames() {
     if (/"@type"\s*:\s*"[^"]*{{/.test(read(template))) fail(`Tokenised @type in ${template}`);
   }
 }
+function assertShareImage() {
+  if (!fs.existsSync(path.join(root, 'assets/og-image.jpg'))) fail('Share image file missing: assets/og-image.jpg');
+  for (const file of generated) {
+    const html = read(file);
+    if ((html.match(/<meta property="og:image" content="/g) || []).length !== 1) fail(`og:image missing or duplicated in ${file}`);
+    if (!html.includes(`<meta property="og:image" content="${facts.site.url}/assets/og-image.jpg">`)) fail(`Bad og:image in ${file}`);
+    if (!html.includes('<meta name="twitter:card" content="summary_large_image">')) fail(`twitter:card missing in ${file}`);
+  }
+}
 function assertContactDock() {
   for (const file of generated) {
     const html = read(file);
@@ -572,6 +581,7 @@ assertNoForbiddenClaims();
 assertCountryGuidePages();
 assertSchemaTypesAreSchemaOrgNames();
 assertContactDock();
+assertShareImage();
 assertNewGuidePages();
 assertRussianLatinAllowlist();
 assertRussianLatinRegressionTests();

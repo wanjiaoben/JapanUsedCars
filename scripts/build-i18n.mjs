@@ -148,7 +148,7 @@ function injectAlternates(html, locale, page) {
     : '';
   const alternateBlock = localesForPage.length > 1 ? `\n  ${alternates}\n  ${xDefault}` : '';
   return html
-    .replace(/<meta property="og:url" content="[^"]+">/, `<meta property="og:url" content="${absolutize(locale, page)}">`)
+    .replace(/<meta property="og:url" content="[^"]+">/, `<meta property="og:url" content="${absolutize(locale, page)}">\n  <meta property="og:image" content="${facts.site.url}/assets/og-image.jpg">\n  <meta property="og:image:width" content="1200">\n  <meta property="og:image:height" content="630">\n  <meta name="twitter:card" content="summary_large_image">\n  <meta name="twitter:image" content="${facts.site.url}/assets/og-image.jpg">`)
     .replace(/<link rel="canonical" href="[^"]+">/, canonical)
     .replace(/(?:\n\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+">)+/, alternateBlock);
 }
